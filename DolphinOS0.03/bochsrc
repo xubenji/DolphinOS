@@ -1,5 +1,5 @@
 ###############################################################
-# Configuration file for Bochs
+# Configuration file for Bochs				      #
 ###############################################################
 
 # how much memory the emulated machine will have
@@ -13,7 +13,7 @@ cpu: cpuid_limit_winnt=0
 romimage: file=/usr/local/share/bochs/BIOS-bochs-latest
 vgaromimage: file=/usr/local/share/bochs/VGABIOS-lgpl-latest
 # what disk images will be used
-floppya: 1_44=FutureOS.img, status=inserted
+floppya: 1_44=DolphinOS.img, status=inserted
 
 # hard disk
 ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14

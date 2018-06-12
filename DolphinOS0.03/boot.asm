@@ -1,11 +1,11 @@
-;(C) 2018 Future-Techology
+;(C) 2018 Future-Technology
 ;2018/5/30
-
-;boot.asm
-
+;boot of DolphinOS
 ;we use LBA address for floppy
+
 LOAD_SECTOR_OFFSET EQU 1		;load is on the 1st sector
 LOAD_SECTORS EQU 8	                ;this time we use 8 sectors for load.it's 1kb(4096 bytes)
+
 ;0x7c00~0x7e00   	boot.bin	512byte 1sector
 ;0x70000~0x71000	load.bin	1kb 8sector	
 ;0x71000~0x80000	kernel.bin	60kb 120sector	

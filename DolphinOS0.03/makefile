@@ -4,10 +4,9 @@
 
 # Made by Olaf
 # Copyright (C) 2018 Future-Fechnology
-
 #This operating system run X86 platform
-
 #the kernel entry
+
 KERNEL_INIT_ADDERSS = 0x80010000
 
 #load is on the 1st sector
@@ -22,7 +21,7 @@ KERNEL_SECTORS = 256
 
 ASM_BOOT_PATH	= -I
 
-FutureOS_IMG	= FutureOS.img
+DolphinOS_IMG	= DolphinOS.img
 
 
 NASM		= nasm
@@ -49,9 +48,9 @@ all: compile_bin write_disk
 compile_bin: $(BOOT_BIN) $(LOAD_BIN) $(KERNEL_BIN)
 
 write_disk:
-	dd if=$(BOOT_BIN) of=$(FutureOS_IMG) bs=512 count=1 conv=notrunc
-	dd if=$(LOAD_BIN) of=$(FutureOS_IMG) bs=512 seek=$(LOAD_SECTOR_OFFSET) count=$(LOAD_SECTORS) conv=notrunc
-	dd if=$(KERNEL_BIN) of=$(FutureOS_IMG) bs=512 seek=$(KERNEL_SECTOR_OFFEST) count=$(KERNEL_SECTORS) conv=notrunc
+	dd if=$(BOOT_BIN) of=$(DolphinOS_IMG) bs=512 count=1 conv=notrunc
+	dd if=$(LOAD_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(LOAD_SECTOR_OFFSET) count=$(LOAD_SECTORS) conv=notrunc
+	dd if=$(KERNEL_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(KERNEL_SECTOR_OFFEST) count=$(KERNEL_SECTORS) conv=notrunc
 
 run: all
 	#qemu-system-i386 -m 32 -fda $(FutureOS_IMG) -boot a
