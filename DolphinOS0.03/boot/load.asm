@@ -34,8 +34,8 @@ MODE_1280_1024 EQU 0x11A
 VBEMODE	EQU	MODE_800_600
 
 ;The real physical memory is 0x0000+0x00600, because the offset is 0x00600
-;ards buf address（0x6004）
-;the number of ards （0x6000）
+;ards buf address (0x6004)
+;the number of ards (0x6000)
 
 ARDS_BUF	EQU		0x0004	
 ARDS_NR		EQU		0x0000	
@@ -132,7 +132,7 @@ check_memory:
 	add word [es:ARDS_NR], 1
 	cmp ebx, 0
 	jnz .e820_mem_get_loop
-	jmp init_vbe
+	jmp protect_set
 .e820_check_failed:
 	jmp $
 
@@ -233,7 +233,6 @@ protect_set:
 
 	jmp		dword 0x08:flush
 
-;1kb 对齐，便于gdt地址得整数
 	
 times 1024-($-$$) db 0	
 

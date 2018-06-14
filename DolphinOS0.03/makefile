@@ -28,16 +28,16 @@ NASM		= nasm
 CC		= gcc
 LD 		= ld
 
-BOOT_BIN	= boot.bin
-LOAD_BIN	= load.bin
-KERNEL_BIN	= kernel.bin
+BOOT_BIN	= boot/boot.bin
+LOAD_BIN	= boot/load.bin
+KERNEL_BIN	= kernel/kernel.bin
 
 
 C_KERNEL_FLAGS	= -I -Wall -c -fno-builtin
 
 LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) 
 
-OBJS = init.o
+OBJS = kernel/init.o
 
 
 .PHONY: all
@@ -57,23 +57,23 @@ run: all
 	bochs -f bochsrc
 
 clean:
-	-rm -f load.bin	
-	-rm -f boot.bin
-	-rm -f bochsout.txt
-	-rm -f init.o
-	-rm kernel.bin
+	-rm  boot/load.bin	
+	-rm  boot/boot.bin
+	-rm  bochsout.txt
+	-rm  kernel/init.o
+	-rm  kernel/kernel.bin
 
 
 
-$(LOAD_BIN):load.asm
+$(LOAD_BIN):boot/load.asm
 	$(NASM)  -o $@ $<
 
-$(BOOT_BIN):boot.asm
+$(BOOT_BIN):boot/boot.asm
 	$(NASM)  -o $@ $<
 
-init.o : init.c
+init.o : kernel/init.c
 	$(CC) $(C_KERNEL_FLAGS) -o $@ $<
 
-$(KERNEL_BIN): init.o
-	$(LD) $(LDFLAGS) -o $(KERNEL_BIN) init.o
+$(KERNEL_BIN): kernel/init.o
+	$(LD) $(LDFLAGS) -o $(KERNEL_BIN) $<
 

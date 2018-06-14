@@ -24,26 +24,26 @@ entry:
 	mov ax, 0x02
 	int 0x10
 	
-	;display 'FutureOS'
+	;display 'DolphinOS'
 	mov ax, 0xb800
 	mov es, ax 
 	mov al, [F]
-	mov byte [es:0],al
+	mov byte [es:0],'D'
 	mov byte [es:1],0X07
 	mov al, [u]
-	mov byte [es:2],al
+	mov byte [es:2],'o'
 	mov byte [es:3],0X07
 	mov al, [t]
-	mov byte [es:4],al
+	mov byte [es:4],'l'
 	mov byte [es:5],0X07
 	mov al, [u]
-	mov byte [es:6],al
+	mov byte [es:6],'p'
 	mov byte [es:7],0X07
 	mov al, [r]
-	mov byte [es:8],al
+	mov byte [es:8],'h'
 	mov byte [es:9],0X07
 	mov al, [e]
-	mov byte [es:0x0a],al
+	mov byte [es:0x0a],'i'
 	mov byte [es:0x0b],0X07
 	
 	;jmp entry
