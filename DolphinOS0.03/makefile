@@ -37,7 +37,7 @@ C_KERNEL_FLAGS	= -I -Wall -c -fno-builtin
 
 LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) 
 
-OBJS = kernel/init.o
+OBJS = kernel/init.o kernel/printk.o
 
 
 .PHONY: all
@@ -62,7 +62,7 @@ clean:
 	-rm  bochsout.txt
 	-rm  kernel/init.o
 	-rm  kernel/kernel.bin
-
+	-rm  kernel/printk.o
 
 
 $(LOAD_BIN):boot/load.asm
@@ -71,9 +71,14 @@ $(LOAD_BIN):boot/load.asm
 $(BOOT_BIN):boot/boot.asm
 	$(NASM)  -o $@ $<
 
-init.o : kernel/init.c
+$(KERNEL_BIN): $(OBJS)
+	$(LD) $(LDFLAGS) -o $(KERNEL_BIN) $(OBJS)
+
+#kernel
+kernel/init.o : kernel/init.c
 	$(CC) $(C_KERNEL_FLAGS) -o $@ $<
 
-$(KERNEL_BIN): kernel/init.o
-	$(LD) $(LDFLAGS) -o $(KERNEL_BIN) $<
+printk.o:kernel/printk.c
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $<
+
 

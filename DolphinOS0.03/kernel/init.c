@@ -2,14 +2,17 @@
  *design by Olaf 2018/6
  *this is the entry of DolphinOS
  */
+#include "printk.h"
+#include "types.h"
+
 
 int Kernel_Init(){
-	char *v = (char *)0x800a0000;
-	v[0] = 0xff;
-	v[1] = 0xee;
-	v[2] = 0xdd;
-	v[3] = 0xcc;
-	v[4] = 0xbb;
+	/*char *v = CHAR_DISPLAY_ADDERSS;
+	v[0] = 0x46;
+	v[1] = 0x07;
+	v[2] = 'h';
+	*/
+	show_infor();
 	
 	while(1){
 	}
