@@ -12,7 +12,7 @@ int Kernel_Init(){
 	v[1] = 0x07;
 	v[2] = 'h';
 	*/
-	show_infor();
+	init_display_infor();
 	
 	while(1){
 	}

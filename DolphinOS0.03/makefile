@@ -53,8 +53,8 @@ write_disk:
 	dd if=$(KERNEL_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(KERNEL_SECTOR_OFFEST) count=$(KERNEL_SECTORS) conv=notrunc
 
 run: all
-	#qemu-system-i386 -m 32 -fda $(FutureOS_IMG) -boot a
-	bochs -f bochsrc
+	qemu-system-i386 -m 32 -fda $(DolphinOS_IMG) -boot a
+	#bochs -f bochsrc
 
 clean:
 	-rm  boot/load.bin	
