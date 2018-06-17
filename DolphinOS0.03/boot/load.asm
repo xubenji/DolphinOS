@@ -150,7 +150,7 @@ init_vbe:
 	cmp	ax,0x004f							;if computer can't supports this mode, jmp to screen_default
 	jne	screen_default
 	
-;check the vbe versions£¬computer must supports vbe 2.0
+;check the vbe versions computer must supports vbe 2.0
 	
 	mov	ax,[es:di+4]
 	cmp	ax,0x0200
@@ -389,7 +389,7 @@ step_page:
     mov dword [ebx+512*4], PAGE_TBL_ADDR|0x07    
     mov dword [ebx+4092], PAGE_diR_ADDR|0x07
    	
-   	mov cx, 1024/4
+    mov cx, 1024/4
     mov esi, 0|0x07
     
 .set_pt0:
@@ -401,7 +401,7 @@ step_page:
 ;map vram
 
     mov eax, [0x6100+6]													  ;ds = 0x7000 phy 0x6108
-	shr eax,22
+    shr eax,22
     shl eax,2
 	
 ;eax=0xe00

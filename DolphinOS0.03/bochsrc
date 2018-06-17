@@ -10,8 +10,8 @@ cpu: cpuid_limit_winnt=0
 
 
 # filename of ROM images
-romimage: file=/usr/local/share/bochs/BIOS-bochs-latest
-vgaromimage: file=/usr/local/share/bochs/VGABIOS-lgpl-latest
+romimage: file=BIOS-bochs-latest
+vgaromimage: file=VGABIOS-lgpl-latest
 # what disk images will be used
 floppya: 1_44=DolphinOS.img, status=inserted
 
