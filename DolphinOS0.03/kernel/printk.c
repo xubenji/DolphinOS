@@ -1,36 +1,15 @@
 #include "printk.h"
+#include "types.h"
 
 struct display_char CHAR;
 
 //Now, you can use this function to output char in screen
 
-void init_display_infor(){
+void init_display_info(){
 	CHAR.vram=CHAR_DISPLAY_ADDERSS;
 	CHAR.cursor_pos=0;
 	CHAR.color=0x07;
 	printk(">init kernel..\n");
-	/*
-	print_char('N');
-	print_char('o');
-	print_char('w');
-	print_char('_');
-	print_char('t');
-	print_char('h');
-	print_char('e');
-	print_char('_');
-	print_char('O');
-	print_char('S');
-	print_char('_');
-	print_char('i');
-	print_char('n');
-	print_char('_');
-	print_char('k');
-	print_char('e');
-	print_char('r');
-	print_char('n');
-	print_char('e');
-	print_char('l');	
-	*/
 }
 
 uint16_t new_line(uint16_t cursor_pos){

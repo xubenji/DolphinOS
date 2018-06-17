@@ -32,14 +32,16 @@ BOOT_BIN	= boot/boot.bin
 LOAD_BIN	= boot/load.bin
 KERNEL_BIN	= kernel/kernel.bin
 
+#stack
+NOSTACK         =-fno-stack-protector -shared
 
-C_KERNEL_FLAGS	= -I -Wall -c -fno-builtin
+C_KERNEL_FLAGS	= -I -wall -c -fno-builtin 
 
-LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) 
+LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS)
 
-OBJS = kernel/init.o kernel/printk.o
+OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o
 
-
+#there are kernel/printk.o
 .PHONY: all
 
 
@@ -53,8 +55,8 @@ write_disk:
 	dd if=$(KERNEL_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(KERNEL_SECTOR_OFFEST) count=$(KERNEL_SECTORS) conv=notrunc
 
 run: all
-	qemu-system-i386 -m 32 -fda $(DolphinOS_IMG) -boot a
-	#bochs -f bochsrc
+	#qemu-system-i386 -m 32 -fda $(DolphinOS_IMG) -boot a
+	bochs -f bochsrc
 
 clean:
 	-rm  boot/load.bin	
@@ -75,10 +77,18 @@ $(KERNEL_BIN): $(OBJS)
 	$(LD) $(LDFLAGS) -o $(KERNEL_BIN) $(OBJS)
 
 #kernel
-kernel/init.o : kernel/init.c
+init.o : kernel/init.c
 	$(CC) $(C_KERNEL_FLAGS) -o $@ $<
-
+#there must be same , if only printk.o ,that is error, ok?
 printk.o:kernel/printk.c
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $<
+
+screen.o:kernel/screen.c
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $<
+
+asc.o:kernel/asc.c
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $<
+
+
 
 

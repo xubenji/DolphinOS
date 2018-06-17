@@ -4,7 +4,7 @@
  */
 #include "printk.h"
 #include "types.h"
-
+#include "screen.h"
 
 int Kernel_Init(){
 	/*char *v = CHAR_DISPLAY_ADDERSS;
@@ -12,7 +12,9 @@ int Kernel_Init(){
 	v[1] = 0x07;
 	v[2] = 'h';
 	*/
-	init_display_infor();
+	init_display_info();
+	show_screen_info();
+	
 	
 	while(1){
 	}
