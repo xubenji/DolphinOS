@@ -64,8 +64,8 @@ clean:
 	-rm  bochsout.txt
 	-rm  kernel/init.o
 	-rm  kernel/kernel.bin
-	-rm  kernel/printk.o
-
+	-rm  kernel/*.o
+	-rm  *.o
 
 $(LOAD_BIN):boot/load.asm
 	$(NASM)  -o $@ $<
