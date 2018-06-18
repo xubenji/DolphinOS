@@ -12,6 +12,8 @@ int Kernel_Init(){
 	v[1] = 0x07;
 	v[2] = 'h';
 	*/
+	
+	
 	init_display_info();
 	show_screen_info();
 	

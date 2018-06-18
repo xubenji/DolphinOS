@@ -14,19 +14,10 @@ void show_screen_info(){
 	
 	vram_addr = (uint32_t *)(SCREEN_INFO_ADDR+6);
 	info.vram = (uint8_t *) (*vram_addr);
-	printk("ok");
 	
-	char* str;
-	int_to_str(str, info.color_digit);
-	printk(str);
-	printk("\n");
-	while(1){
+	if(info.color_digit==0x00){
+		printk("Now it's a text mode\n");
 	}
-	int_to_str(str, info.wide);
-	printk(str);
-	printk("\n");
-	int_to_str(str, info.high);
-	printk(str);
 	
 }
 

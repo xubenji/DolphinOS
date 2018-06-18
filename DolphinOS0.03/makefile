@@ -55,8 +55,8 @@ write_disk:
 	dd if=$(KERNEL_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(KERNEL_SECTOR_OFFEST) count=$(KERNEL_SECTORS) conv=notrunc
 
 run: all
-	#qemu-system-i386 -m 32 -fda $(DolphinOS_IMG) -boot a
-	bochs -f bochsrc
+	qemu-system-i386 -m 32 -fda $(DolphinOS_IMG) -boot a
+	#bochs -f bochsrc
 
 clean:
 	-rm  boot/load.bin	
@@ -74,20 +74,20 @@ $(BOOT_BIN):boot/boot.asm
 	$(NASM)  -o $@ $<
 
 $(KERNEL_BIN): $(OBJS)
-	$(LD) $(LDFLAGS) -o $(KERNEL_BIN) $(OBJS)
+	$(LD) $(LDFLAGS) -o $(KERNEL_BIN) $(OBJS) -fno-stack-protector -shared
 
 #kernel
 init.o : kernel/init.c
-	$(CC) $(C_KERNEL_FLAGS) -o $@ $<
+	$(CC) $(C_KERNEL_FLAGS) -o $@ $< -fno-stack-protector -shared
 #there must be same , if only printk.o ,that is error, ok?
 printk.o:kernel/printk.c
-	$(CC) $(C_KERNEL_FLAGS) -O $@ $<
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $< -fno-stack-protector -shared
 
 screen.o:kernel/screen.c
-	$(CC) $(C_KERNEL_FLAGS) -O $@ $<
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $< -fno-stack-protector -shared
 
 asc.o:kernel/asc.c
-	$(CC) $(C_KERNEL_FLAGS) -O $@ $<
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $< -fno-stack-protector -shared
 
 
 

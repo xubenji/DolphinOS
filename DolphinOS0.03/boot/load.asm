@@ -202,7 +202,7 @@ screen_default:
 	mov		WORD [XWIDTH],320
 	mov		WORD [YHEIGHT],200
 	mov		DWORD [VRAM],0x000a0000
-
+	
 
 protect_set:
 	mov ax, cs
