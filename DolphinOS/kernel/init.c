@@ -20,6 +20,8 @@ int Kernel_Init(){
 	for(int i=0;i<8;i++){
 		print_char(*(ch+i));
 	}
+
+	printk(" ");
 	//puts_str(num,8);
 	
 	while(1){

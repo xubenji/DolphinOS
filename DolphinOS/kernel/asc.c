@@ -35,18 +35,12 @@ int8_P int_to_str(int8_P str, int32_t num)
 char* ints_to_str(uint32_t num_hex){ //convert hex number to string 
 	char* p;
 	char* ch;
-	char* str;
 	p=&num_hex;
 	for(int i=0;i<4;i++){
-	ch[2*(i)]=p[i]&0x0f;
-	ch[1+2*(i)]=(p[i]&0xf0)>>4;
-	ch[2*(i)]=(int8_t)number_to_char(ch[2*(i)]);	
-	ch[1+2*(i)]=(int8_t)number_to_char(ch[1+2*(i)]);	
+	ch[7-2*i]=(int8_t)number_to_char((p[i]&0x0f));	
+	ch[6-2*i]=(int8_t)number_to_char(((p[i]&0xf0)>>4));	
 	}
-	for(int j=0;j<8;j++){
-	str[j]=ch[7-j];
-	}
-	return str;
+	return ch;
 }
 
 

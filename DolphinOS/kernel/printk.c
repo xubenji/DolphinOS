@@ -48,7 +48,8 @@ void printk(uint8_t *str){
 }
 
 void puts_str(int32_t num_hex,int32_t length){ //this fuction has some problems 
-	char* ch;
+	char *ch;
+	//int32_t num=0x1234abcd;
 	ch=ints_to_str(num_hex);
 	for(int i=0;i<length;i++){
 		print_char(*(ch+i));
