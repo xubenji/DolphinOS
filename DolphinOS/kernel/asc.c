@@ -2,7 +2,6 @@
 #include "types.h"
 #include "asc.h"
 
-
 int8_P int_to_str(int8_P str, int32_t num)
 {
 	int8_P	p = str;
@@ -24,23 +23,20 @@ int8_P int_to_str(int8_P str, int32_t num)
 			if(ch > '9'){		
 				ch += 7;		
 			}
-			*p++ = ch;			
-			
+			*p++ = ch;				
 		}
 	}
 	*p = 0;							
 	return str;
 }
 
-char* ints_to_str(uint32_t num_hex){ //convert hex number to string 
-	char* p;
-	char* ch;
-	p=&num_hex;
+void ints_to_str(uint32_t num_hex,char* ch){ //convert hex number to string 
+	char* p=&num_hex;
 	for(int i=0;i<4;i++){
 	ch[7-2*i]=(int8_t)number_to_char((p[i]&0x0f));	
 	ch[6-2*i]=(int8_t)number_to_char(((p[i]&0xf0)>>4));	
 	}
-	return ch;
+	//return ch;
 }
 
 

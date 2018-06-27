@@ -3,6 +3,7 @@
 #define CHAR_DISPLAY_ADDERSS 0X800b8000
 #define LINE_MAX_CHAR 80
 
+void __stack_chk_fail();
 void puts_str(int32_t num_hex,int32_t length);
 void print_char(uint8_t ch);
 void init_display_info();

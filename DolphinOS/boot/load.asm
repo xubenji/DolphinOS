@@ -354,14 +354,14 @@ flush:
 	
 	mov dword [0x800b8000+4], 'q'
 	mov dword [0x800b8000+5], 0X03
-	
+	;call flush
 	;mov esi, PHY_KERNEL_ENTRY
 	;mov edi, VIR_KERNEL_ENTRY
 	;mov ecx, KERNEL_SECTORS*512
 	;call cpy_kernel
 	
 	;jmp inio kernel with protect mode,no interrupt,high memory read and write
-
+	;jmp $
 	jmp VIR_KERNEL_ENTRY
 	
 cpy_kernel:
