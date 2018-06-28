@@ -46,16 +46,45 @@ void printk(uint8_t *str){
 		}
 }
 
-
-void puts_str(int32_t num_hex,int32_t length){ 
+void puts_int64(int64_t num_hex){ 
 	char ch[32];
 	char p[32];
-	ints_to_str(num_hex,ch);
-	for(int i=0;i<length;i++){
+	int64_to_str(num_hex,ch);
+	printk("0x");
+	for(int i=0;i<16;i++){
 		print_char(*(ch+i));
 	}
 }
 
+void puts_int32(int32_t num_hex){ 
+	char ch[32];
+	char p[32];
+	int32_to_str(num_hex,ch);
+	printk("0x");
+	for(int i=0;i<8;i++){
+		print_char(*(ch+i));
+	}
+}
+
+void puts_int16(int16_t num_hex){ 
+	char ch[32];
+	char p[32];
+	int16_to_str(num_hex,ch);
+	printk("0x");
+	for(int i=0;i<4;i++){
+		print_char(*(ch+i));
+	}
+}
+
+void puts_int8(int8_t num_hex){ 
+	char ch[32];
+	char p[32];
+	int8_to_str(num_hex,ch);
+	printk("0x");
+	for(int i=0;i<2;i++){
+		print_char(*(ch+i));
+	}
+}
 
 void print_char(uint8_t ch){
 	chs.vram[chs.cursor_pos*2] = ch;

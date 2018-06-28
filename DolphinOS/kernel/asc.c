@@ -2,43 +2,35 @@
 #include "types.h"
 #include "asc.h"
 
-int8_P int_to_str(int8_P str, int32_t num)
-{
-	int8_P	p = str;
-	int8_t	ch;
-	int32_t	i;
-	int32_t	flag = false;
-	
-	*p++ = '0';
-	*p++ = 'x';
-	
-	if(num == 0){
-		*p++ = '0';
-	}
-	else{	
-		for(i=28;i>=0;i-=4){		
-			ch = (num >> i) & 0xF;	
-			
-			ch += '0';			
-			if(ch > '9'){		
-				ch += 7;		
-			}
-			*p++ = ch;				
-		}
-	}
-	*p = 0;							
-	return str;
-}
-
-void ints_to_str(uint32_t num_hex,char* ch){ //convert hex number to string 
+void int32_to_str(uint32_t num_hex,char* ch){ //convert hex number to string 
 	char* p=&num_hex;
 	for(int i=0;i<4;i++){
 	ch[7-2*i]=(int8_t)number_to_char((p[i]&0x0f));	
 	ch[6-2*i]=(int8_t)number_to_char(((p[i]&0xf0)>>4));	
 	}
-	//return ch;
 }
 
+void int16_to_str(uint16_t num_hex,char* ch){
+	char* p=&num_hex;
+	for(int i=0;i<2;i++){
+		ch[3-2*i]=(int8_t)number_to_char((p[i]&0x0f));	
+		ch[2-2*i]=(int8_t)number_to_char(((p[i]&0xf0)>>4));	
+	}
+}
+
+void int8_to_str(uint8_t num_hex,char* ch){
+	char* p=&num_hex;
+	ch[1]=(int8_t)number_to_char((p[0]&0x0f));	
+	ch[0]=(int8_t)number_to_char(((p[0]&0xf0)>>4));	
+}
+
+void int64_to_str(uint64_t num_hex,char* ch){
+	char* p=&num_hex;
+	for(int i=0;i<8;i++){
+		ch[15-2*i]=(int8_t)number_to_char((p[i]&0x0f));	
+		ch[14-2*i]=(int8_t)number_to_char(((p[i]&0xf0)>>4));	
+	}
+}
 
 int8_t number_to_char(int8_t num){
 	if(num>=0&&num<=9){

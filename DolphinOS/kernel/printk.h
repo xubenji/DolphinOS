@@ -4,7 +4,11 @@
 #define LINE_MAX_CHAR 80
 
 void __stack_chk_fail();
-void puts_str(int32_t num_hex,int32_t length);
+void puts_int64(int64_t num_hex);
+void puts_int32(int32_t num_hex);
+void puts_int16(int16_t num_hex);
+void puts_int8(int8_t num_hex);
+
 void print_char(uint8_t ch);
 void init_display_info();
 uint16_t new_line(uint16_t cursor_pos);
