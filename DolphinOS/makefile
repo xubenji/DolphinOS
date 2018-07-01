@@ -40,7 +40,7 @@ C_KERNEL_FLAGS	= -I -wall -c -fno-builtin
 
 LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK)
 
-OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/_stack_chk_fail.o
+OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/_stack_chk_fail.o kernel/ards.o
 
 #there are kernel/printk.o
 .PHONY: all
@@ -94,6 +94,9 @@ screen.o:kernel/screen.c
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
 
 asc.o:kernel/asc.c
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
+
+ards.o:kernel/ards.c
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
 
 _stack_chk_fail.o:kernel/_stack_chk_fail.c

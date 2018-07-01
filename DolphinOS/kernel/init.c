@@ -13,48 +13,14 @@
 int Kernel_Init(){
 	init_display_info();
 	show_screen_info();
+	printk("hello,this is DolphinOS0.05a,welcome my Operating System\n");
 	printk("------\n");
-	int32_t num_hex=0xabcd1234;
+	uint32_t memory=get_ards_infor();
+	uint16_t mem_mb=memory/(1024*1024)+1;
 	
-	puts_int32(num_hex);
-	printk("\n------\n");
-	int16_t n16=0xabcd;
-	puts_int16(n16);
-	printk("\n------\n");
-	int8_t n8=0xab;
-	puts_int8(n8);
-	printk("\n------\n");
-	int64_t n64=0x12345678abcdabcd;
-	puts_int64(n64);
-	
-	/*
-	puts_str(num_hex,8);
-	uint16_t num=0x1234;
-	char ch[32];
-	char p[32];
-	int16_to_str(num,ch);
-	for(int i=0;i<4;i++){
-		print_char(*(ch+i));
-	}
-	char chs[32];
-	printk("\n");
-	int64_t a=0x12345678abcdabcd;
-	int64_to_str(a,chs);
-	for(int i=0;i<16;i++){
-		print_char(*(chs+i));
-	}
-	
-	char* qq=&a;
-	int i=0;
-	while(qq[i]!=0){
-	i++;
-	}
-	
-	int q=sizeof(*qq);
-	printk("\n");
-	puts_str(i,8);
-	*/
-	
+	printk("your machine's memory size is \n");
+	puts_int16(mem_mb);
+	printk("MB\n");
 	while(1){
 	}
 }
