@@ -16,10 +16,10 @@ int Kernel_Init(){
 	printk("hello,this is DolphinOS0.05a,welcome my Operating System\n");
 	printk("------\n");
 	uint32_t memory=get_ards_infor();
-	uint16_t mem_mb=memory/(1024*1024)+1;
+	uint32_t mem_mb=memory/(1024*1024);
 	
 	printk("your machine's memory size is \n");
-	puts_int16(mem_mb);
+	puts_int32(mem_mb);
 	printk("MB\n");
 	while(1){
 	}

@@ -25,7 +25,7 @@ DolphinOS_IMG	= DolphinOS.img
 
 
 NASM		= nasm
-CC		= gcc
+CC		= gcc $(NOSTACK)
 LD 		= ld
 
 BOOT_BIN	= boot/boot.bin
@@ -40,7 +40,7 @@ C_KERNEL_FLAGS	= -I -wall -c -fno-builtin
 
 LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK)
 
-OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/_stack_chk_fail.o kernel/ards.o
+OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o
 
 #there are kernel/printk.o
 .PHONY: all
@@ -56,6 +56,7 @@ write_disk:
 	dd if=$(KERNEL_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(KERNEL_SECTOR_OFFEST) count=$(KERNEL_SECTORS) conv=notrunc
 
 run: all
+	#qemu-system-i386 -bios "OVMF.fd" -m 32 -fda $(DolphinOS_IMG) -boot a
 	qemu-system-i386 -m 32 -fda $(DolphinOS_IMG) -boot a
 	#bochs -f bochsrc
 
@@ -99,7 +100,7 @@ asc.o:kernel/asc.c
 ards.o:kernel/ards.c
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
 
-_stack_chk_fail.o:kernel/_stack_chk_fail.c
-	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
+#_stack_chk_fail.o:kernel/_stack_chk_fail.c
+#	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
 
 

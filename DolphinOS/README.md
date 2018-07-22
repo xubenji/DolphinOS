@@ -6,5 +6,6 @@
 	The OS be install in floppy disk. you need to pay attention to the bochsrc file, if you can't run DolphinOS.
 	In version 0.03B, the OS do not enter the vbe2.0 display mode. 
 	Version 0.05a------The character lib has been completed.
+	Version 0.06 the stack checked function of gcc is disable.
 								------Olaf 2018/6
 
