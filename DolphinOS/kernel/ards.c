@@ -8,20 +8,20 @@
 #include "printk.h"
 #include "ards.h"
 
-struct ards *ards;
+pArds ards1;
 uint32_t get_ards_infor()
 {
 	uint32_t memory_total_size=0;
 	uint16_t ards_nr =  *((uint16_t *)ARDS_NR);
-	ards = (struct ards *) ARDS_ADDR;		
+	ards1 = (pArds)ARDS_ADDR;		
 	int i;
 	for(i = 0; i < ards_nr; i++){
-		if(ards->type == 1){
-			if(ards->base_low+ards->length_low > memory_total_size){
-				memory_total_size = ards->base_low+ards->length_low;
+		if(ards1->type == 1){
+			if(ards1->base_low+ards1->length_low > memory_total_size){
+				memory_total_size = ards1->base_low+ards1->length_low;
 			}
 		}
-		ards++;
+		ards1++;
 	}
 	return memory_total_size;
 }

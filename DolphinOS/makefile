@@ -40,7 +40,7 @@ C_KERNEL_FLAGS	= -I -wall -c -fno-builtin
 
 LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK)
 
-OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o
+OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o
 
 #there are kernel/printk.o
 .PHONY: all
@@ -87,7 +87,7 @@ $(KERNEL_BIN):$(OBJS)
 #kernel
 init.o : kernel/init.c
 	$(CC) $(C_KERNEL_FLAGS) -o $@ $< 
-#there must be same , if only printk.o ,that is error, ok?
+
 printk.o:kernel/printk.c
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
 
@@ -100,6 +100,8 @@ asc.o:kernel/asc.c
 ards.o:kernel/ards.c
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
 
+memory.o:kernel/memory.c
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
 #_stack_chk_fail.o:kernel/_stack_chk_fail.c
 #	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
 
