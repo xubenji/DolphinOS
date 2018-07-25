@@ -379,7 +379,7 @@ step_page:
     xor esi,esi 
 	
 .clean_pdt:
-    mov dword [ebx+esi],0x00000000  									  ;页目录表项清零 
+    mov dword [ebx+esi],0x00000000  									  
     add esi,4
     loop .clean_pdt
 
