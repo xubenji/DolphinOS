@@ -1,10 +1,27 @@
 #include "printk.h"
 #include "types.h"
 #include "asc.h"
+#include "io_ASM.h"
 
 struct display_char chs;
 
 //Now, you can use this function to output char in screen
+
+uint16_t get_cursor(){
+	uint16_t pos_low, pos_high;
+	io_out8_ASM(0x03d4, 0x0e);			
+	pos_high = io_in8_ASM(0x03d5);
+	io_out8_ASM(0x03d4, 0x0f);			
+	pos_low = io_in8_ASM(0x03d5);
+	return (pos_high<<8 | pos_low);	
+}
+
+void set_cursor(){
+	io_out8_ASM(0x03d4, 0x0e);			
+	io_out8_ASM(0x03d5, chs.cursor_pos>>8);
+	io_out8_ASM(0x03d4, 0x0f);			
+	io_out8_ASM(0x03d5, chs.cursor_pos);
+}
 
 void init_display_info(){
 	chs.vram=CHAR_DISPLAY_ADDERSS;
@@ -25,7 +42,7 @@ uint16_t backspace(uint16_t cursor_pos){
 }
 
 void get_cursor_pos(uint8_t ch){
-	
+	chs.cursor_pos = get_cursor();
 	if(ch==0xd){
 		chs.cursor_pos = new_line(chs.cursor_pos); //line feed
 	}else if(ch==0xa){
@@ -34,9 +51,11 @@ void get_cursor_pos(uint8_t ch){
 		chs.cursor_pos = backspace(chs.cursor_pos);
 	}else{
 		print_char(ch);
-
 	}
+	set_cursor();
 }
+
+
 
 void printk(uint8_t *str){
 	while (*str!=0x00)

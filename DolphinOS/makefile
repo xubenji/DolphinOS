@@ -38,9 +38,11 @@ NOSTACK         = -fno-stack-protector -shared
 
 C_KERNEL_FLAGS	= -I -wall -c -fno-builtin 
 
+ASM_KERNEL_FLAGS= -f elf
+
 LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK)
 
-OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o
+OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o kernel/io.o
 
 #there are kernel/printk.o
 .PHONY: all
@@ -64,7 +66,6 @@ clean:
 	-rm  boot/load.bin	
 	-rm  boot/boot.bin
 	-rm  bochsout.txt
-	-rm  kernel/init.o
 	-rm  $(KERNEL_BIN)
 	-rm  kernel/*.o
 	-rm  *.o
@@ -102,6 +103,11 @@ ards.o:kernel/ards.c
 
 memory.o:kernel/memory.c
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
+
+#assembly
+kernel/io.o : kernel/io_ASM.asm
+	$(NASM) $(ASM_KERNEL_FLAGS) -o $@ $<
+
 #_stack_chk_fail.o:kernel/_stack_chk_fail.c
 #	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
 
