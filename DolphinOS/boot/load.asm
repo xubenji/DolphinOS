@@ -12,9 +12,10 @@ KERNEL_ENTRY EQU 0x10000
 PHY_KERNEL_ENTRY EQU 0x10000
 VIR_KERNEL_ENTRY EQU 0x80010000
 
-PAGE_diR_ADDR equ 0x1000
-PAGE_TBL_ADDR equ 0x2000
+PAGE_diR_ADDR equ 0x100000
+PAGE_TBL_ADDR equ 0x101000
 
+OS_TOTAL_MEMORY equ 5120
 
 ;0x7c00~0x7e00	    boot.bin	512bytes 1sector
 ;0x70000~0x71000	load.bin	1kb      8sectors	
@@ -374,7 +375,7 @@ cpy_kernel:
 	ret	
 	
 step_page:  
-    mov ecx,1024                   										  ;directory of paging
+    mov ecx,1024                   								          ;directory of paging
     mov ebx,PAGE_diR_ADDR               								  ;directory memory address
     xor esi,esi 
 	
@@ -389,7 +390,7 @@ step_page:
     mov dword [ebx+512*4], PAGE_TBL_ADDR|0x07    
     mov dword [ebx+4092], PAGE_diR_ADDR|0x07
    	
-    mov cx, 1024/4
+    mov cx, OS_TOTAL_MEMORY
     mov esi, 0|0x07
     
 .set_pt0:

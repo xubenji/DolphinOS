@@ -55,8 +55,6 @@ void get_cursor_pos(uint8_t ch){
 	set_cursor();
 }
 
-
-
 void printk(uint8_t *str){
 	while (*str!=0x00)
 		{

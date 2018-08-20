@@ -6,6 +6,7 @@
 #include "types.h"
 #include "memory.h"
 #include "printk.h"
+//#include "bitmap.h"
 
 void init_memory(){
 	uint32_t memory_total_size;
