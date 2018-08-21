@@ -70,6 +70,7 @@ void puts_int64(int64_t num_hex){
 	printk("0x");
 	for(int i=0;i<16;i++){
 		print_char(*(ch+i));
+		set_cursor();
 	}
 }
 
@@ -80,6 +81,7 @@ void puts_int32(int32_t num_hex){
 	printk("0x");
 	for(int i=0;i<8;i++){
 		print_char(*(ch+i));
+		set_cursor();
 	}
 }
 
@@ -90,6 +92,7 @@ void puts_int16(int16_t num_hex){
 	printk("0x");
 	for(int i=0;i<4;i++){
 		print_char(*(ch+i));
+		set_cursor();
 	}
 }
 
@@ -100,6 +103,7 @@ void puts_int8(int8_t num_hex){
 	printk("0x");
 	for(int i=0;i<2;i++){
 		print_char(*(ch+i));
+		set_cursor();
 	}
 }
 

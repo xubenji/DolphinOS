@@ -14,8 +14,7 @@ VIR_KERNEL_ENTRY EQU 0x80010000
 
 PAGE_diR_ADDR equ 0x100000
 PAGE_TBL_ADDR equ 0x101000
-
-OS_TOTAL_MEMORY equ 5120
+PAGE_TBL_ADDR_EXTRA equ 0x102000
 
 ;0x7c00~0x7e00	    boot.bin	512bytes 1sector
 ;0x70000~0x71000	load.bin	1kb      8sectors	
@@ -387,10 +386,12 @@ step_page:
     mov edi, PAGE_TBL_ADDR
     mov ebx, PAGE_diR_ADDR
     mov dword [ebx], PAGE_TBL_ADDR|0x07
+    mov dword [ebx+4], PAGE_TBL_ADDR_EXTRA|0x07
     mov dword [ebx+512*4], PAGE_TBL_ADDR|0x07    
+    mov dword [ebx+512*4+4], PAGE_TBL_ADDR_EXTRA|0x07
     mov dword [ebx+4092], PAGE_diR_ADDR|0x07
    	
-    mov cx, OS_TOTAL_MEMORY
+    mov cx, 1024
     mov esi, 0|0x07
     
 .set_pt0:
@@ -398,6 +399,15 @@ step_page:
     add esi, 0x1000
     add edi,4
     loop .set_pt0
+
+;because kernel+paging=5mb, we need extra 1mb memory to save paging
+    mov cx, 256
+    mov edi, PAGE_TBL_ADDR_EXTRA
+.set_pt1:
+    mov [edi], esi
+    add esi, 0x1000
+    add edi,4
+    loop .set_pt1
    	
 ;map vram
 

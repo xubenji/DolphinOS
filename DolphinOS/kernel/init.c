@@ -14,12 +14,11 @@
 int Kernel_Init(){
 	init_display_info();
 	show_screen_info();
-	printk("hello,this is DolphinOS0.06a,welcome my Operating System\n");
+	printk("hello,this is DolphinOS0.07,welcome my Operating System\n");
 	printk("------\n");
 	uint32_t memory=get_ards_infor();
 	uint32_t mem_mb=memory/(1024*1024);
-	
-	printk("your machine's memory size is \n");
+	printk("your machine's memory size is :");
 	puts_int32(mem_mb);
 	printk("MB\n");
 	init_memory();
