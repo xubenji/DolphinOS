@@ -4,7 +4,7 @@
 	GCC version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.9).
 	Ensure the version of software is the same as me.
 	The OS can run on the qemu virual machine(X86 platform).
-	The OS be install in virtual floppy disk. 
+	The OS is installed in virtual floppy disk. 
 	In version 0.03B, the OS do not enter the vbe2.0 display mode. 
 	In version 0.04 i change the virual box to qemu, because the qemu runs faster than bochs.
 	Version 0.05a------The character lib has been completed.
