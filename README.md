@@ -6,9 +6,9 @@
 	The OS can run on the qemu virual machine(X86 platform).
 	The OS be install in virtual floppy disk. 
 	In version 0.03B, the OS do not enter the vbe2.0 display mode. 
+	In version 0.04 i change the virual box to qemu, because the qemu runs faster than bochs.
 	Version 0.05a------The character lib has been completed.
 	Version 0.06 the stack checked function of gcc is disable.
-	In version 0.04 i change the virual box to qemu, because the qemu runs faster than bochs.
 # How to run DolphinOS?
 	First, you need install a linux operating system like ubuntu, CentOS. 
 	And then you need install qemu, gcc(V5.40) & nasm in linux.
