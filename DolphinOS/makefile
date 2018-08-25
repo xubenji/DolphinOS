@@ -42,8 +42,8 @@ ASM_KERNEL_FLAGS= -f elf
 
 LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK)
 
-OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o kernel/io.o
-
+OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o kernel/io.o kernel/bitmap.o kernel/string.o
+ 
 #there are kernel/printk.o
 .PHONY: all
 
@@ -102,6 +102,12 @@ ards.o:kernel/ards.c
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
 
 memory.o:kernel/memory.c
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
+
+bitmap.o:kernel/bitmap.c
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
+
+string.o:kernel/string.c
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
 
 #assembly

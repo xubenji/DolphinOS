@@ -14,7 +14,7 @@
 int Kernel_Init(){
 	init_display_info();
 	show_screen_info();
-	printk("hello,this is DolphinOS0.07,welcome my Operating System\n");
+	printk("Hello,this is DolphinOS0.07c,welcome my Operating System\n");
 	printk("------\n");
 	uint32_t memory=get_ards_infor();
 	uint32_t mem_mb=memory/(1024*1024);

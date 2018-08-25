@@ -2,7 +2,7 @@
 ;base the MatchOS
 ;modified by wenjie, Hu
 ;using the nasm, the load.bin will occupy 9 sectors memory
-;he kernel will occupy 256 sectors
+;the kernel will occupy 256 sectors
 
 KERNEL_SECTOR_OFFSET EQU 9		
 KERNEL_SECTORS EQU 256	
