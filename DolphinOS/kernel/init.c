@@ -3,7 +3,7 @@
  *this is the entry of DolphinOS
  */
 
-#include "_stack_chk_fail.h"
+#include "../com/_stack_chk_fail.h"
 #include "printk.h"
 #include "../com/types.h"
 #include "screen.h"
@@ -14,7 +14,7 @@
 int Kernel_Init(){
 	init_display_info();
 	show_screen_info();
-	printk("Hello,this is DolphinOS0.07c,welcome my Operating System\n");
+	printk("Hello,this is DolphinOS0.07c, welcome my Operating System\n");
 	printk("------\n");
 	uint32_t memory=get_ards_infor();
 	uint32_t mem_mb=memory/(1024*1024);

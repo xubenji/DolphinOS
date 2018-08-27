@@ -3,7 +3,7 @@
 #include "asc.h"
 #include "io_ASM.h"
 
-struct display_char chs;
+DisPlay_Char chs;
 
 //Now, you can use this function to output char in screen
 

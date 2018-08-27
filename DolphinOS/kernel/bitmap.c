@@ -1,3 +1,8 @@
+/*(C) Olaf 27/8/2018 bitmap.c
+ *At the beginning of the project, i want to abandon the bitmap, but i can't find a good way to manage the memory.
+ *So, i still use the bitmap data structure.
+ */
+
 #include "../com/types.h"
 #include "string.h"
 #include "bitmap.h"

@@ -1,6 +1,6 @@
-/*(C) Olaf 2016/7 ards.c
+/*(C) Olaf 8/2018 ards.c
  *read memory information
- *the memory information be save in ards, the ards struct address be define in load.asm
+ *the memory information is saved in ards data structure, the ards address be define in load.asm
  *this function return a number which is memory size
  */
 
