@@ -63,12 +63,12 @@ run: all
 	#bochs -f bochsrc
 
 clean:
-	-rm  boot/load.bin	
-	-rm  boot/boot.bin
-	-rm  bochsout.txt
-	-rm  $(KERNEL_BIN)
-	-rm  kernel/*.o
-	-rm  *.o
+	-rm  -f boot/load.bin	
+	-rm  -f boot/boot.bin
+#	-rm  bochsout.txt
+	-rm  -f $(KERNEL_BIN)
+	-rm  -f kernel/*.o
+#	-rm  *.o
 
 $(LOAD_BIN):boot/load.asm
 	$(NASM)  -o $@ $<

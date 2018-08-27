@@ -4,7 +4,7 @@
  *this function return a number which is memory size
  */
 
-#include "types.h"
+#include "../com/types.h"
 #include "printk.h"
 #include "ards.h"
 

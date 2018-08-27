@@ -1,4 +1,4 @@
-#include "types.h"
+#include "../com/types.h"
 #include "string.h"
 #include "bitmap.h"
 

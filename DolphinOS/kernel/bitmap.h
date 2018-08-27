@@ -1,6 +1,6 @@
 #ifndef __LIB_KERNEL_BITMAP_H
 #define __LIB_KERNEL_BITMAP_H
-#include "types.h"
+#include "../com/types.h"
 #define BITMAP_MASK 1
 
 typedef struct _bitmap{

@@ -1,5 +1,5 @@
 #include "printk.h"
-#include "types.h"
+#include "../com/types.h"
 #include "asc.h"
 #include "io_ASM.h"
 

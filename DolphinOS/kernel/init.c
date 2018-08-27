@@ -5,7 +5,7 @@
 
 #include "_stack_chk_fail.h"
 #include "printk.h"
-#include "types.h"
+#include "../com/types.h"
 #include "screen.h"
 #include "asc.h"
 #include "memory.h"

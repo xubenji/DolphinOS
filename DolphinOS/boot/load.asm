@@ -427,12 +427,12 @@ step_page:
     mov cx, 1024														  ;map of vram, the vram size is 4MB
     
 .set_vram:
-        mov dword [edi ], esi
-	add edi, 4
-	add esi, 0x1000
-	loop .set_vram
+    mov dword [edi ], esi
+    add edi, 4
+    add esi, 0x1000
+    loop .set_vram
 	
-   	mov eax , PAGE_diR_ADDR
+    mov eax , PAGE_diR_ADDR
     mov cr3,eax
     mov eax, cr0
     or eax, 0x80000000

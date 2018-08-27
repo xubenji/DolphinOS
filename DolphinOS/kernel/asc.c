@@ -1,5 +1,5 @@
 //this file is used to convert int to string
-#include "types.h"
+#include "../com/types.h"
 #include "asc.h"
 
 void int32_to_str(uint32_t num_hex,char* ch){ //convert hex number to string 

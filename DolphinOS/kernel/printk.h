@@ -1,4 +1,4 @@
-#include "types.h"
+#include "../com/types.h"
 
 #define CHAR_DISPLAY_ADDERSS 0X800b8000
 #define LINE_MAX_CHAR 80

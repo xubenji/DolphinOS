@@ -3,7 +3,7 @@
  *prepare for Operating System paging
  *prepare for malloc function
  */
-#include "types.h"
+#include "../com/types.h"
 #include "memory.h"
 #include "printk.h"
 #include "bitmap.h"

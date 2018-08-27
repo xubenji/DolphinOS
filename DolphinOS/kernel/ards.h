@@ -1,4 +1,4 @@
-#include "types.h"
+#include "../com/types.h"
 
 #define ARDS_ADDR 0x80006004
 #define ARDS_NR   0x80006000
