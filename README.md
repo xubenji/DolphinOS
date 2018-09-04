@@ -15,8 +15,7 @@
 	And then you need install qemu, gcc(V5.40) & nasm in linux.
 	Finally you open the terminal in DolphinOS folder and enter the command: make run (make sure you are root.) 
 # New 0.07 version
-	In this version, i change the paging to 0x100000(1mb low physical memory address) in order to implenment the memory mangment system. 
-
+In this version, i change the paging to 0x100000(1mb low physical memory address) in order to implenment the memory mangment system. 
 # 这是DolphinOS源代码
 	DolphinOS是一个32位的操作系统，未来我会计划支持64位。
 	我使用Ubuntu编写的源代码。
