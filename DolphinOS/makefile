@@ -42,7 +42,7 @@ ASM_KERNEL_FLAGS= -f elf
 
 LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK)
 
-OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o kernel/io.o kernel/bitmap.o kernel/string.o
+OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o kernel/io.o kernel/bitmap.o kernel/string.o com/math.o
  
 #there are kernel/printk.o
 .PHONY: all
@@ -68,6 +68,7 @@ clean:
 #	-rm  bochsout.txt
 	-rm  -f $(KERNEL_BIN)
 	-rm  -f kernel/*.o
+	-rm  -f com/*.o
 #	-rm  *.o
 
 $(LOAD_BIN):boot/load.asm
@@ -109,6 +110,11 @@ bitmap.o:kernel/bitmap.c
 
 string.o:kernel/string.c
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
+
+#com
+math.o:com/math.c
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
+
 
 #assembly
 kernel/io.o : kernel/io_ASM.asm

@@ -15,6 +15,7 @@ uint16_t backspace(uint16_t cursor_pos);
 void get_cursor_pos(uint8_t ch);
 void printk(uint8_t *str);
 void print_char(uint8_t ch);
+void put_dec_uint32(uint32_t num);
 
 typedef struct display_char{
 	int8_t *vram;

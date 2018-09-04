@@ -17,14 +17,15 @@ Pool kernel_pool, user_pool;
  *You can see in DolphinOS, 0~5mb of memory is not avaiable for user.
  *Why? because 0~1mb of memory is occupied by kernel and 1~5mb of memory is occupied by paging & paging directoy.
  *memory_total_size means that the memory of machine.
- *unit of 5242880 is 'bytes'. 5x1024x1024 bytes=5mb.
+ *unit of USED_MEMORY_SIZE is 'bytes'. 5x1024x1024 bytes=5mb.
  */
 
 void init_memory(){
 	uint32_t memory_total_size;
 	memory_total_size=get_ards_infor();
 	uint32_t total_pages=memory_total_size/PAGE_SIZE;
-	uint32_t used_phy_pages=5242880/PAGE_SIZE;
+	uint32_t used_memory_size=USED_MEMORY_SIZE;
+	uint32_t used_phy_pages=used_memory_size/PAGE_SIZE;
 	uint32_t free_pages=total_pages-used_phy_pages;
 	uint32_t kernel_pages=free_pages/2;
 	uint32_t kbm_length=kernel_pages/8;
