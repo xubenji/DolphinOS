@@ -9,6 +9,7 @@
 	In version 0.04 i change the virual box to qemu, because the qemu runs faster than bochs.
 	Version 0.05a------The character lib has been completed.
 	Version 0.06 the stack checked function of gcc is disable.
+	Version 0.07d new function: you can put the decimal number in screen.
 # How to run DolphinOS?
 	First, you need install a linux operating system like ubuntu, CentOS. 
 	And then you need install qemu, gcc(V5.40) & nasm in linux.
