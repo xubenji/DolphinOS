@@ -17,7 +17,9 @@
 # New 0.07 version
 	In this version, I change the paging to 0x100000(1mb low physical memory address) in order to implenment the memory mangment system. 
 # Fans QQ group
-	Future_Technology: 375678777. There are development environment which is a virtual machine(VMware) file. you can get the download link in the QQ group.
+	Future_Technology: 375678777. 
+	There are development environment which is a virtual machine(VMware) file.
+	you can get the download link in the QQ group.
 # 这是DolphinOS源代码
 	DolphinOS是一个32位的操作系统，未来我会计划支持64位。
 	我使用Ubuntu编写的源代码。
