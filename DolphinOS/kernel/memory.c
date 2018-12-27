@@ -87,8 +87,10 @@ void init_memory(){
 	
 	enum pool_flags pk=PF_KERNEL;
 	malloc_page(pk,1);
-	//malloc_page(pk,2);
-
+	malloc_page(pk,2);
+//	char* p = 0x80800001;
+	//*p=0x00;
+	
 }
 
 /*Allocated pg_cnt pages, if success, return start of virtual address, or retuen NULL 
@@ -122,14 +124,14 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
    puts_int32(vaddr );
 
 //You need to declare unsigned integer variables When you using the shift operation. 
-    unsigned int * p=&vaddr;
+    /*unsigned int * p=&vaddr;
 	*p=(10<<*p)>>22;
 	unsigned short q=0x8080;
 	q=q>>6;
 	puts_int16(q);
 	printk("_:");
 	puts_int16(*p);
-	put_dec_uint32(*p);
+	put_dec_uint32(*p);*/
    
    uint32_t cnt = pg_cnt;
    
@@ -152,7 +154,7 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
      // page_table_add((void*)vaddr, page_phyaddr); // 在页表中做映射 
      // vaddr += PAGE_SIZE;		 // 下一个虚拟页
 	  connect_vir_phy(pf, vaddr, page_phyaddr, 0x100000, 0x101000);
-	 
+	 vaddr += PAGE_SIZE;	
    }
    return vaddr_start;
 }
@@ -161,18 +163,23 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
 // *p=p[1];
 //printk("_:");
 
-void connect_vir_phy(enum pool_flags flags,uint32_t viraddr, uint32_t phyaddr, uint32_t pdt_addr_phy, uint32_t pd_addr_phy){
-	viraddr=0x80800000;
+void connect_vir_phy(enum pool_flags flags, uint32_t viraddr, uint32_t phyaddr, uint32_t pdt_addr_phy, uint32_t pd_addr_phy){
+	printk("viraddr:");
+	puts_int32(viraddr);
+	//viraddr=0x80800000;
 	uint32_t amount_page_dir = viraddr>>22;
-	printk("...");
+	printk("...%");
 	puts_int32(amount_page_dir);
 	int* local_in_pdt_addr = amount_page_dir*4+pdt_addr_phy;
 	*local_in_pdt_addr=pd_addr_phy+amount_page_dir*PAGE_SIZE;
+
 					uint32_t p = viraddr<<10;
-	int* local_pd_addr= local_in_pdt_addr+(p>>22);
-		//while(1);
-	*local_pd_addr =  4<<(phyaddr>>4);
-		
+	int* local_pd_addr= *local_in_pdt_addr+(p>>22)*4;
+	
+	
+	*local_pd_addr =  phyaddr&0xFFFFFFF0;
+	printk("...%");
+	puts_int32((p>>22)*4);
 }
 
 /* 在pf表示的虚拟内存池中申请pg_cnt个虚拟页,
