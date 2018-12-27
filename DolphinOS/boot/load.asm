@@ -4,6 +4,8 @@
 ;using the nasm, the load.bin will occupy 9 sectors memory
 ;the kernel will occupy 256 sectors
 
+VRAM_ADDR EQU 0XFF00
+
 KERNEL_SECTOR_OFFSET EQU 9		
 KERNEL_SECTORS EQU 256	
 
@@ -112,7 +114,6 @@ rd_kern2:
 	loop rd_kern2
 
 
-
 ;check memory information
 ;we save the memory information in ARDS_BUF struct
 
@@ -132,7 +133,7 @@ check_memory:
 	add word [es:ARDS_NR], 1
 	cmp ebx, 0
 	jnz .e820_mem_get_loop
-	jmp protect_set
+	jmp init_vbe
 .e820_check_failed:
 	jmp $
 
@@ -173,7 +174,7 @@ init_vbe:
 
 	mov	BX,VBEMODE+0x4000							;bx=mode number
 	mov	ax,0x4f02									
-	int	0x10
+	;int	0x10
 	
 	mov ax, 0x610
 	mov ds, ax
@@ -377,7 +378,8 @@ step_page:
     mov ecx,1024                   								          ;directory of paging
     mov ebx,PAGE_diR_ADDR               								  ;directory memory address
     xor esi,esi 
-	
+
+;------------------------------------------set page----------------------------------------;	
 .clean_pdt:
     mov dword [ebx+esi],0x00000000  									  
     add esi,4
@@ -401,27 +403,30 @@ step_page:
     loop .set_pt0
 
 ;because kernel+paging=5mb, we need extra 1mb memory to save paging
-    mov cx, 256
+;Now, I page 8MB memory.
+    mov cx, 1024
     mov edi, PAGE_TBL_ADDR_EXTRA
 .set_pt1:
     mov [edi], esi
     add esi, 0x1000
     add edi,4
     loop .set_pt1
-   	
+;----------------------------------------END of set page-----------------------------------;	
+
 ;map vram
 
-    mov eax, [0x6100+6]													  ;ds = 0x7000 phy 0x6108
+    mov eax, [0x6100+6]
+    mov [VRAM_ADDR],eax												  ;ds = 0x7000 phy 0x6108
     shr eax,22
     shl eax,2
 	
 ;eax=0xe00
     
-    mov edx,(PAGE_TBL_ADDR+0x1000)|0x07
+    mov edx,(PAGE_TBL_ADDR+0x2000)|0x07
     mov [PAGE_diR_ADDR+eax], edx
     
-    mov edi, PAGE_TBL_ADDR+0x1000										  ;edi=0x3000
-    mov esi, [0x6100+6]													  ;esi= 0xe0000000
+    mov edi, PAGE_TBL_ADDR+0x2000										  ;edi=0x3000
+    mov esi, [0x6100+6]		;0xe00000->0xe00000+4mb											  ;esi= 0xe0000000
     or esi, 0x07														  ;esi= 0xe0000007
     
     mov cx, 1024														  ;map of vram, the vram size is 4MB

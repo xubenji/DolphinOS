@@ -42,7 +42,7 @@ ASM_KERNEL_FLAGS= -f elf
 
 LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK)
 
-OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o kernel/io.o kernel/bitmap.o kernel/string.o com/math.o
+OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o kernel/io_ASM.o kernel/bitmap.o kernel/string.o kernel/handler_ASM.o kernel/pic.o kernel/idt.o com/math.o kernel/handlers.o kernel/timer.o kernel/vram.o
  
 #there are kernel/printk.o
 .PHONY: all
@@ -111,14 +111,33 @@ bitmap.o:kernel/bitmap.c
 string.o:kernel/string.c
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
 
+idt.o:kernel/idt.c
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
+
+pic.o:kernel/pic.c
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
+
+timer.o:kernel/timer.c
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
+
+kernel/io_ASM.o : kernel/io_ASM.asm
+	$(NASM) $(ASM_KERNEL_FLAGS) -o $@ $<
+
+kernel/handler_ASM.o:kernel/handler_ASM.asm
+	$(NASM) $(ASM_KERNEL_FLAGS) -o $@ $<
+
+handlers.o:kernel/handlers.c
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
+
+vram.o:kernel/vram.c
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
+
 #com
 math.o:com/math.c
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
 
 
-#assembly
-kernel/io.o : kernel/io_ASM.asm
-	$(NASM) $(ASM_KERNEL_FLAGS) -o $@ $<
+
 
 #_stack_chk_fail.o:kernel/_stack_chk_fail.c
 #	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 

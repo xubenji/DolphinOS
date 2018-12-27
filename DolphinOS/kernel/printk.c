@@ -64,29 +64,19 @@ void printk(uint8_t *str){
 		}
 }
 
+//input a 32bit number, output this number in decimal.
 void put_dec_uint32(uint32_t num){
 	for(int32_t i=5;i>=0;i--){
 	uint32_t temp=(uint32_t)pow(10,i);
 	int8_t n=num/temp;
 	num=num%temp;
-	/*
-	printk("(");
-	puts_int32(temp);
-	printk("..");
-	puts_int8(i);
-	printk("..");
-	
-	puts_int8(n);
-	printk("..");
-	puts_int8(num);
-	printk(")\n");
-	*/
 	if(n!=0){
 		n=number_to_char(n);
 		get_cursor_pos(n);
 	}else if(num<10){
 		num=number_to_char(num);
 		get_cursor_pos(num);
+		return 0;
 	  }
 	}
 }	
