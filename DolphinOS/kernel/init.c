@@ -29,7 +29,9 @@ int Kernel_Init(){
 	put_dec_uint32(mem_mb);
 	printk("MB\n");
 	init_memory();
+	
 	init_idt();
+	
 	init_pic();
 	init_timer();
 	//io_out8_ASM(PIC0_IMR, 0xfd);

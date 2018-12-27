@@ -82,10 +82,13 @@ void init_memory(){
 	
 	//BitMap* bm = &kernel_vaddr.vaddr_bitmap;
 	//bm->bits[0]=0xff;		
+	//char * p=0x880000;
+	//*p=1;
 	
 	enum pool_flags pk=PF_KERNEL;
-	malloc_page(pk,3);
 	malloc_page(pk,1);
+	//malloc_page(pk,2);
+
 }
 
 /*Allocated pg_cnt pages, if success, return start of virtual address, or retuen NULL 
@@ -115,8 +118,19 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
    }
 
    uint32_t vaddr = (uint32_t)vaddr_start;
-   printk("\nkernel_pool_adder_vir:");
+   printk("\nkernel_pool_adder_vir_:");
    puts_int32(vaddr );
+
+//You need to declare unsigned integer variables When you using the shift operation. 
+    unsigned int * p=&vaddr;
+	*p=(10<<*p)>>22;
+	unsigned short q=0x8080;
+	q=q>>6;
+	puts_int16(q);
+	printk("_:");
+	puts_int16(*p);
+	put_dec_uint32(*p);
+   
    uint32_t cnt = pg_cnt;
    
   // Pool* mem_pool = pf & PF_KERNEL ? &kernel_pool : &user_pool;
@@ -124,18 +138,42 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
    Pool* mem_pool = &kernel_pool;
    /* 因为虚拟地址是连续的,但物理地址可以是不连续的,所以逐个做映射*/
    while (cnt-- > 0) {
+/* 在m_pool指向的物理内存池中分配1个物理页,
+ * 成功则返回页框的物理地址,失败则返回NULL */
       void* page_phyaddr = palloc(mem_pool);
 	  printk("\nkernel_pool_adder_phy:");
 	  puts_int32(page_phyaddr);
+
+	  //char* p = vaddr;
+	 
       if (page_phyaddr == NULL) {  // 失败时要将曾经已申请的虚拟地址和物理页全部回滚，在将来完成内存回收时再补充
 		return NULL;
       }
      // page_table_add((void*)vaddr, page_phyaddr); // 在页表中做映射 
      // vaddr += PAGE_SIZE;		 // 下一个虚拟页
+	  connect_vir_phy(pf, vaddr, page_phyaddr, 0x100000, 0x101000);
+	 
    }
    return vaddr_start;
 }
 
+//char * p=&page_phyaddr;
+// *p=p[1];
+//printk("_:");
+
+void connect_vir_phy(enum pool_flags flags,uint32_t viraddr, uint32_t phyaddr, uint32_t pdt_addr_phy, uint32_t pd_addr_phy){
+	viraddr=0x80800000;
+	uint32_t amount_page_dir = viraddr>>22;
+	printk("...");
+	puts_int32(amount_page_dir);
+	int* local_in_pdt_addr = amount_page_dir*4+pdt_addr_phy;
+	*local_in_pdt_addr=pd_addr_phy+amount_page_dir*PAGE_SIZE;
+					uint32_t p = viraddr<<10;
+	int* local_pd_addr= local_in_pdt_addr+(p>>22);
+		//while(1);
+	*local_pd_addr =  4<<(phyaddr>>4);
+		
+}
 
 /* 在pf表示的虚拟内存池中申请pg_cnt个虚拟页,
  * 成功则返回虚拟页的起始地址, 失败则返回NULL */
@@ -195,3 +233,4 @@ void refresh(){
 		rf2[j]=0x00;
 	}
 }
+
