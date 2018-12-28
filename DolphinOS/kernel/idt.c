@@ -20,17 +20,6 @@ void init_idt(){
 	
 }
 
-/*
-void set_idt_gatedesc(IDT_Gate_Descriptor* gd, int32_t offset, int32_t selector, int32_t ar)
-{
-	gd->offset_low   = offset & 0xffff;
-	gd->selector     = selector;
-	gd->dw_count     = (ar >> 8) & 0xff;
-	gd->access_right = ar & 0xff;
-	gd->offset_high  = (offset >> 16) & 0xffff;
-	return;
-}
-*/
 void set_idt_gatedesc(IDT_Gate_Descriptor *gd, uint32_t offset, uint32_t selector, uint32_t ar, uint8_t privilege){
 	
 	gd->offset_low   = offset & 0xffff;

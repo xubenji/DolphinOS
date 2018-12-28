@@ -20,7 +20,8 @@ void init_bitmap(BitMap* bitmap){
 	
 }
 
-/* 在位图中申请连续cnt个位,成功则返回其起始位下标，失败返回-1 */
+/* 在位图中申请连续cnt个位,成功则返回其起始位下标，失败返回-1 
+ *apply sucessive cnt bits, if success, return the location of that bit or return -1*/
 int bitmap_scan(BitMap* btmp, uint32_t cnt) {
    uint32_t idx_byte = 0;	 // 用于记录空闲位所在的字节
 /* 先逐字节比较,蛮力法 */
@@ -30,11 +31,7 @@ int bitmap_scan(BitMap* btmp, uint32_t cnt) {
 
       idx_byte++;
    }
-   
-  // printk(" 222-1- ");
- //   puts_int32(btmp->bm_total_len);
-	//puts_int32(idx_byte);
-   
+
    if (idx_byte == btmp->bm_total_len) {  // 若该内存池找不到可用空间		
       return -1;
    }
@@ -50,8 +47,7 @@ int bitmap_scan(BitMap* btmp, uint32_t cnt) {
 	 
    int bit_idx_start = idx_byte * 8 + idx_bit;    // 空闲位在位图内的下标
    if (cnt == 1) {
-	    //  printk(" 222-1- ");
-		// puts_int32(bit_idx_start);
+
       return bit_idx_start;
    }
 
@@ -75,7 +71,8 @@ int bitmap_scan(BitMap* btmp, uint32_t cnt) {
    return bit_idx_start;
 }
 
-/* 判断bit_idx位是否为1,若为1则返回true，否则返回false */
+/* 判断bit_idx位是否为1,若为1则返回true，否则返回false 
+ * check whether the bit_idx th is one, if it is 1, return true or return false.*/
 bool bitmap_scan_test(BitMap* btmp, uint32_t bit_idx) {
    uint32_t byte_idx = bit_idx / 8;    // 向下取整用于索引数组下标
    uint32_t bit_odd  = bit_idx % 8;    // 取余用于索引数组内的位

@@ -82,15 +82,16 @@ void init_memory(){
 	
 	enum pool_flags pk=PF_KERNEL;
 	
-	
+//apply three pages memory in kernel pool
 	malloc_page(pk,2);
 	malloc_page(pk,1);
-	Pool* mp = &kernel_pool;
+
+/*	Pool* mp = &kernel_pool;
 	BitMap* mt = &mp->pool_bitmap;
 	mt->bits[0]=0;
 	malloc_page(pk,2);
 	char* p = 0x80c02001;
-	*p=0x00;
+	*p=0x00;*/
 
 	
 }
@@ -138,10 +139,11 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
    
    /* 因为虚拟地址是连续的,但物理地址可以是不连续的,所以逐个做映射*/
    while (cnt-- > 0) {
+	   
 /* 在m_pool指向的物理内存池中分配1个物理页,
  * 成功则返回页框的物理地址,失败则返回NULL */
       void* page_phyaddr = palloc(mem_pool);
-	  printk("\nkernel_pool_adder_phy:");
+	  printk("kernel_adder_phy:");
 	  puts_int32(page_phyaddr);
 
 	 
@@ -169,8 +171,6 @@ void connect_vir_phy(enum pool_flags flags, uint32_t viraddr, uint32_t phyaddr, 
 /*在页表中找到对应的表项
  *fine page table entry in page table*/
 	uint32_t p = viraddr<<10;
-	printk("amount:");
-	puts_int8((p>>22)*4);
 	int* local_in_pd_addr = pd_addr_phy + amount_page_dir*PAGE_SIZE +(p>>22)*4;
 	
 /*将真实的物理地址写入对应的页表
