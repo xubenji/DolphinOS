@@ -69,15 +69,9 @@ void init_memory(){
 	
 	/* 位图的数组指向一块未使用的内存,目前定位在内核内存池和用户内存池之外*/
 	kernel_vaddr.vaddr_bitmap.bits = (void*)(kernel_pool.pool_bitmap.bits + kbm_length + ubm_length);
-	//printk("qqq");
+
 	kernel_vaddr.vaddr_start=K_HEAP_START;
-	//uint32_t a= K_HEAP_START;
-	//puts_int32(a);
-	//printk("111");
-	//uint32_t *p=(void*)(0x80501000);
-	//kernel_vaddr.vaddr_bitmap.bits[0]=0xab;
-	//*p=0xabdef012;
-	//puts_int32(kernel_vaddr.vaddr_bitmap.bits);
+
 	
 	printk("\nmemory init......\n");
 	
@@ -97,9 +91,7 @@ void init_memory(){
 	malloc_page(pk,2);
 	char* p = 0x80c02001;
 	*p=0x00;
-	/*char* p1 = 0x0c01000;
-	*p1=0x00;
-	*/
+
 	
 }
 
@@ -120,12 +112,7 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
 ***************************************************************/
 
    void* vaddr_start = vaddr_get(pf, pg_cnt);
-   
-  // printk("  :");
-  // puts_int32(vaddr_start);
-   
    if (vaddr_start == NULL) {
-	  //  printk(" ?? ");
       return NULL;
    }
 
@@ -147,10 +134,8 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
 	put_dec_uint32(*p);*/
    
    uint32_t cnt = pg_cnt;
+   Pool* mem_pool = pf & PF_KERNEL ? &kernel_pool : &user_pool;
    
-  // Pool* mem_pool = pf & PF_KERNEL ? &kernel_pool : &user_pool;
-   
-   Pool* mem_pool = &kernel_pool;
    /* 因为虚拟地址是连续的,但物理地址可以是不连续的,所以逐个做映射*/
    while (cnt-- > 0) {
 /* 在m_pool指向的物理内存池中分配1个物理页,
@@ -159,62 +144,43 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
 	  printk("\nkernel_pool_adder_phy:");
 	  puts_int32(page_phyaddr);
 
-	  //char* p = vaddr;
 	 
       if (page_phyaddr == NULL) {  // 失败时要将曾经已申请的虚拟地址和物理页全部回滚，在将来完成内存回收时再补充
 		return NULL;
       }
-     // page_table_add((void*)vaddr, page_phyaddr); // 在页表中做映射 
-     // vaddr += PAGE_SIZE;		 // 下一个虚拟页
-	  connect_vir_phy(pf, vaddr, page_phyaddr, 0x100000, 0x101000);
-	 vaddr += PAGE_SIZE;	
+	 connect_vir_phy(pf, vaddr, page_phyaddr, 0x100000, 0x101000);
+	 vaddr += PAGE_SIZE;	// 下一个虚拟页
    }
    return vaddr_start;
 }
 
-//char * p=&page_phyaddr;
-// *p=p[1];
-//printk("_:");
-
+/*将虚拟地址和物理地址对应起来
+ *connection the virtual address to physical address*/
 void connect_vir_phy(enum pool_flags flags, uint32_t viraddr, uint32_t phyaddr, uint32_t pdt_addr_phy, uint32_t pd_addr_phy){
-	printk("v:");
-	puts_int32(viraddr);
-	//viraddr=0x80800000;
-	printk("p:");
-	puts_int32(phyaddr);
-	
+
 	if(flags==PF_KERNEL){
 		
+/*这部分就是将需要用到的页表地址写入到页目录表的表项当中
+ *write address of page table to page direct table*/
 	uint32_t amount_page_dir = viraddr>>22;
-	
-	/*
-	int* local_in_pdt_addr = amount_page_dir*4+pdt_addr_phy;
-	printk("pdir entry:");
-	puts_int32(local_in_pdt_addr);
-	*/
-	//*local_in_pdt_addr=pd_addr_phy+amount_page_dir*PAGE_SIZE;
-	
-	int* local_in_pdt_addr = pdt_addr_phy+amount_page_dir*4;
-	
+	int* local_in_pdt_addr = pdt_addr_phy+amount_page_dir*4;	
 	*local_in_pdt_addr=pd_addr_phy+amount_page_dir*PAGE_SIZE+0x07;
-	printk("*local_in_pdt_addr:");
-	puts_int32(*local_in_pdt_addr);
-	/*uint32_t p = viraddr<<10;
-	
-	//int* local_pd_addr= *local_in_pdt_addr+(p>>22)*4;
-	int* local_pd_addr= pd_addr_phy+(p>>22)*4;
-	printk("pt entry:");
-	puts_int32(local_pd_addr);
-	*/
+
+/*在页表中找到对应的表项
+ *fine page table entry in page table*/
 	uint32_t p = viraddr<<10;
 	printk("amount:");
 	puts_int8((p>>22)*4);
 	int* local_in_pd_addr = pd_addr_phy + amount_page_dir*PAGE_SIZE +(p>>22)*4;
+	
+/*将真实的物理地址写入对应的页表
+ *write physical address in page table*/
 	*local_in_pd_addr=phyaddr+0x07;
+	
 	}else if(flags==2){
 	//user part	
+	//用户任务部分
 	}
-	
 }
 
 /* 在pf表示的虚拟内存池中申请pg_cnt个虚拟页,
@@ -254,17 +220,7 @@ static void* palloc(Pool* m_pool) {
 
 //刷新4kb内存，因为不刷新内存就会出现乱码，未来bitmap的地址将会加载到这里
 void refresh(){
-	/*char* rf=MEM_BITMAP_BASE;
-	for(uint32_t i=0;i<4673;i++){
-		rf[i]=0x00;
-	}*/
-	//char *a = (char *)0x400000;
-	//char *b = (char *)0x8ffffe;
-	
-	//*a = 0xaa;
-	//*b = 0xff;
-	
-	
+
 	char* rf=MEM_BITMAP_BASE+4674;
 	//printk("ERROR:");
 	//puts_int32(MEM_BITMAP_BASE+4674);
