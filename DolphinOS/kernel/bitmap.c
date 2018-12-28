@@ -12,7 +12,7 @@ void init_bitmap(BitMap* bitmap){
 	uint32_t i=memset(bitmap->bits,0,bitmap->bm_total_len);
 	printk("\nNow,We have initialized the kernel memory.");
 	printk("\nBecause, 0~");
-	uint32_t ms=USED_MEMORY_SIZE/(1024*1024); 
+	uint32_t ms=USED_MEMORY_SIZE; 
 	put_dec_uint32(ms);
     printk("MB of memory has been used.\nSo, Now, The kernel program can use about: ");
 	put_dec_uint32(i*8*4);
@@ -24,11 +24,10 @@ void init_bitmap(BitMap* bitmap){
 int bitmap_scan(BitMap* btmp, uint32_t cnt) {
    uint32_t idx_byte = 0;	 // 用于记录空闲位所在的字节
 /* 先逐字节比较,蛮力法 */
- // puts_int16(btmp->bits[0]);
+ 
    while (( 0xff == btmp->bits[idx_byte]) && (idx_byte < btmp->bm_total_len)) {
 /* 1表示该位已分配,所以若为0xff,则表示该字节内已无空闲位,向下一字节继续找 */ 
-	//  printk("1");
-	  
+
       idx_byte++;
    }
    

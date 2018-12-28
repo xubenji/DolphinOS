@@ -10,9 +10,6 @@
 #include "printk.h"
 #include "bitmap.h"
 
-Pool kernel_pool, user_pool;
-Virtual_Addr_BitMap kernel_vaddr;
-
 /*I am not familiar the memory management of linux, So I manage the memory by myself.
  *It is very important file in kernel
  *You can see in DolphinOS, 0~12mb of memory is not avaiable for user.
@@ -31,19 +28,23 @@ Virtual_Addr_BitMap kernel_vaddr;
  *USED_MEMORY_SIZE的单位是bytes，12x1024x1024 bytes=12mb
  */
 
+Pool kernel_pool, user_pool;
+Virtual_Addr_BitMap kernel_vaddr;
+
 void init_memory(){
 	
 	refresh();
-	
+	               
 	uint32_t memory_total_size;
 	memory_total_size=get_ards_infor();
 	uint32_t total_pages=memory_total_size/PAGE_SIZE;
-	uint32_t used_memory_size=USED_MEMORY_SIZE;
+	
+	uint32_t used_memory_size=USED_MEMORY_SIZE*1024*1024;
 	uint32_t used_phy_pages=used_memory_size/PAGE_SIZE;
 	uint32_t free_pages=total_pages-used_phy_pages;
 	uint32_t kernel_pages=free_pages/2;
 	uint32_t kbm_length=kernel_pages/8;
-	uint32_t kp_start_address=USED_MEMORY_SIZE;
+	uint32_t kp_start_address=used_memory_size;
 	uint32_t ubm_length=(free_pages-kernel_pages)/8;
 	
 	kernel_pool.phy_addr_start=kp_start_address;
@@ -86,10 +87,19 @@ void init_memory(){
 	//*p=1;
 	
 	enum pool_flags pk=PF_KERNEL;
-	malloc_page(pk,1);
+	
+	
 	malloc_page(pk,2);
-//	char* p = 0x80800001;
-	//*p=0x00;
+	malloc_page(pk,1);
+	Pool* mp = &kernel_pool;
+	BitMap* mt = &mp->pool_bitmap;
+	mt->bits[0]=0;
+	malloc_page(pk,2);
+	char* p = 0x80c02001;
+	*p=0x00;
+	/*char* p1 = 0x0c01000;
+	*p1=0x00;
+	*/
 	
 }
 
@@ -123,7 +133,10 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
    printk("\nkernel_pool_adder_vir_:");
    puts_int32(vaddr );
 
-//You need to declare unsigned integer variables When you using the shift operation. 
+/*************************************************************************************
+   You need to declare unsigned integer variables When you using the shift operation.
+**************************************************************************************/
+   
     /*unsigned int * p=&vaddr;
 	*p=(10<<*p)>>22;
 	unsigned short q=0x8080;
@@ -164,22 +177,44 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
 //printk("_:");
 
 void connect_vir_phy(enum pool_flags flags, uint32_t viraddr, uint32_t phyaddr, uint32_t pdt_addr_phy, uint32_t pd_addr_phy){
-	printk("viraddr:");
+	printk("v:");
 	puts_int32(viraddr);
 	//viraddr=0x80800000;
+	printk("p:");
+	puts_int32(phyaddr);
+	
+	if(flags==PF_KERNEL){
+		
 	uint32_t amount_page_dir = viraddr>>22;
-	printk("...%");
-	puts_int32(amount_page_dir);
+	
+	/*
 	int* local_in_pdt_addr = amount_page_dir*4+pdt_addr_phy;
-	*local_in_pdt_addr=pd_addr_phy+amount_page_dir*PAGE_SIZE;
-
-					uint32_t p = viraddr<<10;
-	int* local_pd_addr= *local_in_pdt_addr+(p>>22)*4;
+	printk("pdir entry:");
+	puts_int32(local_in_pdt_addr);
+	*/
+	//*local_in_pdt_addr=pd_addr_phy+amount_page_dir*PAGE_SIZE;
 	
+	int* local_in_pdt_addr = pdt_addr_phy+amount_page_dir*4;
 	
-	*local_pd_addr =  phyaddr&0xFFFFFFF0;
-	printk("...%");
-	puts_int32((p>>22)*4);
+	*local_in_pdt_addr=pd_addr_phy+amount_page_dir*PAGE_SIZE+0x07;
+	printk("*local_in_pdt_addr:");
+	puts_int32(*local_in_pdt_addr);
+	/*uint32_t p = viraddr<<10;
+	
+	//int* local_pd_addr= *local_in_pdt_addr+(p>>22)*4;
+	int* local_pd_addr= pd_addr_phy+(p>>22)*4;
+	printk("pt entry:");
+	puts_int32(local_pd_addr);
+	*/
+	uint32_t p = viraddr<<10;
+	printk("amount:");
+	puts_int8((p>>22)*4);
+	int* local_in_pd_addr = pd_addr_phy + amount_page_dir*PAGE_SIZE +(p>>22)*4;
+	*local_in_pd_addr=phyaddr+0x07;
+	}else if(flags==2){
+	//user part	
+	}
+	
 }
 
 /* 在pf表示的虚拟内存池中申请pg_cnt个虚拟页,

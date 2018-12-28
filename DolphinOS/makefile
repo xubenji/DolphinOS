@@ -59,7 +59,7 @@ write_disk:
 
 run: all
 	#qemu-system-i386 -bios "OVMF.fd" -m 32 -fda $(DolphinOS_IMG) -boot a
-	qemu-system-i386 -m 32 -fda $(DolphinOS_IMG) -boot a
+	qemu-system-i386 -m 64 -fda $(DolphinOS_IMG) -boot a
 	#bochs -f bochsrc
 
 clean:

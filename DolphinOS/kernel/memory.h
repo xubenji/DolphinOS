@@ -1,10 +1,12 @@
 #include "bitmap.h"
 
 #define PAGE_SIZE 4096
-#define USED_MEMORY_SIZE 8388608 //8x1024x1024, 8MB memory, unit: bytes, 
-#define MEM_BITMAP_BASE 0x80501000  //bitmap memory address, 5MB+4KB.
+#define USED_MEMORY_SIZE 12 //12x1024x1024, 12MB memory, unit: bytes, 
+#define MEM_BITMAP_BASE 0x80502000  //bitmap memory address, 5MB+8KB.
 #define TOTAL_REFRESH_MEMORY_SIZE 4190208 //4X1024X1024-4096(4kb)
-#define K_HEAP_START 0x80800000  // 0x80000000是内核从虚拟地址2G起. 0x800000意指跨过低端8M内存,使虚拟地址在逻辑上连续
+#define K_HEAP_START 0x80c00000  // 0x80000000是内核从虚拟地址2G起. 0xc00000意指跨过低端12M内存,使虚拟地址在逻辑上连续
+#define KERNEL_PAGE_DIR_TABLE 0x100000
+#define KERNEL_PAGE_TABLE 0X101000
 
 typedef struct _pool {
 	BitMap pool_bitmap;	 
