@@ -34,6 +34,7 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt);
 static void* vaddr_get(enum pool_flags pf, uint32_t pg_cnt);
 static void* palloc(Pool* m_pool);
 void refresh();
+void* get_kernel_pages(uint32_t pg_cnt); 
 
 
 

@@ -83,9 +83,9 @@ void init_memory(){
 	enum pool_flags pk=PF_KERNEL;
 	
 //apply three pages memory in kernel pool
-	malloc_page(pk,2);
-	malloc_page(pk,1);
-
+	//malloc_page(pk,2);
+	//malloc_page(pk,1);
+	get_kernel_pages(1);
 /*	Pool* mp = &kernel_pool;
 	BitMap* mt = &mp->pool_bitmap;
 	mt->bits[0]=0;
@@ -232,3 +232,11 @@ void refresh(){
 	}
 }
 
+/* 从内核物理内存池中申请pg_cnt页内存,成功则返回其虚拟地址,失败则返回NULL */
+void* get_kernel_pages(uint32_t pg_cnt) {
+   void* vaddr =  malloc_page(PF_KERNEL, pg_cnt);
+   if (vaddr != NULL) {	   // 若分配的地址不为空,将页框清0后返回
+      memset(vaddr, 0, pg_cnt * PAGE_SIZE);
+   }
+   return vaddr;
+}

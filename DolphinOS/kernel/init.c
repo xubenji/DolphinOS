@@ -16,6 +16,9 @@
 #include "handler_ASM.h"
 #include "timer.h"
 #include "vram.h"
+#include "thread.h"
+
+void k_thread_a(void*);
 
 int Kernel_Init(){
 	init_display_info();
@@ -37,5 +40,17 @@ int Kernel_Init(){
 	//io_out8_ASM(PIC0_IMR, 0xfd);
 	io_sti();
 	
+	thread_start("k_thread_a", 31, k_thread_a, "argA ");
+	
 	while(1){}
 }
+
+/* 在线程中运行的函数 */
+void k_thread_a(void* arg) {     
+/* 用void*来通用表示参数,被调用的函数知道自己需要什么类型的参数,自己转换再用 */
+   char* para = arg;
+   while(1) {
+      printk("para");
+   }
+}
+
