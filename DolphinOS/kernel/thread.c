@@ -26,7 +26,7 @@ void thread_create(struct task_struct* pthread, thread_func function, void* func
 /* 初始化线程基本信息 */
 void init_thread(struct task_struct* pthread, char* name, int prio) {
 	memset(pthread, 0, sizeof(*pthread));
-	//strcpy(pthread->name, name);
+	
 	pthread->status = TASK_RUNNING; 
 	pthread->priority = prio;
 	/* self_kstack是线程自己在内核态下使用的栈顶地址 */
