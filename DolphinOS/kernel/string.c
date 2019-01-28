@@ -9,3 +9,11 @@ uint32_t memset(void* dst_, uint8_t value, uint32_t size) {
    }
    return i;
 }
+
+/* 将字符串从src_复制到dst_ */
+/* copy src to dst*/
+char* strcpy(char* dst_, const char* src_) {
+   char* r = dst_;		       // 用来返回目的字符串起始地址
+   while((*dst_++ = *src_++));
+   return r;
+}

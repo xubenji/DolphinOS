@@ -26,6 +26,8 @@ void inthandler20_timer(int32_t *esp){
 	times++;
 	//print * per second
 	if(times%100==0){
-		printk("*");
+
+		printk(" A ");
+		//thread_start("k_thread_a", 31, k_thread_a, "argA ");
 	}
 }
