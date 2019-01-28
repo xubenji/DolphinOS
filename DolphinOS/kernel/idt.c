@@ -3,6 +3,9 @@
 #include "handler_ASM.h"
 #include "io_ASM.h"
 
+#define EFLAGS_IF   0x00000200       // eflags寄存器中的if位为1
+#define GET_EFLAGS(EFLAG_VAR) asm volatile("pushfl; popl %0" : "=g" (EFLAG_VAR))
+
 void init_idt(){
 	
 	IDT_Gate_Descriptor *idt=(IDT_Gate_Descriptor*)IDT_ADDR;
