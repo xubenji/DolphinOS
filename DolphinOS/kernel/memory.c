@@ -13,7 +13,7 @@
 /*I am not familiar the memory management of linux, So I manage the memory by myself.
  *It is very important file in kernel
  *You can see in DolphinOS, 0~12mb of memory is not avaiable for user.
- *Why? because 0~1mb of memory is occupied by kernel and 1~5mb of memory is occupied by paging & paging directoy.
+ *Why? because 0~1mb of memory is occupied by kernel, and 1~5mb of memory is occupied by paging & paging directoy.
  *5~8MB are free memory space. I will make kernel program to use this memory(5~8MB). 8~12mb is vram.
  *memory_total_size means that the memory of machine.
  *unit of USED_MEMORY_SIZE is 'bytes'. 12x1024x1024 bytes=12mb.
