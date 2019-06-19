@@ -19,7 +19,7 @@
 # New 0.07 version
 	In this version, I change the paging to 0x100000(1mb low physical memory address) in order to implenment the memory mangment system. 
 # New 0.08 version
-	In this version, I add the 'Thread' in OS and I written the code that can be compiled in 64-bits operating systems. For makefile file, makefile32 is use to in 32-bits operating systems and makefile is use to in 64-bits operating systems. 
+	In this version, I add the 'Thread' in OS and I written the code that can be compiled in 64-bits operating systems. For makefile file, makefile32 is used to in 32-bits operating systems and makefile is used to in 64-bits operating systems. 
 # Fans QQ group
 	Future_Technology: 375678777. 
 	There are development environment which is a virtual machine(VMware) file.
