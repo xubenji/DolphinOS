@@ -12,12 +12,14 @@
 	Version 0.06 the stack checked function of gcc is disable.
 	Version 0.07d new function: you can put the decimal number in screen.
 	Version 0.08a complete the momery mangment system and kernel thread
-# How to run DolphinOS?
+# How do you run DolphinOS?
 	First, you need install a linux operating system like ubuntu, CentOS. 
 	And then you need install qemu, gcc(V5.40) & nasm in linux.
 	Finally you open the terminal in DolphinOS folder and enter the command: make run (make sure you are root.) 
 # New 0.07 version
 	In this version, I change the paging to 0x100000(1mb low physical memory address) in order to implenment the memory mangment system. 
+# New 0.08 version
+	In this version, I add the 'Thread' in OS and I written the code that can be compiled in 64-bits operating systems. For makefile file, makefile32 is use to in 32-bits operating systems and makefile is use to in 64-bits operating systems. 
 # Fans QQ group
 	Future_Technology: 375678777. 
 	There are development environment which is a virtual machine(VMware) file.
@@ -81,6 +83,8 @@
 	最后你需要在DolphinOS文件夹下打开terminal，输入make run命令（确保你现在已经取得root权限）。
 # 0.07新版本
 	在这个版本中，我将页表移动到了0x100000处（低端物理地址），目的是为了实现内存管理系统。
+# 0.08新版本
+	在这个版本中我在系统中加入了线程，而且我编写了可以在64位系统上运行的代码。makefile32是被用在32位系统上的。makefile是被用在64位系统上的.
 # QQ粉丝群 
 	未来科技：375678777
 	这里有我使用的开发环境，一个虚拟机文件。你可以从qq群得到下载地址。
