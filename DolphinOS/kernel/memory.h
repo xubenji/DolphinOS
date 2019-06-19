@@ -1,4 +1,5 @@
 #include "bitmap.h"
+#include "../com/types.h"
 
 #define PAGE_SIZE 4096
 #define USED_MEMORY_SIZE 12 //12x1024x1024, 12MB memory, unit: bytes, 
@@ -35,6 +36,8 @@ static void* vaddr_get(enum pool_flags pf, uint32_t pg_cnt);
 static void* palloc(Pool* m_pool);
 void refresh();
 void* get_kernel_pages(uint32_t pg_cnt); 
+uint32_t get_ards_infor();
+
 
 
 

@@ -23,10 +23,10 @@ ASM_BOOT_PATH	= -I
 
 DolphinOS_IMG	= DolphinOS.img
 
-
-NASM		= nasm
-CC		= gcc $(NOSTACK)
-LD 		= ld
+NASM32		= nasm
+NASM		= nasm -f elf
+CC		= gcc -m32 -fno-pic $(NOSTACK)
+LD 		= ld -m elf_i386 -s
 
 BOOT_BIN	= boot/boot.bin
 LOAD_BIN	= boot/load.bin
@@ -72,10 +72,10 @@ clean:
 #	-rm  *.o
 
 $(LOAD_BIN):boot/load.asm
-	$(NASM)  -o $@ $<
+	$(NASM32)  -o $@ $<
 
 $(BOOT_BIN):boot/boot.asm
-	$(NASM)  -o $@ $<
+	$(NASM32)  -o $@ $<
 
 $(KERNEL_BIN):$(OBJS)
 	$(LD) $(LDFLAGS) -o $(KERNEL_BIN) $(OBJS)

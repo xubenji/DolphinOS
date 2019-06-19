@@ -8,8 +8,12 @@ global io_out8_ASM
 global io_sti
 global load_idtr
 
+
+
 [section .text]
 [bits 32]
+;.code32 ;worry label
+
 io_sti:	; void io_sti(void),open all of descripters
 		STI
 		RET

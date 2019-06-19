@@ -22,7 +22,7 @@ void init_idt(){
 	
 }
 
-/* set IDT descriptor*/
+/* set IDT descriptor*///5CC7C5FBB253
 void set_idt_gatedesc(IDT_Gate_Descriptor *gd, uint32_t offset, uint32_t selector, uint32_t ar, uint8_t privilege){	
 	gd->offset_low   = offset & 0xffff;	
 	gd->selector     = selector;

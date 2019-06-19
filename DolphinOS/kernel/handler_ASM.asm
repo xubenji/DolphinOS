@@ -9,6 +9,8 @@ EOI EQU 0X20
 
 [section .text]
 [bits 32]
+;.code32 'worry label
+
 _asm_inthandler21_keyboard:	; IRQ 1		keyboard
 	PUSH	ES			
 	PUSH	DS
