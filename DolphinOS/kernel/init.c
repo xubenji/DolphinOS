@@ -17,6 +17,8 @@
 #include "timer.h"
 #include "vram.h"
 #include "thread.h"
+#include "debug.h"
+#include "thread.h"
 
 void k_thread_a(void*);
 
@@ -36,11 +38,12 @@ int Kernel_Init(){
 	init_idt();
 	
 	init_pic();
+	thread_init();
 	init_timer();
 	//io_out8_ASM(PIC0_IMR, 0xfd);
 	io_sti();
-	
-	thread_start("k_thread_a", 31, k_thread_a, "argA ");
+	//PAUSE(1==2);
+	//thread_start("k_thread_a", 0, k_thread_a, "argA ");
 	
 	while(1){
 	   // printk(" B ");
