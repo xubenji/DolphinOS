@@ -20,11 +20,14 @@ struct task_struct* running_thread() {
    uint32_t esp; 
    asm ("mov %%esp, %0" : "=g" (esp));
   /* 取esp整数部分即pcb起始地址 */
+  // puts_int32(esp);
+ //  while(1);
    return (struct task_struct*)(esp & 0xfffff000);
 }
 
 /* 由kernel_thread去执行function(func_arg) */
 static void kernel_thread(thread_func* function, void* func_arg) {
+	intr_enable();
 	function(func_arg); 
 }
 
@@ -73,12 +76,22 @@ struct task_struct* thread_start(char* name, int prio, thread_func function, voi
 	thread_create(thread, function, func_arg);
 
 	/* 确保之前不在队列中 */
-	PAUSE(!elem_find(&thread_ready_list, &thread->general_tag));
+//	PAUSE(!elem_find(&thread_ready_list, &thread->general_tag));
+	if(!elem_find(&thread_ready_list, &thread->general_tag)){
+		printk("not out of before list!!!");
+		while(1){}
+	}
+	
 	/* 加入就绪线程队列 */
 	list_append(&thread_ready_list, &thread->general_tag);
 
 	/* 确保之前不在队列中 */
-	PAUSE(!elem_find(&thread_all_list, &thread->all_list_tag));
+	//PAUSE(!elem_find(&thread_all_list, &thread->all_list_tag));
+	if(!elem_find(&thread_all_list, &thread->all_list_tag)){
+		printk("not out of before list!!!");
+		while(1){}
+	}
+	
 	/* 加入全部线程队列 */
 	list_append(&thread_all_list, &thread->all_list_tag);
 
@@ -92,23 +105,36 @@ static void make_main_thread(void) {
 	就是为其预留了pcb,地址为0xc009e000,因此不需要通过get_kernel_page另分配一页*/
 	/*因为这段函数是复制的操作系统真相还原的，
 	所以此系统的main进程的pcb并不是和书中一致，此版本这个bug并没有解决，下个版本争取解决。*/
+	struct task_struct* main_thread = get_kernel_pages(1);
 	main_thread = running_thread();
 	init_thread(main_thread, "main", 31);
 
 	/* main函数是当前线程,当前线程不在thread_ready_list中,
 	 * 所以只将其加在thread_all_list中. */
-	PAUSE(!elem_find(&thread_all_list, &main_thread->all_list_tag));
+	//PAUSE(!elem_find(&thread_all_list, &main_thread->all_list_tag));
+	if(!elem_find(&thread_all_list, &main_thread->all_list_tag)){
+		printk("make_main_thread error");
+			   while(1){}
+	}
+		
 	list_append(&thread_all_list, &main_thread->all_list_tag);
 }
 
 /* 实现任务调度 */
 void schedule() {
 
-	PAUSE(intr_get_status() == INTR_OFF);
-
+//	PAUSE(intr_get_status() == INTR_OFF);
+	/*if(intr_get_status() == INTR_OFF){
+	printk("schedule error1!!!");
+	while(1){}
+	}*/
 	struct task_struct* cur = running_thread(); 
 	if (cur->status == TASK_RUNNING) { // 若此线程只是cpu时间片到了,将其加入到就绪队列尾
-		PAUSE(!elem_find(&thread_ready_list, &cur->general_tag));
+	//	PAUSE(!elem_find(&thread_ready_list, &cur->general_tag));
+		if(!elem_find(&thread_ready_list, &cur->general_tag)){
+			printk("schedule error2!!!");
+				   while(1){}
+		}
 		list_append(&thread_ready_list, &cur->general_tag);
 		cur->ticks = cur->priority;     // 重新将当前线程的ticks再重置为其priority;
 		cur->status = TASK_READY;
@@ -117,7 +143,11 @@ void schedule() {
 		不需要将其加入队列,因为当前线程不在就绪队列中。*/
 	}
 
-	PAUSE(!list_empty(&thread_ready_list));
+	//PAUSE(!list_empty(&thread_ready_list));
+		if(!list_empty(&thread_ready_list)){
+		printk("scheduel error3!!!");
+	while(1){}
+		}
 	thread_tag = NULL;	  // thread_tag清空
 	/* 将thread_ready_list队列中的第一个就绪线程弹出,准备将其调度上cpu. */
 	thread_tag = list_pop(&thread_ready_list);   
@@ -132,6 +162,6 @@ void thread_init(void) {
 	list_init(&thread_ready_list);
 	list_init(&thread_all_list);
 	/* 将当前main函数创建为线程 */
-	make_main_thread();
+	//make_main_thread();
 	printk("thread init completed\n");
 }

@@ -5,6 +5,8 @@
 #include "pic.h"
 #include "io_ASM.h"
 #include "handlers.h"
+#include "thread.h"
+#include "debug.h"
 
 /*It is very difficult to find this mistake, because the textbook is aslo worry!!!!
  *At the beginning, my os can only accept the interupt once!!!
@@ -13,6 +15,9 @@
  *Finally, I was surprised to find that the Intel 8042. you need read the data from the Intel 8042! beacuse if you haven't read the data, the 8042 still think the interupt hasn't be completed.
  *It cost me about three weeks to solve the problem. OMG!!!
  */
+
+uint32_t ticks;
+
 void inthandler21_keyboard(int32_t *esp){
 	printk("  INT21 (IRQ-1)  ");
 	io_out8_ASM(PIC0_OCW2,0x61);
@@ -21,12 +26,28 @@ void inthandler21_keyboard(int32_t *esp){
 
 uint32_t times=0;
 
-void inthandler20_timer(int32_t *esp){
+/*time hander function*/ 
+void inthandler20_timer(int32_t *esp){	
 	io_out8_ASM(PIC0_OCW2, 0x60);
-	times++;
+	struct task_struct* cur_thread = running_thread();
+	
+//	PAUSE(cur_thread->stack_magic == 0x19870916);
+	if(cur_thread->stack_magic == 0x19870916){
+		printk("inthandler20_timer error!");
+		while(1){}
+	}
+	cur_thread->elapsed_ticks++;
+	ticks++;
+	
+	if(cur_thread->ticks==0){
+		schedule();
+	}else{
+		cur_thread->ticks--;
+	}
+	
+	//times++;
 	//print * per second
-	if(times%100==0){
-
+	if(ticks%100==0){
 		printk(" A ");
 		//thread_start("k_thread_a", 31, k_thread_a, "argA ");
 	}
