@@ -1,4 +1,6 @@
 #include "list.h"
+#include "idt.h"
+#include "../com/types.h"
 
 /* 初始化双向链表list */
 void list_init (struct list* list) {
