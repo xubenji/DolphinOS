@@ -76,6 +76,7 @@ void put_dec_uint32(uint32_t num){
 	}else if(num<10){
 		num=number_to_char(num);
 		get_cursor_pos(num);
+		return 0;
 	  }
 	}
 }	

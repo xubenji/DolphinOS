@@ -7,7 +7,6 @@
 #include "string.h"
 #include "bitmap.h"
 #include "memory.h"
-#include "debug.h"
 
 void init_bitmap(BitMap* bitmap){
 	uint32_t i=memset(bitmap->bits,0,bitmap->bm_total_len);
@@ -82,11 +81,7 @@ bool bitmap_scan_test(BitMap* btmp, uint32_t bit_idx) {
 
 /* 将位图btmp的bit_idx位设置为value */
 void bitmap_set(BitMap* btmp, uint32_t bit_idx, int8_t value) {
-   //PAUSE((value == 0) || (value == 1));
-	/*if((value == 0) || (value == 1)){
-	printk("bitmap_set error!");
-	while(1){}
-	}*/
+  // ASSERT((value == 0) || (value == 1));
    uint32_t byte_idx = bit_idx / 8;    // 向下取整用于索引数组下标
    uint32_t bit_odd  = bit_idx % 8;    // 取余用于索引数组内的位
 
