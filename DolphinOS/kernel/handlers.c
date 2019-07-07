@@ -38,6 +38,11 @@ void inthandler20_timer(int32_t *esp){
 	cur_thread = running_thread();
 //	puts_int32(sizeof(struct task_struct));
 //	puts_int32(cur_thread->stack_magic);
+
+
+//check the special number defined by myself. 
+//In the first switching, the special number is 0x101000. I can't find the real reason. 
+//判断自定义魔数，但是第一次线程调度的时候魔数为0x101000，我不知道为什么
 	if (cur_thread->stack_magic==0x19870916||cur_thread->stack_magic==0x101000){
 		goto next;
 		}else{
