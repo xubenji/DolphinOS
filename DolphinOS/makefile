@@ -25,7 +25,7 @@ DolphinOS_IMG	= DolphinOS.img
 
 NASM32		= nasm
 NASM		= nasm -f elf
-CC		= gcc -m32 -fno-pic $(NOSTACK)
+CC		= gcc -std=gnu99 -m32 -fno-pic $(NOSTACK)
 LD 		= ld -m elf_i386 -s
 
 BOOT_BIN	= boot/boot.bin
@@ -58,8 +58,8 @@ write_disk:
 	dd if=$(KERNEL_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(KERNEL_SECTOR_OFFEST) count=$(KERNEL_SECTORS) conv=notrunc
 
 run: all
-	#qemu-system-i386 -bios "OVMF.fd" -m 32 -fda $(DolphinOS_IMG) -boot a
 	qemu-system-i386 -m 64 -fda $(DolphinOS_IMG) -boot a
+	#qemu-system-i386 -bios "OVMF.fd" -m 32 -fda $(DolphinOS_IMG) -boot a
 	#bochs -f bochsrc
 
 clean:

@@ -20,12 +20,15 @@
 #include "debug.h"
 #include "thread.h"
 
-void k_thread_a(void*);
+void main(void*);
+void k_thread_b(void *);
+void k_thread_C(void *);
+
 
 int Kernel_Init(){
 	init_display_info();
 	show_screen_info();
-	printk("Hello, this is DolphinOS0.07, welcome to my Operating System\n");
+	printk("Hello, this is DolphinOS, welcome to my Operating System\n");
 	printk("------\n");
 	vram();
 	uint32_t memory=get_ards_infor();
@@ -39,25 +42,73 @@ int Kernel_Init(){
 	
 	init_pic();
 	thread_init();
-	init_timer();
+	//init_timer();
 	//io_out8_ASM(PIC0_IMR, 0xfd);
 	io_sti();
-	//PAUSE(1==2);
-	thread_start("k_thread_a", 0, k_thread_a, "argA ");
+	
+	thread_start("main",100, main, "argA ");
+
+	//You can open time interrupt after init main thread or appear some errors
+	//注册完主线程信息以后再开启时钟中断，否则会出现问题
+	init_timer();
 	
 	while(1){
-	   // printk(" B ");
 	}
+	
 }
 
 /* 在线程中运行的函数 */
-void k_thread_a(void* arg) {     
-/* 用void*来通用表示参数,被调用的函数知道自己需要什么类型的参数,自己转换再用 */
-   char* para = arg;
+void main(void* arg) { 
 
+//I don't know why I need open interrupt after thread calling in each time
+//每一次线程调用都需要打开一次中断，我不知道为什么
+	intr_enable();
+	
+      printk(" I am the main_thread ");
+	  thread_start("k_thread_b", 20, k_thread_b, "argB ");
+	  thread_start("k_thread_C", 20, k_thread_C, "argC ");
+		int time;
+	  
+	  while(1){
+	  	
+		time++;
+		if (time%100000000==0)
+			{
+			printk(" Main ");
+			}
+	  }
+
+}
+
+void k_thread_b(void* arg) {     
+		intr_enable();   
+      printk(" I am the K_thread_b ");
+	  int time;
+	  
+	  while(1){
+		time++;
+		if (time%100000000==0)
+			{
+			printk(" BB ");
+			}
+	  }
+}
+
+void k_thread_C(void* arg) {     
+		intr_enable();
+		
 	   
-      printk("\n I am the K_thread_a \n");
+      printk(" I am the K_thread_c ");
 
-	  while(1){}
+		int time;
+	
+	  while(1){
+	  	
+		time++;
+		if (time%100000000==0)
+			{
+			printk(" CC ");
+			}
+	  }
 }
 

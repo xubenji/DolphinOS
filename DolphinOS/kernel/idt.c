@@ -39,7 +39,7 @@ enum intr_status intr_enable() {
       return old_status;
    } else {
       old_status = INTR_OFF;
-      asm volatile("sti");	 // 开中断,sti指令将IF位置1
+      __asm__ volatile("sti");	 // 开中断,sti指令将IF位置1
       return old_status;
    }
 }
@@ -49,7 +49,7 @@ enum intr_status intr_disable() {
    enum intr_status old_status;
    if (INTR_ON == intr_get_status()) {
       old_status = INTR_ON;
-      asm volatile("cli" : : : "memory"); // 关中断,cli指令将IF位置0
+      __asm__ volatile("cli" : : : "memory"); // 关中断,cli指令将IF位置0
       return old_status;
    } else {
       old_status = INTR_OFF;

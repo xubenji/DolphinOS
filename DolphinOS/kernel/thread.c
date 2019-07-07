@@ -1,3 +1,8 @@
+/* copy from OS book by benji 2019/07/07
+ * this is thread.c
+ * function is init the thread
+ */
+
 #include "../com/types.h"
 #include "memory.h"
 #include "printk.h"
@@ -15,6 +20,7 @@ static struct list_elem* thread_tag;// 用于保存队列中的线程结点
 
 extern void switch_to(struct task_struct* cur, struct task_struct* next);
 
+/* get the pointer of the current thread pcb*/
 /* 获取当前线程pcb指针 */
 struct task_struct* running_thread() {
    uint32_t esp; 
@@ -28,6 +34,7 @@ static void kernel_thread(thread_func* function, void* func_arg) {
 	function(func_arg); 
 }
 
+/* init the stack of thread, put function to run in thread_stack */
 /* 初始化线程栈thread_stack,将待执行的函数和参数放到thread_stack中相应的位置 */
 void thread_create(struct task_struct* pthread, thread_func function, void* func_arg) {
 	/* 先预留中断使用栈的空间,可见thread.h中定义的结构 */
@@ -41,7 +48,7 @@ void thread_create(struct task_struct* pthread, thread_func function, void* func
 	kthread_stack->func_arg = func_arg;
 	kthread_stack->ebp = kthread_stack->ebx = kthread_stack->esi = kthread_stack->edi = 0;
 }
-
+/* init the basic information of thread */
 /* 初始化线程基本信息 */
 void init_one_thread(struct task_struct* pthread, char* name, int prio) {
 	memset(pthread, 0, sizeof(*pthread));
@@ -77,35 +84,24 @@ struct task_struct* thread_start(char* name, int prio, thread_func function, voi
 	list_append(&thread_ready_list, &thread->general_tag);
 
 	/* 确保之前不在队列中 */
-	//PAUSE(!elem_find(&thread_all_list, &thread->all_list_tag));
+	PAUSE(!elem_find(&thread_all_list, &thread->all_list_tag));
 	/* 加入全部线程队列 */
 	
 	list_append(&thread_all_list, &thread->all_list_tag);
-	while(1){}
+	
 	return thread;
 }
 
 
-/* 将kernel中的main函数完善为主线程 */
-static void make_main_thread(void) {
-	/* 因为main线程早已运行,咱们在loader.S中进入内核时的mov esp,0xc009f000,
-	就是为其预留了pcb,地址为0xc009e000,因此不需要通过get_kernel_page另分配一页*/
-	/*因为这段函数是复制的操作系统真相还原的，
-	所以此系统的main进程的pcb并不是和书中一致，此版本这个bug并没有解决，下个版本争取解决。*/
-	main_thread = running_thread();
-	init_one_thread(main_thread, "main", 31);
-
-	/* main函数是当前线程,当前线程不在thread_ready_list中,
-	 * 所以只将其加在thread_all_list中. */
-	PAUSE(!elem_find(&thread_all_list, &main_thread->all_list_tag));
-	list_append(&thread_all_list, &main_thread->all_list_tag);
-}
+int time=0;
 
 /* 实现任务调度 */
 void schedule() {
-
+	
 	PAUSE(intr_get_status() == INTR_OFF);
 
+	
+	
 	struct task_struct* cur = running_thread(); 
 	
 	
@@ -118,14 +114,35 @@ void schedule() {
 		/* 若此线程需要某事件发生后才能继续上cpu运行,
 		不需要将其加入队列,因为当前线程不在就绪队列中。*/
 	}
-	//printk("p1");
-	//PAUSE(1==2);
-	PAUSE(!list_empty(&thread_ready_list));
+	
+
+//check the list of thread is empty or not.
+//before that, I use the PASUE(). The result is if error coming, the machine isn't going to run.
+//it is not quiet important issus, So i add these code so that the mechine can contiune when 
+//it face the read thread list is empty
+//判断线程准备队列是否为空，之前使用PASUE宏，但是如果发生错误就不会继续运行下去
+//这里我做了修改，即便是线程准备队列为空我依然让他继续运行下去
+
+	time++;
+//	PAUSE(list_empty(&thread_ready_list)==false);
+	if(list_empty(&thread_ready_list)==true){		
+			if (time%100==0)
+				{
+			printk(" list is empty!!! ");
+				}	
+		return 0;
+	}
+
+
+	
 	thread_tag = NULL;	  // thread_tag清空
 	/* 将thread_ready_list队列中的第一个就绪线程弹出,准备将其调度上cpu. */
-	thread_tag = list_pop(&thread_ready_list);   
+	thread_tag = list_pop(&thread_ready_list);  
+	
 	struct task_struct* next = elem2entry(struct task_struct, general_tag, thread_tag);
 	next->status = TASK_RUNNING;
+    
+	
 	switch_to(cur, next);
 }
 
@@ -134,7 +151,11 @@ void thread_init(void) {
 	printk("thread_init start\n");
 	list_init(&thread_ready_list);
 	list_init(&thread_all_list);
-	/* 将当前main函数创建为线程 */
-	make_main_thread();
+
+	//将当前main函数创建为线程 
+	//操作系统真相还原书中将主函数创建为进程，但是书中main函数的pcb被保存在了一个独立的地址，
+	//所以这里我将kernel_init初始化为一个线程
+	//make_main_thread();
+	
 	printk("thread init completed\n");
 }

@@ -8,12 +8,12 @@ typedef void thread_func(void*);
 
 /* 进程或线程的状态 */
 enum task_status {
-	TASK_RUNNING,
-	TASK_READY,
-	TASK_BLOCKED,
-	TASK_WAITING,
-	TASK_HANGING,
-	TASK_DIED
+   TASK_RUNNING,
+   TASK_READY,
+   TASK_BLOCKED,
+   TASK_WAITING,
+   TASK_HANGING,
+   TASK_DIED
 };
 
 /***********   中断栈intr_stack   ***********
@@ -37,7 +37,7 @@ struct intr_stack {
     uint32_t es;
     uint32_t ds;
 
-	/* 以下由cpu从低特权级进入高特权级时压入 */
+/* 以下由cpu从低特权级进入高特权级时压入 */
     uint32_t err_code;		 // err_code会被压入在eip之后
     void (*eip) (void);
     uint32_t cs;
@@ -53,21 +53,21 @@ struct intr_stack {
  * 实际位置取决于实际运行情况。
  ******************************************/
 struct thread_stack {
-	uint32_t ebp;
-	uint32_t ebx;
-	uint32_t edi;
-	uint32_t esi;
+   uint32_t ebp;
+   uint32_t ebx;
+   uint32_t edi;
+   uint32_t esi;
 
-	/* 线程第一次执行时,eip指向待调用的函数kernel_thread 
-	其它时候,eip是指向switch_to的返回地址*/
-	void (*eip) (thread_func* func, void* func_arg);
+/* 线程第一次执行时,eip指向待调用的函数kernel_thread 
+其它时候,eip是指向switch_to的返回地址*/
+   void (*eip) (thread_func* func, void* func_arg);
 
-	/*****   以下仅供第一次被调度上cpu时使用   ****/
+/*****   以下仅供第一次被调度上cpu时使用   ****/
 
-	/* 参数unused_ret只为占位置充数为返回地址 */
-	void (*unused_retaddr);
-	thread_func* function;   // 由Kernel_thread所调用的函数名
-	void* func_arg;    // 由Kernel_thread所调用的函数所需的参数
+/* 参数unused_ret只为占位置充数为返回地址 */
+   void (*unused_retaddr);
+   thread_func* function;   // 由Kernel_thread所调用的函数名
+   void* func_arg;    // 由Kernel_thread所调用的函数所需的参数
 };
 
 /* 进程或线程的pcb,程序控制块 */
@@ -93,10 +93,12 @@ struct task_struct {
 };
 
 void thread_create(struct task_struct* pthread, thread_func function, void* func_arg);
-void init_one_thread(struct task_struct* pthread, char* name, int prio);
-
+void init_thread(struct task_struct* pthread, char* name, int prio);
 struct task_struct* thread_start(char* name, int prio, thread_func function, void* func_arg);
-//name=thread name, prio= thread prioirty, function=To executive function name, func_arg=function parameter
+struct task_struct* running_thread(void);
+void schedule(void);
+void thread_init(void);
+
 #endif
 
 

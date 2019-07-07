@@ -30,20 +30,32 @@ void inthandler20_timer(int32_t *esp){
 	//print * per second
 	if(times%100==0){
 
-		printk(" A ");
+		printk(" 1 ");
 		//thread_start("k_thread_a", 31, k_thread_a, "argA ");
 	}
+	struct task_struct* cur_thread = NULL;
+//running_th:	
+	cur_thread = running_thread();
+//	puts_int32(sizeof(struct task_struct));
+//	puts_int32(cur_thread->stack_magic);
+	if (cur_thread->stack_magic==0x19870916||cur_thread->stack_magic==0x101000){
+		goto next;
+		}else{
+			printk("");
+			PAUSE(1==2);
+			}
+		
+
 	
-	struct task_struct* cur_thread = running_thread();
-
 	//PAUSE(cur_thread->stack_magic == 0x19870916);         // 检查栈是否溢出
-
+next:
 	cur_thread->elapsed_ticks++;	  // 记录此线程占用的cpu时间嘀
 	ticks++;	  //从内核第一次处理时间中断后开始至今的滴哒数,内核态和用户态总共的嘀哒数
-	printk("\np1");
+	//printk("p11");
 	if (cur_thread->ticks == 0) {	  // 若进程时间片用完就开始调度新的进程上cpu
-	
+	//	puts_int32(cur_thread->stack_magic );
 	schedule(); 
+	//puts_int32(cur_thread->stack_magic );
 	} else {				  // 将当前进程的时间片-1
 		cur_thread->ticks--;
 	}

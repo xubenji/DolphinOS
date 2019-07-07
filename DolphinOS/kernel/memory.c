@@ -73,7 +73,7 @@ void init_memory(){
 	kernel_vaddr.vaddr_start=K_HEAP_START;
 
 	
-	printk("\nmemory init......\n");
+	printk("memory init......\n");
 	
 	//BitMap* bm = &kernel_vaddr.vaddr_bitmap;
 	//bm->bits[0]=0xff;		
@@ -118,8 +118,10 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
    }
 
    uint32_t vaddr = (uint32_t)vaddr_start;
-   printk("\nkernel_pool_adder_vir_:");
-   puts_int32(vaddr );
+   
+ //  printk("\nkernel_pool_adder_vir_:");
+
+//  puts_int32(vaddr );
 
 /*************************************************************************************
    You need to declare unsigned integer variables When you using the shift operation.
@@ -143,8 +145,9 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
 /* 在m_pool指向的物理内存池中分配1个物理页,
  * 成功则返回页框的物理地址,失败则返回NULL */
       void* page_phyaddr = palloc(mem_pool);
-	  printk("kernel_adder_phy:");
-	  puts_int32(page_phyaddr);
+
+	//  printk("kernel_adder_phy:");
+	//  puts_int32(page_phyaddr);
 
 	 
       if (page_phyaddr == NULL) {  // 失败时要将曾经已申请的虚拟地址和物理页全部回滚，在将来完成内存回收时再补充

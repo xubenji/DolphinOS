@@ -1,5 +1,6 @@
+
+[section .text]
 [bits 32]
-section .text
 global switch_to
 switch_to:
    ;栈中此处是返回地址	       
