@@ -16,6 +16,8 @@ void get_cursor_pos(uint8_t ch);
 void printk(uint8_t *str);
 void print_char(uint8_t ch);
 void put_dec_uint32(uint32_t num);
+void fresh_screen();
+
 
 typedef struct display_char{
 	int8_t *vram;

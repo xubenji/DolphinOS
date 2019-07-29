@@ -46,7 +46,7 @@ int Kernel_Init(){
 	//io_out8_ASM(PIC0_IMR, 0xfd);
 	io_sti();
 	
-	thread_start("main",100, main, "argA ");
+	thread_start("main",5, main, "argA ");
 
 	//You can open time interrupt after init main thread or appear some errors
 	//注册完主线程信息以后再开启时钟中断，否则会出现问题
@@ -62,11 +62,11 @@ void main(void* arg) {
 
 //I don't know why I need open interrupt after thread calling in each time
 //每一次线程调用都需要打开一次中断，我不知道为什么
-	intr_enable();
 	
-      printk(" I am the main_thread ");
-	  thread_start("k_thread_b", 20, k_thread_b, "argB ");
-	  thread_start("k_thread_C", 20, k_thread_C, "argC ");
+	
+    //  printk(" I am the main_thread ");
+	 // thread_start("k_thread_b", 1, k_thread_b, "argB ");
+	 // thread_start("k_thread_C", 1, k_thread_C, "argC ");
 		int time;
 	  
 	  while(1){
@@ -74,14 +74,13 @@ void main(void* arg) {
 		time++;
 		if (time%100000000==0)
 			{
-			printk(" Main ");
+		//	printk(" Main ");
 			}
 	  }
 
 }
 
 void k_thread_b(void* arg) {     
-		intr_enable();   
       printk(" I am the K_thread_b ");
 	  int time;
 	  
@@ -89,15 +88,13 @@ void k_thread_b(void* arg) {
 		time++;
 		if (time%100000000==0)
 			{
-			printk(" BB ");
+		//	printk(" BB ");
 			}
 	  }
+	 
 }
 
 void k_thread_C(void* arg) {     
-		intr_enable();
-		
-	   
       printk(" I am the K_thread_c ");
 
 		int time;
@@ -107,7 +104,7 @@ void k_thread_C(void* arg) {
 		time++;
 		if (time%100000000==0)
 			{
-			printk(" CC ");
+		//	printk(" CC ");
 			}
 	  }
 }

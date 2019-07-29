@@ -3,6 +3,8 @@
 #include "asc.h"
 #include "io_ASM.h"
 #include "../com/math.h"
+#include "screen.h"
+#include "idt.h"
 
 DisPlay_Char chs;
 
@@ -28,7 +30,7 @@ void init_display_info(){
 	chs.vram=CHAR_DISPLAY_ADDERSS;
 	chs.cursor_pos=0;
 	chs.color=0x07;
-	printk(">init kernel..\n");
+	//printk(">init kernel..\n");
 }
 
 uint16_t new_line(uint16_t cursor_pos){
@@ -55,6 +57,27 @@ void get_cursor_pos(uint8_t ch){
 	}
 	set_cursor();
 }
+
+//fresh screen, if the charcter number biger than the total number of text mode in 800*600, than fresh screen.
+//刷新屏幕，如果字符数量超过800*600文本模式下的字符总数，然后刷新屏幕
+void fresh_screen(){
+	intr_disable();   // if open the interruption, it will case problem. fresh screen is special operation.
+					  // 如果打开中断，将会引起许多问题，刷新屏幕是特殊操作。
+	uint32_t line=0;
+	switch (SCREEN_MODE)
+		{
+		case 800*600: line=160;
+		break;
+		}
+	chs.vram=CHAR_DISPLAY_ADDERSS;
+	for(int i=0;i<25*80;i++){
+	chs.vram[2*i]=chs.vram[2*i+line-1];
+	chs.vram[2*i]=chs.vram[2*i+line];
+	}
+	chs.cursor_pos=chs.cursor_pos-line/2;
+	intr_enable();
+}
+
 
 void printk(uint8_t *str){
 	while (*str!=0x00)
@@ -126,9 +149,14 @@ void puts_int8(int8_t num_hex){
 }
 
 void print_char(uint8_t ch){
-	chs.vram[chs.cursor_pos*2] = ch;
-	chs.vram[chs.cursor_pos*2+1] = chs.color;
-	chs.cursor_pos++;	
+	if (chs.cursor_pos>80*25)
+		{
+		fresh_screen();
+		}else{
+			chs.vram[chs.cursor_pos*2] = ch;
+			chs.vram[chs.cursor_pos*2+1] = chs.color;
+			chs.cursor_pos++;	
+			}
 }
  
 
