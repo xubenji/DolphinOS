@@ -64,9 +64,9 @@ void main(void* arg) {
 //每一次线程调用都需要打开一次中断，我不知道为什么
 	
 	
-    //  printk(" I am the main_thread ");
-	 // thread_start("k_thread_b", 1, k_thread_b, "argB ");
-	 // thread_start("k_thread_C", 1, k_thread_C, "argC ");
+      printk(" I am the main_thread ");
+	  thread_start("k_thread_b", 1, k_thread_b, "argB ");
+	  thread_start("k_thread_C", 1, k_thread_C, "argC ");
 		int time;
 	  
 	  while(1){
@@ -98,7 +98,7 @@ void k_thread_C(void* arg) {
       printk(" I am the K_thread_c ");
 
 		int time;
-	
+	  printk("\n>:");
 	  while(1){
 	  	
 		time++;

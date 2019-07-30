@@ -42,7 +42,7 @@ ASM_KERNEL_FLAGS= -f elf
 
 LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK)
 
-OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o kernel/io_ASM.o kernel/bitmap.o kernel/string.o kernel/handler_ASM.o kernel/pic.o kernel/idt.o com/math.o kernel/handlers.o kernel/timer.o kernel/vram.o kernel/thread.o kernel/switch_ASM.o kernel/debug.o kernel/list.o
+OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o kernel/io_ASM.o kernel/bitmap.o kernel/string.o kernel/handler_ASM.o kernel/pic.o kernel/idt.o com/math.o kernel/handlers.o kernel/timer.o kernel/vram.o kernel/thread.o kernel/switch_ASM.o kernel/debug.o kernel/list.o driver/keyboard.o
  
 #there are kernel/printk.o
 .PHONY: all
@@ -145,9 +145,10 @@ list.o:kernel/list.c
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
 #com
 math.o:com/math.c
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $<
+#driver
+keyboard.o:driver/keyboard.c 
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
-
-
 
 
 #_stack_chk_fail.o:kernel/_stack_chk_fail.c

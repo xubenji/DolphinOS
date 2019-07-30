@@ -7,6 +7,7 @@
 #include "handlers.h"
 #include "thread.h"
 #include "debug.h"
+#include "../driver/keyboard.h"
 
 
 /*It is very difficult to find this mistake, because the textbook is aslo worry!!!!
@@ -21,8 +22,9 @@ void inthandler21_keyboard(int32_t *esp){
 	//printk("  INT21 (IRQ-1)  ");
 	keydata = io_in8_ASM(0x60);
 	io_out8_ASM(PIC0_OCW2,0x61);
-	puts_int8(keydata);
-	printk(" ");
+	//puts_int8(keydata);
+	keyborad_map(keydata);
+	//printk(" ");
 	io_in8_ASM(0x60); //It is very important sentence in the function. If you haven't read the data, the 8042 still think the interupt hasn't be completed.
 }
 

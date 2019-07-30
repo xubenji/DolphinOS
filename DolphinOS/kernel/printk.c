@@ -30,7 +30,7 @@ void init_display_info(){
 	chs.vram=CHAR_DISPLAY_ADDERSS;
 	chs.cursor_pos=0;
 	chs.color=0x07;
-	//printk(">init kernel..\n");
+	printk(">init kernel..\n");
 }
 
 uint16_t new_line(uint16_t cursor_pos){
@@ -41,6 +41,8 @@ uint16_t new_line(uint16_t cursor_pos){
 
 uint16_t backspace(uint16_t cursor_pos){
 	cursor_pos=cursor_pos-1;
+	chs.vram[chs.cursor_pos*2] = 0x0;
+	chs.vram[chs.cursor_pos*2-1] = 0;
 	return cursor_pos;
 }
 
@@ -52,6 +54,7 @@ void get_cursor_pos(uint8_t ch){
 		chs.cursor_pos = new_line(chs.cursor_pos);
 	}else if(ch==0x8){
 		chs.cursor_pos = backspace(chs.cursor_pos);
+		
 	}else{
 		print_char(ch);
 	}
