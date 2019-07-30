@@ -101,6 +101,8 @@ void keyborad_map(uint8_t ch){
 			case 0x9c: print_keyboard("\n");
 					   print_keyboard(">:");
 			break;
+			case 0x39: print_keyboard(" ");
+			break;
 
 		}
 }
