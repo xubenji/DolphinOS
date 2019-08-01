@@ -69,6 +69,7 @@ clean:
 	-rm  -f $(KERNEL_BIN)
 	-rm  -f kernel/*.o
 	-rm  -f com/*.o
+	-rm  */*.o
 #	-rm  *.o
 
 $(LOAD_BIN):boot/load.asm
