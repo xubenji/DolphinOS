@@ -65,12 +65,8 @@ run: all
 clean:
 	-rm  -f boot/load.bin	
 	-rm  -f boot/boot.bin
-#	-rm  bochsout.txt
 	-rm  -f $(KERNEL_BIN)
-	-rm  -f kernel/*.o
-	-rm  -f com/*.o
 	-rm  */*.o
-#	-rm  *.o
 
 $(LOAD_BIN):boot/load.asm
 	$(NASM32)  -o $@ $<

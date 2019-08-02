@@ -345,7 +345,7 @@ flush:
 	mov fs, ax 
 	mov gs, ax 
 	mov ss, ax 
-	mov esp, stack_top_end
+	mov esp, stack_top_end+0x20000
 	
 ;display char 'P'
 	mov dword [0xb8000+4], 'P'
@@ -403,7 +403,7 @@ step_page:
     loop .set_pt0
 
 ;because kernel+paging=5mb, we need extra 1mb memory to save paging
-;Now, I page 8MB memory.
+;Now, I have allocated 8MB memory.
     mov cx, 1024
     mov edi, PAGE_TBL_ADDR_EXTRA
 .set_pt1:
