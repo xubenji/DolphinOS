@@ -24,6 +24,9 @@
 	Future_Technology: 375678777. 
 	There are development environment which is a virtual machine(VMware) file.
 	you can get the download link in the QQ group.
+# memory allocation image
+![image](https://github.com/FTOlaf/DolphinOS/blob/master/memory_addr.PNG)
+
 # 这是DolphinOS源代码
 	DolphinOS是一个32位的操作系统，未来我会计划支持64位。
 	我使用Ubuntu编写的源代码。
@@ -45,5 +48,7 @@
 # QQ粉丝群 
 	未来科技：375678777
 	这里有我使用的开发环境，一个虚拟机文件。你可以从qq群得到下载地址。
+# 内存分配图
+![image](https://github.com/FTOlaf/DolphinOS/blob/master/memory_addr.PNG)
 =======
 >>>>>>> 18bcdd4b5bd05ad154956fa07b9090b16c55c2a6
