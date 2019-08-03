@@ -31,6 +31,19 @@ void inthandler21_keyboard(int32_t *esp){
 uint32_t times=0;
 uint32_t ticks;   
 
+//general  handler: register all interupption of OS. if others irrgulartion occuring, it would go this function
+//一般性的中断处理程序，将所有的中断都注册了，触发其他异常都是走这个程序
+void general_handler(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+			return;
+	}else if(vec_num == 0x9c){
+			printk("\nPage Fault!!!   "); //缺页故障
+		} 
+	puts_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);						//强停系统
+}
+
 void inthandler20_timer(int32_t *esp){
 	io_out8_ASM(PIC0_OCW2, 0x60);
 //	times++;

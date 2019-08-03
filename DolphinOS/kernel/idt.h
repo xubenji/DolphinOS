@@ -8,6 +8,8 @@
 	short offset_high;
 }IDT_Gate_Descriptor;
 */
+
+//64bits, 8Bytes, 16+16+8+8+16=64
 typedef struct _idt_gate_descriptor{
 	uint16_t offset_low, selector;
 	uint8_t datacount;

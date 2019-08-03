@@ -51,7 +51,14 @@ int Kernel_Init(){
 	//You can open time interrupt after init main thread or appear some errors
 	//注册完主线程信息以后再开启时钟中断，否则会出现问题
 	init_timer();
-	
+
+//You can use this code to check the irruglar handle ability of OS
+//你可以使用以下代码来测试系统的异常处理能力
+
+/*
+	 int * p = 0x1000000;
+		*p=111;           */
+		
 	while(1){
 	}
 	
@@ -67,8 +74,8 @@ void main(void* arg) {
       printk(" I am the main_thread ");
 	  thread_start("k_thread_b", 1, k_thread_b, "argB ");
 	  thread_start("k_thread_C", 1, k_thread_C, "argC ");
-		int time;
-	  
+	  int time;
+	 
 	  while(1){
 	  	
 		time++;

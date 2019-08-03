@@ -9,13 +9,15 @@
 void init_idt(){
 	
 	IDT_Gate_Descriptor *idt=(IDT_Gate_Descriptor*)IDT_ADDR;
-	
+
+	//将所有的异常都指向通用异常处理程序
 	for (int i = 0; i <= IDT_LIMIT / 8; i++) {
-		set_idt_gatedesc(idt + i, 0, 0, 0, 0);
+		set_idt_gatedesc(idt + i, (int)&_asm_general_handler, 0x08, AR_INTGATE32, 0);
+		//set_idt_gatedesc(idt + i, 0, 0x0, 0, 0);
 	}
 
 	load_idtr(IDT_LIMIT, IDT_ADDR);
-	
+	//set_idt_gatedesc(idt + 0xe, (int)&_asm_general_handler, 0x08, AR_INTGATE32, 0);
 	//set_idt_gatedesc(idt + 0x21, (int)&_asm_inthandler21_keyboard, 2 * 8, AR_INTGATE32);
 	set_idt_gatedesc(idt + 0x21, (int)&_asm_inthandler21_keyboard, 0x08, AR_INTGATE32,0);
 	set_idt_gatedesc(idt + 0x20, (int)&_asm_inthandler20_timer, 0x08, AR_INTGATE32,0);
