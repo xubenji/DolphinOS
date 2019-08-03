@@ -27,6 +27,7 @@
 # memory allocation image
 ![image](https://github.com/FTOlaf/DolphinOS/blob/master/memory_addr.PNG)
 
+
 # 这是DolphinOS源代码
 	DolphinOS是一个32位的操作系统，未来我会计划支持64位。
 	我使用Ubuntu编写的源代码。
@@ -50,5 +51,9 @@
 	这里有我使用的开发环境，一个虚拟机文件。你可以从qq群得到下载地址。
 # 内存分配图
 ![image](https://github.com/FTOlaf/DolphinOS/blob/master/memory_addr.PNG)
+	0~4kb 页目录表地址，不可以使用
+	4~12kb 页表地址，不可以使用，因为定义了0~8mb内存分页映射，所以这里无法使用
+	......
+	64kb~222kb 内核区域，其他进程无法使用，但是现在内核没有128kb大小，所以在这一区域定义一些表量也不会出问题，但是尽量不要在这一区域定义全局变量
+	1088kb(0x110000)栈指针esp的栈顶。
 =======
->>>>>>> 18bcdd4b5bd05ad154956fa07b9090b16c55c2a6
