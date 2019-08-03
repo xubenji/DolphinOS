@@ -51,6 +51,7 @@
 	这里有我使用的开发环境，一个虚拟机文件。你可以从qq群得到下载地址。
 # 内存分配图
 ![image](https://github.com/FTOlaf/DolphinOS/blob/master/memory_addr.PNG)
+#  内存分配
 	0~4kb 页目录表地址，不可以使用
 	4~12kb 页表地址，不可以使用，因为定义了0~8mb内存分页映射，所以这里无法使用
 	......
