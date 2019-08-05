@@ -1,6 +1,7 @@
 global _asm_general_handler
 global _asm_inthandler21_keyboard
 global _asm_inthandler20_timer
+global read_cr3_ASM
 
 extern inthandler21_keyboard
 extern inthandler20_timer
@@ -60,4 +61,8 @@ _asm_general_handler:
 	pop ds
 	pop es
 	iretd
+
+read_cr3_ASM:
+	mov eax, cr3
+	ret
 

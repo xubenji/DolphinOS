@@ -38,9 +38,14 @@ void general_handler(uint8_t vec_num){
 	if(vec_num == 0x27 || vec_num == 0x2f){
 			return;
 	}else if(vec_num == 0x9c){
-			printk("\nPage Fault!!!   "); //缺页故障
+			uint32_t cr3 = read_cr3_ASM();
+			printk("\nPage Fault!!!   Address:"); //缺页故障
+			puts_int32(cr3);
+			
 		} 
+	printk("  Exception Number:");
 	puts_int8(vec_num);					//打印异常中断码
+	
 	PAUSE(1==2);						//强停系统
 }
 

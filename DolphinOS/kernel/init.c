@@ -54,11 +54,11 @@ int Kernel_Init(){
 
 //You can use this code to check the irruglar handle ability of OS
 //你可以使用以下代码来测试系统的异常处理能力
-
 /*
-	 int * p = 0x1000000;
-		*p=111;           */
-		
+
+	 int * p = 0x1000010;
+		*p=111;           
+	*/	
 	while(1){
 	}
 	
