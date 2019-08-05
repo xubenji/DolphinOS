@@ -152,14 +152,14 @@ void puts_int8(int8_t num_hex){
 }
 
 void print_char(uint8_t ch){
-	if (chs.cursor_pos>80*25)
+	if (chs.cursor_pos>=80*25)
 		{
 		fresh_screen();
-		}else{
-			chs.vram[chs.cursor_pos*2] = ch;
-			chs.vram[chs.cursor_pos*2+1] = chs.color;
-			chs.cursor_pos++;	
-			}
+		}
+	chs.vram[chs.cursor_pos*2] = ch;
+	chs.vram[chs.cursor_pos*2+1] = chs.color;
+	chs.cursor_pos++;	
+			
 }
  
 
