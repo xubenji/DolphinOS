@@ -78,11 +78,15 @@ void main(void* arg) {
 	 
 	  while(1){
 	  	
-		time++;
-		if (time%100000000==0)
+//处理器暂停，节省资源
+//proess pasue, save the computer performance
+	     __asm__ volatile("hlt");	
+
+	//	time++;
+		/*if (time%100000000==0)
 			{
-		//	printk(" Main ");
-			}
+			printk(" Main ");
+			}*/
 	  }
 
 }
@@ -92,11 +96,12 @@ void k_thread_b(void* arg) {
 	  int time;
 	  
 	  while(1){
-		time++;
-		if (time%100000000==0)
+	//	time++;
+		__asm__ volatile("hlt");	
+	/*	if (time%100000000==0)
 			{
-		//	printk(" BB ");
-			}
+			printk(" BB ");
+			} */
 	  }
 	 
 }
@@ -107,12 +112,12 @@ void k_thread_C(void* arg) {
 		int time;
 	  printk("\n>:");
 	  while(1){
-	  	
-		time++;
-		if (time%100000000==0)
+		//time++;
+		  __asm__ volatile("hlt");
+		/*if (time%100000000==0)
 			{
-		//	printk(" CC ");
-			}
+			printk(" CC ");
+			}*/
 	  }
 }
 
