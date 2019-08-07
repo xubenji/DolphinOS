@@ -10,11 +10,15 @@ void panic_spin(char* filename,	       \
 {
    intr_disable();	// 因为有时候会单独调用panic_spin,所以在此处关中断。
    printk("\n\n!!!!!!ERROR!!!!!!\n");
- /*  put_str("\n\n\n!!!!! error !!!!!\n");
-   put_str("filename:");put_str(filename);put_str("\n");
-   put_str("line:0x");put_int(line);put_str("\n");
-   put_str("function:");put_str((char*)func);put_str("\n");
-   put_str("condition:");put_str((char*)condition);put_str("\n");*/
+
+   printk(filename);
+   printk("\nline:");
+   put_dec_uint32(line);
+   printk("\nfunction:");
+   printk((char*)func);
+   printk("\ncondition:");
+   printk((char*)condition);
+
    while(1);
 }
 

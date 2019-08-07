@@ -41,8 +41,8 @@ uint16_t new_line(uint16_t cursor_pos){
 
 uint16_t backspace(uint16_t cursor_pos){
 	cursor_pos=cursor_pos-1;
-	chs.vram[chs.cursor_pos*2] = 0x0;
-	chs.vram[chs.cursor_pos*2-1] = 0;
+	chs.vram[chs.cursor_pos*2]=0;
+	chs.vram[chs.cursor_pos*2-1]=0x07;
 	return cursor_pos;
 }
 
