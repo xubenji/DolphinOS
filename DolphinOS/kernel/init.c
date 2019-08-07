@@ -37,9 +37,10 @@ int Kernel_Init(){
 	put_dec_uint32(mem_mb);
 	printk("MB\n");
 	init_memory();
+
+	semaphore_init();
 	
 	init_idt();
-	
 	init_pic();
 	thread_init();
 	//init_timer();
