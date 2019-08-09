@@ -19,6 +19,7 @@
 #include "thread.h"
 #include "debug.h"
 #include "thread.h"
+#include "lock.h"
 
 void main(void*);
 void k_thread_b(void *);
@@ -26,7 +27,10 @@ void k_thread_C(void *);
 
 
 int Kernel_Init(){
+
+
 	init_display_info();
+		
 	show_screen_info();
 	printk("Hello, this is DolphinOS, welcome to my Operating System\n");
 	printk("------\n");
@@ -37,9 +41,9 @@ int Kernel_Init(){
 	put_dec_uint32(mem_mb);
 	printk("MB\n");
 	init_memory();
-
-	semaphore_init();
 	
+	console_lock();
+
 	init_idt();
 	init_pic();
 	thread_init();
@@ -74,21 +78,25 @@ void main(void* arg) {
 	
       printk(" I am the main_thread ");
 	  thread_start("k_thread_b", 1, k_thread_b, "argB ");
-	  thread_start("k_thread_C", 1, k_thread_C, "argC ");
+	  thread_start("k_thread_C", 10, k_thread_C, "argC ");
 	  int time;
-	 
+	  while(1){}
+	/* 
 	  while(1){
 	  	
 //处理器暂停，节省资源
 //proess pasue, save the computer performance
-	     __asm__ volatile("hlt");	
+	    
 
-	//	time++;
-		/*if (time%100000000==0)
+		time++;
+		if (time%10000000==0)
 			{
+			__asm__ volatile("hlt");
+			
 			printk(" Main ");
-			}*/
-	  }
+			
+			}
+	  }*/
 
 }
 
@@ -98,11 +106,21 @@ void k_thread_b(void* arg) {
 	  
 	  while(1){
 	//	time++;
-		__asm__ volatile("hlt");	
-	/*	if (time%100000000==0)
+		
+		if (time%1000000==0)
 			{
-			printk(" BB ");
-			} */
+			 __asm__ volatile("hlt");	
+			lock();
+			int i;
+			for (i = 0;  i < 100000000; i++)
+				{
+				}
+				printk(" BB ");
+				
+		
+			
+			unlock();
+			} 
 	  }
 	 
 }
@@ -113,12 +131,18 @@ void k_thread_C(void* arg) {
 		int time;
 	  printk("\n>:");
 	  while(1){
-		//time++;
-		  __asm__ volatile("hlt");
-		/*if (time%100000000==0)
+		time++;
+		//  __asm__ volatile("hlt");
+		if (time%1000000==0)
 			{
+			__asm__ volatile("hlt");	
+			lock();
+				for (int i = 0;  i < 100000000; i++)
+				{
+				}
 			printk(" CC ");
-			}*/
+			unlock();
+		    }
 	  }
 }
 

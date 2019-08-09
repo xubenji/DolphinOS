@@ -5,6 +5,7 @@
 #include "../com/math.h"
 #include "screen.h"
 #include "idt.h"
+#include "lock.h"
 
 DisPlay_Char chs;
 
@@ -83,11 +84,13 @@ void fresh_screen(){
 
 
 void printk(uint8_t *str){
+
 	while (*str!=0x00)
 		{
 		get_cursor_pos(*str);
 		str++;
 		}
+
 }
 
 //input a 32bit number, output this number in decimal.

@@ -102,3 +102,4 @@ uint32_t list_len(struct list* plist) {
 bool list_empty(struct list* plist) {		// 判断队列是否为空
    return (plist->head.next == &plist->tail ? true : false);
 }
+

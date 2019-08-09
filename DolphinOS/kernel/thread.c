@@ -146,6 +146,37 @@ void schedule() {
 	switch_to(cur, next);
 }
 
+/* 线程自己把自己阻塞的函数 */
+/* The thread lock itself */
+void thread_block(enum task_status stat){
+	printk("\nblock!!!!\n");
+	PAUSE((stat == TASK_BLOCKED) || (stat == TASK_WAITING) || (stat == TASK_HANGING));
+	enum intr_status old_status = intr_disable();
+	struct task_struct* cur_thread = running_thread();
+	cur_thread->status = stat;
+	schedule();
+
+//解除阻塞以后才能继续运行下面的函数
+	intr_set_status(old_status);
+}
+
+/* 线程解除锁定 */
+/* unlock the thread */
+void thread_unblock(struct task_struct * pthread){
+	intr_disable();
+	PAUSE((pthread->status==TASK_BLOCKED)||(pthread->status==TASK_WAITING)||(pthread->status==TASK_HANGING));
+	if(pthread->status != TASK_READY){
+		PAUSE(!elem_find(&thread_ready_list, &pthread->general_tag));
+		if(elem_find(&thread_ready_list, &pthread->general_tag)){
+			PANIC("thread_unblock: blocked thread in ready_list\n");
+		}
+		list_push(&thread_ready_list,&pthread->general_tag);
+		pthread->status=TASK_READY;
+	}
+
+	intr_enable();
+}
+
 /* 初始化线程环境 */
 void thread_init(void) {
 	printk("thread_init start\n");
