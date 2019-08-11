@@ -42,11 +42,12 @@ int Kernel_Init(){
 	printk("MB\n");
 	init_memory();
 	
-	console_lock();
+	
 
 	init_idt();
 	init_pic();
 	thread_init();
+	lock_init();
 	//init_timer();
 	//io_out8_ASM(PIC0_IMR, 0xfd);
 	io_sti();
@@ -64,8 +65,7 @@ int Kernel_Init(){
 	 int * p = 0x1000010;
 		*p=111;           
 	*/	
-	while(1){
-	}
+	while(1);
 	
 }
 
@@ -80,23 +80,22 @@ void main(void* arg) {
 	  thread_start("k_thread_b", 1, k_thread_b, "argB ");
 	  thread_start("k_thread_C", 10, k_thread_C, "argC ");
 	  int time;
-	  while(1){}
-	/* 
 	  while(1){
 	  	
 //处理器暂停，节省资源
 //proess pasue, save the computer performance
 	    
+		__asm__ volatile("hlt");
 
 		time++;
 		if (time%10000000==0)
 			{
-			__asm__ volatile("hlt");
+		
 			
 			printk(" Main ");
 			
 			}
-	  }*/
+	  }
 
 }
 
@@ -105,22 +104,21 @@ void k_thread_b(void* arg) {
 	  int time;
 	  
 	  while(1){
-	//	time++;
-		
-		if (time%1000000==0)
+		time++;
+		__asm__ volatile("hlt");
+		if (time%10000000==0)
 			{
-			 __asm__ volatile("hlt");	
+			
 			lock();
-			int i;
-			for (i = 0;  i < 100000000; i++)
-				{
-				}
+		
+			
 				printk(" BB ");
 				
 		
 			
 			unlock();
 			} 
+			
 	  }
 	 
 }
@@ -132,17 +130,17 @@ void k_thread_C(void* arg) {
 	  printk("\n>:");
 	  while(1){
 		time++;
-		//  __asm__ volatile("hlt");
-		if (time%1000000==0)
+
+	  	__asm__ volatile("hlt");	
+		if (time%10000000==0)
 			{
-			__asm__ volatile("hlt");	
-			lock();
-				for (int i = 0;  i < 100000000; i++)
-				{
-				}
-			printk(" CC ");
-			unlock();
+				
+				intr_disable();
+				
+				printk(" CC ");
+				intr_enable();
 		    }
+		
 	  }
 }
 

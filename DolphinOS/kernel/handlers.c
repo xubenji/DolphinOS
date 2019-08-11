@@ -91,5 +91,6 @@ next:
 	} else {				  // 将当前进程的时间片-1
 		cur_thread->ticks--;
 	}
+	
 
 }

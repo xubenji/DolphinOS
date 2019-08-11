@@ -12,7 +12,6 @@
 static struct lock lock_control;
 
 void semaphore_init(struct lock * psema, uint8_t value){
-	printk("seampgore!!!!!!!!!\n");
 	psema->check_value=value;
 	list_init(&psema->waiter_thread);
 }
@@ -20,7 +19,9 @@ void semaphore_init(struct lock * psema, uint8_t value){
 void console_lock(){
 	lock_init(&lock_control);
 }
-void lock_init(struct lock * plock){
+void lock_init(){
+	printk("lock_init...\n");
+	struct lock * plock=&lock_control;
 	plock->hold_thread = NULL;
 	plock->apply_tiems = 0;
 	semaphore_init(plock,1);    

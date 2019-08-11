@@ -65,7 +65,7 @@ void get_cursor_pos(uint8_t ch){
 //fresh screen, if the charcter number biger than the total number of text mode in 800*600, than fresh screen.
 //刷新屏幕，如果字符数量超过800*600文本模式下的字符总数，然后刷新屏幕
 void fresh_screen(){
-	intr_disable();   // if open the interruption, it will case problem. fresh screen is special operation.
+	//intr_disable();   // if open the interruption, it will case problem. fresh screen is special operation.
 					  // 如果打开中断，将会引起许多问题，刷新屏幕是特殊操作。
 	uint32_t line=0;
 	switch (SCREEN_MODE)
@@ -79,7 +79,7 @@ void fresh_screen(){
 	chs.vram[2*i]=chs.vram[2*i+line];
 	}
 	chs.cursor_pos=chs.cursor_pos-line/2;
-	intr_enable();
+	//intr_enable();
 }
 
 
