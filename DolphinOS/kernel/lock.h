@@ -20,6 +20,7 @@ void semaphore_up(struct lock * psema);
 void lock_get(struct lock * plock);
 void semaphore_down(struct lock * psema);
 void lock_release(struct lock * plock);
-void console_lock();
+void lock(uint8_t types_struct);
+void unlock();
 
 

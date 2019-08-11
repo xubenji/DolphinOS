@@ -85,7 +85,7 @@ void main(void* arg) {
 //处理器暂停，节省资源
 //proess pasue, save the computer performance
 	    
-		__asm__ volatile("hlt");
+		_asm_hlt();
 
 		time++;
 		if (time%10000000==0)
@@ -105,11 +105,11 @@ void k_thread_b(void* arg) {
 	  
 	  while(1){
 		time++;
-		__asm__ volatile("hlt");
+		_asm_hlt();
 		if (time%10000000==0)
 			{
 			
-			lock();
+			lock(1);
 		
 			
 				printk(" BB ");
@@ -130,8 +130,7 @@ void k_thread_C(void* arg) {
 	  printk("\n>:");
 	  while(1){
 		time++;
-
-	  	__asm__ volatile("hlt");	
+	  	_asm_hlt();	
 		if (time%10000000==0)
 			{
 				

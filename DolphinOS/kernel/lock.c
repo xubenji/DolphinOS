@@ -1,7 +1,6 @@
 /* Copyright Benji 07/08/2019
  */
 
-//#include "idt.h"
 #include "lock.h"
 #include "list.h"
 #include "printk.h"
@@ -9,19 +8,29 @@
 #include "debug.h"
 //#include "../com/types.h"
 
-static struct lock lock_control;
+/* 每一个锁结构都需要一个单独的结构体，比如打印锁和内存锁还有硬盘锁不能混用
+ * 起初我希望用链表来整合所有类型的锁，但是链表需要遍历，增加了系统开销，
+ * 所以就采用传参数的方法来确认所有的锁 */
+ 
+/* each lock struct need a unique struct. For example, print_lock, mem_lock and HD_lock can't be used by all threads
+ * First of all I prefer to use linked list structure to save all lock structure. But it will be reduce the preformence
+ * So, I use the function argument to ensure the correct type of struct. */
+ 
+static struct lock print_lock;   //type=1
+static struct lock mem_lock;	 //type=2
+								 //......
+
+uint8_t type;
+
 
 void semaphore_init(struct lock * psema, uint8_t value){
 	psema->check_value=value;
 	list_init(&psema->waiter_thread);
 }
 
-void console_lock(){
-	lock_init(&lock_control);
-}
 void lock_init(){
 	printk("lock_init...\n");
-	struct lock * plock=&lock_control;
+	struct lock * plock=&print_lock;
 	plock->hold_thread = NULL;
 	plock->apply_tiems = 0;
 	semaphore_init(plock,1);    
@@ -49,12 +58,32 @@ void semaphore_down(struct lock * psema){
 	 intr_enable();				//open the interruption
 }
 
-void lock(){
-	lock_get(&lock_control);
+void lock(uint8_t types_struct){
+	switch (types_struct)
+		{
+		case 1: 
+				type=1;
+				lock_get(&print_lock);
+				break;
+		case 2: 
+				type=2;
+				lock_get(&mem_lock);
+				break;
+		}
+	
 }
 
 void unlock(){
-	lock_release(&lock_control);
+	switch (type)
+		{
+		case 1:
+			lock_release(&print_lock);
+			break;
+		case 2:
+			lock_release(&mem_lock);
+			break;
+		}
+	
 }
 
 //线程通过这个函数获得锁
