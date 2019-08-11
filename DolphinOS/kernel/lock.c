@@ -71,7 +71,6 @@ void lock_get(struct lock * plock){
 }
 
 void semaphore_up(struct lock * psema){
-	intr_disable();
 	PAUSE(psema->check_value==0);
 	if(!list_empty(&psema->waiter_thread)){
 		struct task_struct * thread_blocked = elem2entry(struct task_struct, general_tag, list_pop(&psema->waiter_thread));
@@ -80,7 +79,6 @@ void semaphore_up(struct lock * psema){
 	}
 	psema->check_value=1;
 	printk("released!!!");
-	intr_enable();
 }
 
 void lock_release(struct lock * plock){
