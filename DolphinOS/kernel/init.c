@@ -32,14 +32,10 @@ int Kernel_Init(){
 	init_display_info();
 		
 	show_screen_info();
-	printk("Hello, this is DolphinOS, welcome to my Operating System\n");
-	printk("------\n");
+	
 	vram();
-	uint32_t memory=get_ards_infor();
-	uint32_t mem_mb=memory/(1024*1024);
-	printk("your machine's memory size:");
-	put_dec_uint32(mem_mb);
-	printk("MB\n");
+	
+	check_memory();
 	init_memory();
 	
 	
@@ -48,8 +44,7 @@ int Kernel_Init(){
 	init_pic();
 	thread_init();
 	lock_init();
-	//init_timer();
-	//io_out8_ASM(PIC0_IMR, 0xfd);
+	
 	io_sti();
 	
 	thread_start("main",5, main, "argA ");
@@ -57,7 +52,7 @@ int Kernel_Init(){
 	//You can open time interrupt after init main thread or appear some errors
 	//注册完主线程信息以后再开启时钟中断，否则会出现问题
 	init_timer();
-
+	
 //You can use this code to check the irruglar handle ability of OS
 //你可以使用以下代码来测试系统的异常处理能力
 /*

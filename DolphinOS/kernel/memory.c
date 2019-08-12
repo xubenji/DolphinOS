@@ -243,3 +243,13 @@ void* get_kernel_pages(uint32_t pg_cnt) {
    }
    return vaddr;
 }
+
+void check_memory(){
+	uint32_t memory=get_ards_infor();
+
+	uint32_t mem_mb=memory/(1024*1024);
+	printk("your machine's memory size:");
+	put_dec_uint32(mem_mb);
+	printk("MB\n"); 
+
+}

@@ -9,7 +9,7 @@
 #include "debug.h"
 #include "../driver/keyboard.h"
 
-
+int t=0;
 /*It is very difficult to find this mistake, because the textbook is aslo worry!!!!
  *At the beginning, my os can only accept the interupt once!!!
  *First, I suspicious of the IDT, but the IDT is work. because the os can accept the interupt once.
@@ -64,29 +64,28 @@ void inthandler20_timer(int32_t *esp){
 
 	cur_thread = running_thread();
 //	puts_int32(sizeof(struct task_struct));
-//	puts_int32(cur_thread->stack_magic);
 
+	
+	//puts_int32(cur_thread->stack_magic);
+		
 
 //check the special number defined by myself. 
-//In the first switching, the special number is 0x101000. I can't find the reason. 
-//判断自定义魔数，但是第一次线程调度的时候魔数为0x101000，我不知道为什么
-	if (cur_thread->stack_magic==0x19870916||cur_thread->stack_magic==0x101000){
-		goto next;
-		}else{
-			printk("");
-			PAUSE(1==2);
-			}
-		
+
 
 	
 	//PAUSE(cur_thread->stack_magic == 0x19870916);         // 检查栈是否溢出
-next:
 	cur_thread->elapsed_ticks++;	  // 记录此线程占用的cpu时间嘀
 	ticks++;	  //从内核第一次处理时间中断后开始至今的滴哒数,内核态和用户态总共的嘀哒数
 	//printk("p11");
 	if (cur_thread->ticks == 0) {	  // 若进程时间片用完就开始调度新的进程上cpu
 	//	puts_int32(cur_thread->stack_magic );
 	schedule(); 
+	if (cur_thread->stack_magic!=0x19870916){
+			printk("");
+			puts_int32(cur_thread->stack_magic);
+			PAUSE(1==2);
+		}
+	
 	//puts_int32(cur_thread->stack_magic );
 	} else {				  // 将当前进程的时间片-1
 		cur_thread->ticks--;

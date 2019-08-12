@@ -37,7 +37,7 @@ static void* palloc(Pool* m_pool);
 void refresh();
 void* get_kernel_pages(uint32_t pg_cnt); 
 uint32_t get_ards_infor();
-
+void check_memory();
 
 
 

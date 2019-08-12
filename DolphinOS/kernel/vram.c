@@ -11,6 +11,7 @@ void vram(){
 	printk("varm address:");
 	puts_int32(var[0]);
 	printk("\n");
+	
 }
 
 

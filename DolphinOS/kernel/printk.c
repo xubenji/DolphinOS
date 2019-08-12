@@ -32,6 +32,8 @@ void init_display_info(){
 	chs.cursor_pos=0;
 	chs.color=0x07;
 	printk(">init kernel..\n");
+	printk("Hello, this is DolphinOS, welcome to my Operating System\n");
+	printk("------\n");
 }
 
 uint16_t new_line(uint16_t cursor_pos){

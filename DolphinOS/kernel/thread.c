@@ -118,13 +118,10 @@ void schedule() {
 
 //check the list of thread is empty or not.
 //before that, I use the PASUE(). The result is if error coming, the machine isn't going to run.
-//it is not quiet important issus, So i add these code so that the mechine can contiune when 
-//it face the read thread list is empty
 //判断线程准备队列是否为空，之前使用PASUE宏，但是如果发生错误就不会继续运行下去
-//这里我做了修改，即便是线程准备队列为空我依然让他继续运行下去
 
 	time++;
-//	PAUSE(list_empty(&thread_ready_list)==false);
+	PAUSE(list_empty(&thread_ready_list)==false);
 	if(list_empty(&thread_ready_list)==true){		
 			if (time%100==0)
 				{
