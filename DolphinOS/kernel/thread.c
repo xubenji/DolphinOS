@@ -48,18 +48,24 @@ void thread_create(struct task_struct* pthread, thread_func function, void* func
 	kthread_stack->func_arg = func_arg;
 	kthread_stack->ebp = kthread_stack->ebx = kthread_stack->esi = kthread_stack->edi = 0;
 }
+
 /* init the basic information of thread */
 /* 初始化线程基本信息 */
 void init_one_thread(struct task_struct* pthread, char* name, int prio) {
 	memset(pthread, 0, sizeof(*pthread));
 	strcpy(pthread->name, name);
+
+	//书中原本的写法是将mian函数封装成一个线程，但是我现在已经将main函数去除，所有函数都要通过thread_start调用。
+	//所以并不需要这个判断
 	
-	if (pthread == main_thread) {
-		/* 由于把main函数也封装成一个线程,并且它一直是运行的,故将其直接设为TASK_RUNNING */
+	/*if (pthread == main_thread) {
+		// 由于把main函数也封装成一个线程,并且它一直是运行的,故将其直接设为TASK_RUNNING 
 		pthread->status = TASK_RUNNING;
 	} else {
 		pthread->status = TASK_READY;
-	}
+	}*/
+
+	pthread->status = TASK_READY;
 
 	/* self_kstack是线程自己在内核态下使用的栈顶地址 */
 	pthread->self_kstack = (uint32_t*)((uint32_t)pthread + PAGE_SIZE);
@@ -80,13 +86,14 @@ struct task_struct* thread_start(char* name, int prio, thread_func function, voi
 	thread_create(thread, function, func_arg);
 	/* 确保之前不在队列中 */
 	PAUSE(!elem_find(&thread_ready_list, &thread->general_tag));
+	
 	/* 加入就绪线程队列 */
 	list_append(&thread_ready_list, &thread->general_tag);
 
 	/* 确保之前不在队列中 */
 	PAUSE(!elem_find(&thread_all_list, &thread->all_list_tag));
-	/* 加入全部线程队列 */
 	
+	/* 加入全部线程队列 */
 	list_append(&thread_all_list, &thread->all_list_tag);
 	
 	return thread;

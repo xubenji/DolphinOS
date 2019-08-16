@@ -28,7 +28,6 @@ void k_thread_C(void *);
 
 int Kernel_Init(){
 
-
 	init_display_info();
 		
 	show_screen_info();
@@ -36,13 +35,15 @@ int Kernel_Init(){
 	vram();
 	
 	check_memory();
+	
 	init_memory();
 	
-	
-
 	init_idt();
+	
 	init_pic();
+	
 	thread_init();
+	
 	lock_init();
 	
 	io_sti();
@@ -56,7 +57,6 @@ int Kernel_Init(){
 //You can use this code to check the irruglar handle ability of OS
 //你可以使用以下代码来测试系统的异常处理能力
 /*
-
 	 int * p = 0x1000010;
 		*p=111;           
 	*/	

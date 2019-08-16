@@ -4,3 +4,4 @@ extern void _asm_general_handler();
 
 //目的是为了让编辑软件识别函数自动补全，其实不写这些也行
 void _asm_hlt();
+void _asm_read_gdt(); //返回一个32bit数字，里面保存了gdt的地址

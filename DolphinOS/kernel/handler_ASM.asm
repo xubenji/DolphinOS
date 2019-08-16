@@ -3,6 +3,7 @@ global _asm_inthandler21_keyboard
 global _asm_inthandler20_timer
 global read_cr3_ASM
 global _asm_hlt
+global _asm_read_gdt
 
 extern inthandler21_keyboard
 extern inthandler20_timer
@@ -70,4 +71,11 @@ read_cr3_ASM:
 _asm_hlt:
 	hlt
 	ret
+
+_asm_read_gdt:
+	sgdt [0x500000]
+	mov eax, [0x500000+2]
+	ret
+	
+	
 
