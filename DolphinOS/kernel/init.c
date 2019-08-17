@@ -43,6 +43,8 @@ int Kernel_Init(){
 	init_pic();
 	
 	thread_init();
+
+	init_tss();
 	
 	lock_init();
 	
