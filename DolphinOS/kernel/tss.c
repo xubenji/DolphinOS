@@ -1,5 +1,5 @@
 #include "../com/types.h"
-
+#include "tss.h"
 /* 任务状态段tss结构 */
 struct tss {
     uint32_t backlink;
@@ -39,15 +39,15 @@ void init_tss(){
 	tss.ss0=SELECTOR_K_STACK;
 	tss.io_base=tss_size;
 
-	/**((struct gdt_desc*)0x70420)=make_gdt_desc((uint32_t*)&tss,tss_size-1,TSS_ATTR_LOW,TSS_ATTR_HIGH);
+	*((Gdt_Desc*)(GDT_ADDER+0x20))=make_gdt_desc((uint32_t*)&tss,tss_size-1,TSS_ATTR_LOW,TSS_ATTR_HIGH);
 
-	*((struct gdt_desc*)(0x70400+0x20+0x08))=make_gdt_desc((uint32_t*)0,0xfffff,GDT_CODE_ATTR_LOW_DPL3,GDT_ATTR_HIGH);
-	*((struct gdt_desc*)(0x70400+0x20+0x08+0x08))=make_gdt_desc((uint32_t*)0,0xfffff,GDT_DATA_ATTR_LOW_DPL3,GDT_ATTR_HIGH);
+	*((Gdt_Desc*)(GDT_ADDER+0x20+0x08))=make_gdt_desc((uint32_t*)0,0xfffff,GDT_CODE_ATTR_LOW_DPL3,GDT_ATTR_HIGH);
 
-	*((struct gdt_desc*)0xc0000920) = make_gdt_desc((uint32_t*)&tss, tss_size - 1, TSS_ATTR_LOW, TSS_ATTR_HIGH);
+	*((Gdt_Desc*)(GDT_ADDER+0x20+0x08+0x08))=make_gdt_desc((uint32_t*)0,0xfffff,GDT_DATA_ATTR_LOW_DPL3,GDT_ATTR_HIGH);
+
 	
-	 */
-	//make_gdt_desc(0x00, 0xfffff,0x00, 0x00);  !!!!!!!!!!!!!
+	 
+	//make_gdt_desc(0,0,0,0);  
 	//make_gdt_desc(0x00, 0xfffff, 0x00, 0x00);
 
 
@@ -56,8 +56,8 @@ void init_tss(){
     //asm volatile ("ltr %w0" : : "r" (SELECTOR_TSS));
 }
 
-struct gdt_desc make_gdt_desc(uint32_t desc_add, uint32_t limit, uint8_t attr_low, uint8_t attr_high) {
-   uint32_t * desc_addr = 0x00;
+static Gdt_Desc make_gdt_desc(uint32_t* desc_addr, uint32_t limit, uint8_t attr_low, uint8_t attr_high) {
+/*   uint32_t * desc_addr = 0x00;
    uint32_t desc_base = (uint32_t)desc_addr;
    struct gdt_desc desc;
    desc.limit_low_word = limit & 0x0000ffff;
@@ -67,6 +67,7 @@ struct gdt_desc make_gdt_desc(uint32_t desc_add, uint32_t limit, uint8_t attr_lo
    desc.limit_high_attr_high = (((limit & 0x000f0000) >> 16) + (uint8_t)(attr_high));
    desc.base_high_byte = desc_base >> 24;
    return desc;
+	*/
 }
 
 

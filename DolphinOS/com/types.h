@@ -67,14 +67,14 @@ typedef          char  int8_t;
 #define TSS_ATTR_LOW ((DESC_P << 7) + (DESC_DPL_0 << 5) + (DESC_S_SYS << 4) + DESC_TYPE_TSS)
 #define SELECTOR_TSS ((4 << 3) + (TI_GDT << 2 ) + RPL0)
 
-struct gdt_desc {
+typedef struct  _gdt_desc {
    uint16_t limit_low_word;
    uint16_t base_low_word;
    uint8_t  base_mid_byte;
    uint8_t  attr_low_byte;
    uint8_t  limit_high_attr_high;
    uint8_t  base_high_byte;
-}; 
+}Gdt_Desc; 
 
 
 //---------------    eflags属性    ---------------- 
