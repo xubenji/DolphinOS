@@ -9,7 +9,7 @@
 void vram(){
 	uint32_t* var=(uint32_t*)VRAM_ADDR;
 	printk("varm address:");
-	puts_int32(var[0]);
+	put_int32(var[0]);
 	printk("\n");
 	
 }

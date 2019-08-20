@@ -14,7 +14,7 @@ KERNEL_ENTRY EQU 0x10000
 PHY_KERNEL_ENTRY EQU 0x10000
 VIR_KERNEL_ENTRY EQU 0x80010000
 
-PAGE_diR_ADDR equ 0x100000
+PAGE_DIR_ADDR equ 0x100000
 PAGE_TBL_ADDR equ 0x101000
 PAGE_TBL_ADDR_EXTRA equ 0x102000
 
@@ -376,7 +376,7 @@ cpy_kernel:
 	
 step_page:  
     mov ecx,1024                   								          ;directory of paging
-    mov ebx,PAGE_diR_ADDR               								  ;directory memory address
+    mov ebx,PAGE_DIR_ADDR               								  ;directory memory address
     xor esi,esi 
 
 ;------------------------------------------set page----------------------------------------;	
@@ -386,12 +386,12 @@ step_page:
     loop .clean_pdt
 
     mov edi, PAGE_TBL_ADDR
-    mov ebx, PAGE_diR_ADDR
+    mov ebx, PAGE_DIR_ADDR
     mov dword [ebx], PAGE_TBL_ADDR|0x07
     mov dword [ebx+4], PAGE_TBL_ADDR_EXTRA|0x07
     mov dword [ebx+512*4], PAGE_TBL_ADDR|0x07    
     mov dword [ebx+512*4+4], PAGE_TBL_ADDR_EXTRA|0x07
-    mov dword [ebx+4092], PAGE_diR_ADDR|0x07
+    mov dword [ebx+4092], PAGE_DIR_ADDR|0x07
    	
     mov cx, 1024
     mov esi, 0|0x07
@@ -423,7 +423,7 @@ step_page:
 ;eax=0xe00
     
     mov edx,(PAGE_TBL_ADDR+0x2000)|0x07
-    mov [PAGE_diR_ADDR+eax], edx
+    mov [PAGE_DIR_ADDR+eax], edx
     
     mov edi, PAGE_TBL_ADDR+0x2000										  ;edi=0x3000
     mov esi, [0x6100+6]		;0xe00000->0xe00000+4mb											  ;esi= 0xe0000000
@@ -437,7 +437,7 @@ step_page:
     add esi, 0x1000
     loop .set_vram
 	
-    mov eax , PAGE_diR_ADDR
+    mov eax , PAGE_DIR_ADDR
     mov cr3,eax
     mov eax, cr0
     or eax, 0x80000000

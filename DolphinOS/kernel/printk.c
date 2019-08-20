@@ -98,7 +98,8 @@ void printk(uint8_t *str){
 
 //input a 32bit number, output this number in decimal.
 void put_dec_uint32(uint32_t num){
-	for(int32_t i=5;i>=0;i--){
+	//ffffffff = 2.17....x10^10, so i=10.
+	for(int32_t i=10;i>=0;i--){
 	uint32_t temp=(uint32_t)pow(10,i);
 	int8_t n=num/temp;
 	num=num%temp;
@@ -113,7 +114,7 @@ void put_dec_uint32(uint32_t num){
 	}
 }	
 
-void puts_int64(int64_t num_hex){ 
+void put_int64(int64_t num_hex){ 
 	char ch[32];
 	char p[32];
 	int64_to_str(num_hex,ch);
@@ -124,7 +125,7 @@ void puts_int64(int64_t num_hex){
 	}
 }
 
-void puts_int32(int32_t num_hex){ 
+void put_int32(int32_t num_hex){ 
 	char ch[32];
 	char p[32];
 	int32_to_str(num_hex,ch);
@@ -135,7 +136,7 @@ void puts_int32(int32_t num_hex){
 	}
 }
 
-void puts_int16(int16_t num_hex){ 
+void put_int16(int16_t num_hex){ 
 	char ch[32];
 	char p[32];
 	int16_to_str(num_hex,ch);

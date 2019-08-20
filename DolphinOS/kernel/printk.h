@@ -3,9 +3,9 @@
 #define CHAR_DISPLAY_ADDERSS 0X800b8000
 #define LINE_MAX_CHAR 80
 
-void puts_int64(int64_t num_hex);
-void puts_int32(int32_t num_hex);
-void puts_int16(int16_t num_hex);
+void put_int64(int64_t num_hex);
+void put_int32(int32_t num_hex);
+void put_int16(int16_t num_hex);
 void puts_int8(int8_t num_hex);
 
 void print_char(uint8_t ch);

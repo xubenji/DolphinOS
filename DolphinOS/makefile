@@ -25,7 +25,7 @@ DolphinOS_IMG	= DolphinOS.img
 
 NASM32		= nasm
 NASM		= nasm -f elf
-CC		= gcc -std=gnu99 -m32 -fno-pic $(NOSTACK)
+CC		= gcc -std=gnu99 -m32 -fno-pic  $(NOSTACK)
 LD 		= ld -m elf_i386 -s
 
 BOOT_BIN	= boot/boot.bin
@@ -61,6 +61,9 @@ run: all
 	qemu-system-i386 -m 64 -fda $(DolphinOS_IMG) -boot a
 	#qemu-system-i386 -bios "OVMF.fd" -m 32 -fda $(DolphinOS_IMG) -boot a
 	#bochs -f bochsrc
+
+runb: all
+	bochs -f bochsrc
 
 clean:
 	-rm  -f boot/load.bin	

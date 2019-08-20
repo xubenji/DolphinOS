@@ -11,7 +11,7 @@
 
 void init_bitmap(BitMap* bitmap){
 	uint32_t i=memset(bitmap->bits,0,bitmap->bm_total_len);
-	printk("\nNow,We have initialized the kernel memory.");
+	printk("Now,We have initialized the kernel memory.");
 	printk("\nBecause, 0~");
 	uint32_t ms=USED_MEMORY_SIZE; 
 	put_dec_uint32(ms);
