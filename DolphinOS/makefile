@@ -58,7 +58,7 @@ write_disk:
 	dd if=$(KERNEL_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(KERNEL_SECTOR_OFFEST) count=$(KERNEL_SECTORS) conv=notrunc
 
 run: all
-	qemu-system-i386 -m 64 -fda $(DolphinOS_IMG) -boot a
+	qemu-system-i386 -m 512 -fda $(DolphinOS_IMG) -boot a
 	#qemu-system-i386 -bios "OVMF.fd" -m 32 -fda $(DolphinOS_IMG) -boot a
 	#bochs -f bochsrc
 

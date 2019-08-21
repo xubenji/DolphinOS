@@ -101,8 +101,8 @@ void init_memory(){
 //apply three pages memory in kernel pool
 	//malloc_page(pk,2);
 	//malloc_page(pk,1);
-//	get_kernel_pages(1);
-	get_user_pages(1);
+	get_kernel_pages(4000);
+	//get_user_pages(4000);
 //printk("finish");
 //int * p=0x83100000;
 //*p=1;
@@ -146,7 +146,7 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
 /*************************************************************************************
    You need to declare unsigned integer variables When you using the shift operation.
 **************************************************************************************/
-   
+ 
     /*unsigned int * p=&vaddr;
 	*p=(10<<*p)>>22;
 	unsigned short q=0x8080;
@@ -201,8 +201,24 @@ void link_vir_phy(enum pool_flags flags, uint32_t viraddr, uint32_t phyaddr, uin
 
 }
 
-uint32_t get_phy_addr(){
+//输入一个虚拟地址，输出一个真实的物理地址
+//input a virtuall address, output a real address.
+uint32_t get_phy_addr(uint32_t vaddr){
+	uint32_t* high = (vaddr>>22)*4+KERNEL_PAGE_DIR_TABLE;
+	printk("dir:");
+	put_int32(high);
+	printk(" ");
+	put_int32(*high&0xfffff000);
+	uint32_t* middle =((vaddr<<10)>>22)*4+(*high&0xfffff000);
+	printk("table:");
+	uint32_t p = ((vaddr<<10)>>22)*4;
+	//put_int32(p);
+	put_int32(middle);
+	printk(" ");
+	put_int32(*middle&0xfffff000);
+	uint32_t phy_addr=(*middle&0xfffff000)+((vaddr<<20)>>20);  //不知道为什么vaddr&&0xfff会出错
 	
+	return phy_addr;
 }
 
 
@@ -279,6 +295,7 @@ void* get_kernel_pages(uint32_t pg_cnt) {
    if (vaddr != NULL) {	   // 若分配的地址不为空,将页框清0后返回
       memset(vaddr, 0, pg_cnt * PAGE_SIZE);
    }
+   printk(" ");
    return vaddr;
 }
 
@@ -287,6 +304,7 @@ void* get_user_pages(uint32_t pg_cnt){
 //	lock(3);
 	void* vaddr=malloc_page(PF_USER,pg_cnt);
 	memset(vaddr, 0, pg_cnt*PAGE_SIZE);
+	printk(" ");
 //	unlock();  
 	return vaddr;
 }

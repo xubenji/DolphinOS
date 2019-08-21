@@ -6,7 +6,7 @@
 void put_int64(int64_t num_hex);
 void put_int32(int32_t num_hex);
 void put_int16(int16_t num_hex);
-void puts_int8(int8_t num_hex);
+void put_int8(int8_t num_hex);
 
 void print_char(uint8_t ch);
 void init_display_info();

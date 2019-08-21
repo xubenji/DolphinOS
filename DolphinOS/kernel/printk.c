@@ -147,7 +147,7 @@ void put_int16(int16_t num_hex){
 	}
 }
 
-void puts_int8(int8_t num_hex){ 
+void put_int8(int8_t num_hex){ 
 	char ch[32];
 	char p[32];
 	int8_to_str(num_hex,ch);

@@ -22,7 +22,7 @@ void inthandler21_keyboard(int32_t *esp){
 	//printk("  INT21 (IRQ-1)  ");
 	keydata = io_in8_ASM(0x60);
 	io_out8_ASM(PIC0_OCW2,0x61);
-	//puts_int8(keydata);
+	//put_int8(keydata);
 	keyborad_map(keydata);
 	//printk(" ");
 	io_in8_ASM(0x60); //It is very important sentence in the function. If you haven't read the data, the 8042 still think the interupt hasn't be completed.
@@ -44,7 +44,7 @@ void general_handler(uint8_t vec_num){
 			
 		} 
 	printk("  Exception Number:");
-	puts_int8(vec_num);					//打印异常中断码
+	put_int8(vec_num);					//打印异常中断码
 	
 	PAUSE(1==2);						//强停系统
 }

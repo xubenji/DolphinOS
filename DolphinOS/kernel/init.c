@@ -47,6 +47,15 @@ int Kernel_Init(){
 	init_tss();
 	
 	lock_init();
+
+	uint32_t addr = get_phy_addr(0x813f3910);
+	printk("\nThis is real phy address!!!:");
+	put_int32(addr);
+	printk("\n~~");
+
+	uint32_t *p = 0x8010310c;
+	put_int32(*p);
+	printk("\n");
 	
 	io_sti();
 	
