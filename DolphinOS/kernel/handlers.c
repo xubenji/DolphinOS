@@ -9,7 +9,6 @@
 #include "debug.h"
 #include "../driver/keyboard.h"
 
-int t=0;
 /*It is very difficult to find this mistake, because the textbook is aslo worry!!!!
  *At the beginning, my os can only accept the interupt once!!!
  *First, I suspicious of the IDT, but the IDT is work. because the os can accept the interupt once.
@@ -38,7 +37,7 @@ void general_handler(uint8_t vec_num){
 	if(vec_num == 0x27 || vec_num == 0x2f){
 			return;
 	}else if(vec_num == 0x9c){
-			uint32_t cr3 = read_cr3_ASM();
+			uint32_t cr3 = _asm_read_cr3();
 			printk("\nPage Fault!!!   Address:"); //缺页故障
 			put_int32(cr3);
 			

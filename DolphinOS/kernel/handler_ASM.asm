@@ -1,7 +1,7 @@
 global _asm_general_handler
 global _asm_inthandler21_keyboard
 global _asm_inthandler20_timer
-global read_cr3_ASM
+global _asm_read_cr3
 global _asm_hlt
 global _asm_read_gdt
 
@@ -64,7 +64,7 @@ _asm_general_handler:
 	pop es
 	iretd
 
-read_cr3_ASM:
+_asm_read_cr3:
 	mov eax, cr3
 	ret
 

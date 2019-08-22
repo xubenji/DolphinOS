@@ -101,7 +101,7 @@ void init_memory(){
 //apply three pages memory in kernel pool
 	//malloc_page(pk,2);
 	//malloc_page(pk,1);
-	get_kernel_pages(4000);
+	get_kernel_pages(4);
 	//get_user_pages(4000);
 //printk("finish");
 //int * p=0x83100000;
@@ -205,18 +205,20 @@ void link_vir_phy(enum pool_flags flags, uint32_t viraddr, uint32_t phyaddr, uin
 //input a virtuall address, output a real address.
 uint32_t get_phy_addr(uint32_t vaddr){
 	uint32_t* high = (vaddr>>22)*4+KERNEL_PAGE_DIR_TABLE;
-	printk("dir:");
+	
+/*	printk("dir:");
 	put_int32(high);
 	printk(" ");
-	put_int32(*high&0xfffff000);
+	put_int32(*high&0xfffff000); */
 	uint32_t* middle =((vaddr<<10)>>22)*4+(*high&0xfffff000);
-	printk("table:");
+	
+/*	printk("table:");
 	uint32_t p = ((vaddr<<10)>>22)*4;
 	//put_int32(p);
 	put_int32(middle);
 	printk(" ");
-	put_int32(*middle&0xfffff000);
-	uint32_t phy_addr=(*middle&0xfffff000)+((vaddr<<20)>>20);  //不知道为什么vaddr&&0xfff会出错
+	put_int32(*middle&0xfffff000); */
+	uint32_t phy_addr=(*middle&0xfffff000)+((vaddr<<20)>>20);  
 	
 	return phy_addr;
 }
@@ -334,7 +336,8 @@ void* get_cert_pages(enum pool_flags pf, uint32_t vaddr){
 	if(page_phyaddr==NULL){
 		return NULL;
 	}
-	//link_vir_phy(enum pool_flags flags, uint32_t viraddr, uint32_t phyaddr, uint32_t pdt_addr_phy, uint32_t pd_addr_phy);
+	link_vir_phy(pf, vaddr, page_phyaddr, KERNEL_PAGE_DIR_TABLE, KERNEL_PAGE_TABLE);
+	return (void*)vaddr;
 	
 }
 
