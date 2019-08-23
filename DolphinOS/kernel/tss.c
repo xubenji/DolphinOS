@@ -1,5 +1,6 @@
 #include "../com/types.h"
 #include "tss.h"
+#include "memory.h"
 /* 任务状态段tss结构 */
 struct tss {
     uint32_t backlink;
@@ -31,6 +32,12 @@ struct tss {
     uint32_t io_base;
 }; 
 static struct tss tss;
+
+/* 更新tss中esp0字段的值为pthread的0级线 */
+void update_tss_esp(struct task_struct* pthread) {
+   tss.esp0 = (uint32_t*)((uint32_t)pthread + PAGE_SIZE);
+}
+
 
 void init_tss(){
 	printk("init_tss\n");

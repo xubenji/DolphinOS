@@ -46,6 +46,13 @@ typedef          char  int8_t;
 #define TI_GDT 0
 #define TI_LDT 1
 
+#define EFLAGS_MBS	(1 << 1)	// 此项必须要设置
+#define EFLAGS_IF_1	(1 << 9)	// if为1,开中断
+#define EFLAGS_IF_0	0		// if为0,关中断
+#define EFLAGS_IOPL_3	(3 << 12)	// IOPL3,用于测试用户程序在非系统调用下进行IO
+#define EFLAGS_IOPL_0	(0 << 12)	// IOPL0
+
+
 #define SELECTOR_K_CODE	   ((1 << 3) + (TI_GDT << 2) + RPL0)
 #define SELECTOR_K_DATA	   ((2 << 3) + (TI_GDT << 2) + RPL0)
 #define SELECTOR_K_STACK   SELECTOR_K_DATA 

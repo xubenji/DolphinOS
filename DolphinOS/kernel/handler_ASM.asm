@@ -4,6 +4,7 @@ global _asm_inthandler20_timer
 global _asm_read_cr3
 global _asm_hlt
 global _asm_read_gdt
+global _asm_intr_exit
 
 extern inthandler21_keyboard
 extern inthandler20_timer
@@ -76,6 +77,15 @@ _asm_read_gdt:
 	sgdt [0x500000]
 	mov eax, [0x500000+2]
 	ret
-	
+
+_asm_intr_exit:
+   	add esp, 4			   ; 跳过中断号
+  	popad
+  	pop gs
+ 	pop fs
+   	pop es
+  	pop ds
+  	add esp, 4			   ; 跳过error_code
+        iretd
 	
 
