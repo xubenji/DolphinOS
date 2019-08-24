@@ -197,7 +197,6 @@ void link_vir_phy(enum pool_flags flags, uint32_t viraddr, uint32_t phyaddr, uin
 /*将真实的物理地址写入对应的页表
  *write physical address in page table*/
 	*local_in_pd_addr=phyaddr+0x07;
-	
 
 }
 
