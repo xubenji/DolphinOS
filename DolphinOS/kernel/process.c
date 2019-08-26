@@ -1,5 +1,10 @@
 #include "../com/types.h"
 #include "tss.h"
+#include "process.h"
+#include "memory.h"
+#include "thread.h"
+#include "idt.h"
+#include "debug.h"
 
 extern void _asm_intr_exit();
 
@@ -74,11 +79,21 @@ uint32_t* create_page_dir(void) {
    return page_dir_vaddr;
 }
 
+/* 创建用户进程虚拟地址位图 */
+void create_user_vaddr_bitmap(struct task_struct* user_prog) {
+   user_prog->userprog_vaddr.vaddr_start = USER_VADDR_START;
+   uint32_t bitmap_pg_cnt = DIV_ROUND_UP((0xc0000000 - USER_VADDR_START) / PAGE_SIZE / 8 , PAGE_SIZE);
+   user_prog->userprog_vaddr.vaddr_bitmap.bits = get_kernel_pages(bitmap_pg_cnt);
+   user_prog->userprog_vaddr.vaddr_bitmap.bm_total_len = (0xc0000000 - USER_VADDR_START) / PAGE_SIZE / 8;
+   init_bitmap(&user_prog->userprog_vaddr.vaddr_bitmap);
+}
+
+
 /* 创建用户进程 */
 void process_execute(void* filename, char* name) { 
    /* pcb内核的数据结构,由内核来维护进程信息,因此要在内核内存池中申请 */
    struct task_struct* thread = get_kernel_pages(1);
-   init_thread(thread, name, default_prio); 
+   init_one_thread(thread, name, default_prio); 
    create_user_vaddr_bitmap(thread);
    thread_create(thread, start_process, filename);
    thread->pgdir = create_page_dir();

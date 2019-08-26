@@ -66,6 +66,9 @@ typedef          char  int8_t;
 #define GDT_CODE_ATTR_LOW_DPL3	 ((DESC_P << 7) + (DESC_DPL_3 << 5) + (DESC_S_CODE << 4) + DESC_TYPE_CODE)
 #define GDT_DATA_ATTR_LOW_DPL3	 ((DESC_P << 7) + (DESC_DPL_3 << 5) + (DESC_S_DATA << 4) + DESC_TYPE_DATA)
 
+#define DIV_ROUND_UP(X, STEP) ((X + STEP - 1) / (STEP))
+
+
 
 //---------------  TSS描述符属性  ------------
 #define TSS_DESC_D  0 

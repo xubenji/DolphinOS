@@ -24,6 +24,7 @@
 void main(void*);
 void k_thread_b(void *);
 void k_thread_C(void *);
+void u_prog_a(void);
 
 
 int Kernel_Init(){
@@ -60,6 +61,7 @@ int Kernel_Init(){
 	io_sti();
 	
 	thread_start("main",5, main, "argA ");
+	process_execute(u_prog_a, "u_prog_a");
 
 	//You can open time interrupt after init main thread or appear some errors
 	//注册完主线程信息以后再开启时钟中断，否则会出现问题
@@ -147,5 +149,13 @@ void k_thread_C(void* arg) {
 		    }
 		
 	  }
+}
+
+void u_prog_a(void){
+	int a=0;
+
+		__asm__ volatile("hlt"); 
+		a++;
+	
 }
 

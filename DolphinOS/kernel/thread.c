@@ -12,6 +12,7 @@
 #include "debug.h"
 #include "idt.h"
 #include "list.h"
+#include "process.h"
 
 struct task_struct* main_thread;    // 主线程PCB
 struct list thread_ready_list;	    // 就绪队列
@@ -145,7 +146,9 @@ void schedule() {
 	
 	struct task_struct* next = elem2entry(struct task_struct, general_tag, thread_tag);
 	next->status = TASK_RUNNING;
-    
+
+	//激活用户线程
+	process_activate(next);
 	
 	switch_to(cur, next);
 }

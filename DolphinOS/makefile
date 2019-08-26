@@ -64,7 +64,8 @@ OBJS =  kernel/init.o \
 		kernel/list.o \
 		driver/keyboard.o \
 		kernel/lock.o \
-		kernel/tss.o
+		kernel/tss.o \
+		kernel/process.o
  
 #there are kernel/printk.o
 .PHONY: all
@@ -169,6 +170,9 @@ lock.o:kernel/lock.c
 
 tss.o:kernel/tss.c
 	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 
+
+process.o:kernel/process.c 
+	$(CC) $(C_KERNEL_FLAGS) -O $@ $< 	
 	
 #com
 math.o:com/math.c
