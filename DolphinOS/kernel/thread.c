@@ -32,6 +32,8 @@ struct task_struct* running_thread() {
 
 /* 由kernel_thread去执行function(func_arg) */
 static void kernel_thread(thread_func* function, void* func_arg) {
+	printk("kernel_thread\n");
+	intr_enable();
 	function(func_arg); 
 }
 
@@ -149,6 +151,8 @@ void schedule() {
 
 	//激活用户线程
 	process_activate(next);
+
+	//printk("scheule~");
 	
 	switch_to(cur, next);
 }

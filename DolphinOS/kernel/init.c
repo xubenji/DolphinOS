@@ -25,7 +25,7 @@ void main(void*);
 void k_thread_b(void *);
 void k_thread_C(void *);
 void u_prog_a(void);
-
+int test_num=0;
 
 int Kernel_Init(){
 
@@ -58,10 +58,11 @@ int Kernel_Init(){
 	put_int32(*p);
 	printk("\n");
 	
-	io_sti();
+
 	
 	thread_start("main",5, main, "argA ");
-	process_execute(u_prog_a, "u_prog_a");
+	
+	io_sti();
 
 	//You can open time interrupt after init main thread or appear some errors
 	//注册完主线程信息以后再开启时钟中断，否则会出现问题
@@ -87,6 +88,7 @@ void main(void* arg) {
       printk(" I am the main_thread ");
 	  thread_start("k_thread_b", 1, k_thread_b, "argB ");
 	  thread_start("k_thread_C", 10, k_thread_C, "argC ");
+	   process_execute(u_prog_a, "u_prog_a");
 	  int time;
 	  while(1){
 	  	
@@ -113,15 +115,16 @@ void k_thread_b(void* arg) {
 	  
 	  while(1){
 		time++;
-		_asm_hlt();
+		
 		if (time%10000000==0)
 			{
 			
 			lock(1);
 		
 			
-				printk(" BB ");
-				
+			//	printk(" BB ");
+			//	put_int32(test_num);
+				_asm_hlt();
 		
 			
 			unlock();
@@ -136,6 +139,7 @@ void k_thread_C(void* arg) {
 
 		int time;
 	  printk("\n>:");
+	 
 	  while(1){
 		time++;
 	  	_asm_hlt();	
@@ -152,10 +156,14 @@ void k_thread_C(void* arg) {
 }
 
 void u_prog_a(void){
-	int a=0;
+	
+	//printk("q");
+		//__asm__ volatile("hlt"); 
 
-		__asm__ volatile("hlt"); 
-		a++;
+		while(1){
+		test_num++;
+		}
+	
 	
 }
 

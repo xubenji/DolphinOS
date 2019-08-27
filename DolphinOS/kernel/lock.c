@@ -57,7 +57,7 @@ void semaphore_down(struct lock * psema){
 
 //获得锁
 	 psema->check_value=0;
-	 printk("<<<<<");
+	// printk("<<<<<");
 	 intr_enable();				//open the interruption
 }
 
@@ -116,7 +116,7 @@ void semaphore_up(struct lock * psema){
 	
 	}
 	psema->check_value=1;
-	printk("released!!!");
+	//printk("released!!!");
 }
 
 void lock_release(struct lock * plock){

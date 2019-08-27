@@ -101,7 +101,7 @@ void init_memory(){
 //apply three pages memory in kernel pool
 	//malloc_page(pk,2);
 	//malloc_page(pk,1);
-	get_kernel_pages(4);
+	get_kernel_pages(5);
 	//get_user_pages(4000);
 //printk("finish");
 //int * p=0x83100000;
@@ -166,8 +166,8 @@ void* malloc_page(enum pool_flags pf, uint32_t pg_cnt) {
  * 成功则返回页框的物理地址,失败则返回NULL */
       void* page_phyaddr = palloc(mem_pool);
 
-	 printk("kernel_adder_phy:");
-	  put_int32(page_phyaddr);
+	 //printk("kernel_adder_phy:");
+	 //put_int32(page_phyaddr);
 
 	 
       if (page_phyaddr == NULL) {  // 失败时要将曾经已申请的虚拟地址和物理页全部回滚，在将来完成内存回收时再补充
