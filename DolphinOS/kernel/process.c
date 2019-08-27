@@ -5,7 +5,7 @@
 #include "thread.h"
 #include "idt.h"
 #include "debug.h"
-#include "string,h"
+#include "string.h"
 
 extern void _asm_intr_exit();
 
@@ -57,6 +57,22 @@ void process_activate(struct task_struct* p_thread) {
    }
 }
 
+/* 将src_起始的size个字节复制到dst_ */
+void cp(void* dst_, const void* src_, uint32_t size) {
+   printk("memcpy");
+
+  // PAUSE(dst_ != NULL && src_ != NULL);
+   uint8_t* dst = dst_;
+   const uint8_t* src = src_;
+  
+   while (size-- > 0){
+      *dst++ = *src++;
+	  put_int32(*dst);
+   	}
+}
+
+
+
 /* 创建页目录表,将当前页表的表示内核空间的pde复制,
  * 成功则返回页目录的虚拟地址,否则返回-1 */
 uint32_t* create_page_dir(void) {
@@ -74,15 +90,15 @@ uint32_t* create_page_dir(void) {
 
 /************************** 1  先复制页表  *************************************/
    /*  page_dir_vaddr + 0x300*4 是内核页目录的第768项 */
- printk("xxxxxxxxxx");
- memcpy(888,888,2);
+	printk("xxxxxxxxxx");
+	memcpy(888,888,2);
   // memcpy((uint32_t*)((uint32_t)page_dir_vaddr + 0x200*4), (uint32_t*)(VIRTUAL_START_ADDER+KERNEL_PAGE_DIR_TABLE+0x200*4), 2);
 /*****************************************************************************/
 	printk("ccccccc");
-	int * p = page_dir_vaddr + 0x200*4;
+	int  p = page_dir_vaddr[2000];
 	//*p=0x88;
 		//int phy = get_phy_addr(0x200*4);		
-		//put_int32(*p);
+		put_int32(p);
 		while(1){}
 /************************** 2  更新页目录地址 **********************************/
    uint32_t new_page_dir_phy_addr = get_phy_addr((uint32_t)page_dir_vaddr);

@@ -42,7 +42,7 @@ void general_handler(uint8_t vec_num){
 			put_int32(cr3);
 			
 		} 
-	printk("  Exception Number:");
+	printk("\n \nException Number:");
 	put_int8(vec_num);					//打印异常中断码
 	
 	PAUSE(1==2);						//强停系统
