@@ -61,7 +61,7 @@ int Kernel_Init(){
 
 	
 	thread_start("main",5, main, "argA ");
-	 process_execute(u_prog_a, "u_prog_a");
+	
 	io_sti();
 
 	//You can open time interrupt after init main thread or appear some errors
@@ -86,9 +86,11 @@ void main(void* arg) {
 	
 	
       printk(" I am the main_thread ");
+	  intr_disable();
 	  thread_start("k_thread_b", 1, k_thread_b, "argB ");
 	  thread_start("k_thread_C", 10, k_thread_C, "argC ");
-	  
+	  // process_execute(u_prog_a, "u_prog_a");
+	   intr_enable();
 	  int time;
 	  while(1){
 	  	
@@ -116,19 +118,19 @@ void k_thread_b(void* arg) {
 	  while(1){
 		time++;
 		
-		if (time%10000000==0)
-			{
+		//if (time%10000000==0)
+			//{
 			
 			lock(1);
 		
 			
 			//	printk(" BB ");
-			//	put_int32(test_num);
+				//put_int32(test_num);
 				_asm_hlt();
 		
 			
 			unlock();
-			} 
+			//} 
 			
 	  }
 	 
