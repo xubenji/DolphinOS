@@ -35,3 +35,4 @@ mouse: enabled=1
 
 # enable key mapping, using US layout as default.
 #keyboard_mapping: enabled=1, map=x11-pc-us.map
+gdbstub: enabled=1, port=1234, text_base=0, data_base=0, bss_base=0;
