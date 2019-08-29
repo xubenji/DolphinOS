@@ -107,7 +107,7 @@ int time=0;
 
 /* 实现任务调度 */
 void schedule() {
-	
+		
 	PAUSE(intr_get_status() == INTR_OFF);
 
 	
@@ -149,10 +149,12 @@ void schedule() {
 	struct task_struct* next = elem2entry(struct task_struct, general_tag, thread_tag);
 	next->status = TASK_RUNNING;
 
+	
+	
 	//激活用户线程
 	process_activate(next);
 
-	//printk("scheule~");
+	
 	
 	switch_to(cur, next);
 }

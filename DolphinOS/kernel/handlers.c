@@ -27,7 +27,7 @@ void inthandler21_keyboard(int32_t *esp){
 	io_in8_ASM(0x60); //It is very important sentence in the function. If you haven't read the data, the 8042 still think the interupt hasn't be completed.
 }
 
-uint32_t times=0;
+
 uint32_t ticks;   
 
 //general  handler: register all interupption of OS. if others irrgulartion occuring, it would go this function
@@ -52,19 +52,17 @@ void inthandler20_timer(int32_t *esp){
 	io_out8_ASM(PIC0_OCW2, 0x60);
 //	times++;
 	//print * per second
-/*	if(times%100==0){
+	/*if(times%2==0){
 
-		printk(" 1 ");
+		printk(" 1@@ ");
 	
 	}*/
 
-//	printk(" 1 ");
-	struct task_struct* cur_thread = NULL;
-
-	cur_thread = running_thread();
+	//
+	
+	struct task_struct* cur_thread = running_thread();
 //	put_int32(sizeof(struct task_struct));
 
-	
 	//put_int32(cur_thread->stack_magic);
 		
 
@@ -76,8 +74,12 @@ void inthandler20_timer(int32_t *esp){
 	cur_thread->elapsed_ticks++;	  // 记录此线程占用的cpu时间嘀
 	ticks++;	  //从内核第一次处理时间中断后开始至今的滴哒数,内核态和用户态总共的嘀哒数
 	//printk("p11");
+		
+	put_int16(cur_thread->ticks);
+	printk(" ");
 	if (cur_thread->ticks == 0) {	  // 若进程时间片用完就开始调度新的进程上cpu
 	//	put_int32(cur_thread->stack_magic );
+	printk(" @ ");
 	schedule(); 
 	if (cur_thread->stack_magic!=0x19870916){
 			printk("");

@@ -84,24 +84,27 @@ uint32_t* create_page_dir(void) {
       return NULL;
    }
 
-	put_int32(*page_dir_vaddr);
-    put_int32(page_dir_vaddr);
+//	put_int32(*page_dir_vaddr);
+   
  //  while(1){}
 
 /************************** 1  先复制页表  *************************************/
    /*  page_dir_vaddr + 0x300*4 是内核页目录的第768项 */
 	printk("xxxxxxxxxx");
-	memcpy(888,888,2);
-  // memcpy((uint32_t*)((uint32_t)page_dir_vaddr + 0x200*4), (uint32_t*)(VIRTUAL_START_ADDER+KERNEL_PAGE_DIR_TABLE+0x200*4), 2);
+	//memcpy(888,888,2);
+  memcpy((uint32_t*)((uint32_t)page_dir_vaddr + 0x200*4), (uint32_t*)(VIRTUAL_START_ADDER+KERNEL_PAGE_DIR_TABLE+0x200*4), 1024);
 /*****************************************************************************/
 	printk("ccccccc");
-	int  p = page_dir_vaddr[2000];
+	int  p = page_dir_vaddr[514];
 	//*p=0x88;
 		//int phy = get_phy_addr(0x200*4);		
 		put_int32(p);
-		while(1){}
+		
 /************************** 2  更新页目录地址 **********************************/
    uint32_t new_page_dir_phy_addr = get_phy_addr((uint32_t)page_dir_vaddr);
+	 put_int32(page_dir_vaddr);
+	 put_int32(new_page_dir_phy_addr);
+
    /* 页目录地址是存入在页目录的最后一项,更新页目录地址为新页目录的物理地址 */
    page_dir_vaddr[1023] = new_page_dir_phy_addr | PG_US_U | PG_RW_W | PG_P_1;
 /*****************************************************************************/
@@ -111,9 +114,9 @@ uint32_t* create_page_dir(void) {
 /* 创建用户进程虚拟地址位图 */
 void create_user_vaddr_bitmap(struct task_struct* user_prog) {
    user_prog->userprog_vaddr.vaddr_start = USER_VADDR_START;
-   uint32_t bitmap_pg_cnt = DIV_ROUND_UP((0x80000000 - USER_VADDR_START) / PAGE_SIZE / 8 , PAGE_SIZE);
+   uint32_t bitmap_pg_cnt = DIV_ROUND_UP((VIRTUAL_START_ADDER - USER_VADDR_START) / PAGE_SIZE / 8 , PAGE_SIZE);
    user_prog->userprog_vaddr.vaddr_bitmap.bits = get_kernel_pages(bitmap_pg_cnt);
-   user_prog->userprog_vaddr.vaddr_bitmap.bm_total_len = (0x80000000 - USER_VADDR_START) / PAGE_SIZE / 8;
+   user_prog->userprog_vaddr.vaddr_bitmap.bm_total_len = (VIRTUAL_START_ADDER - USER_VADDR_START) / PAGE_SIZE / 8;
 
  //  printk("kk");
  //  put_int32(user_prog->userprog_vaddr.vaddr_bitmap.bm_total_len);
@@ -137,6 +140,6 @@ void process_execute(void* filename, char* name) {
 
    PAUSE(!elem_find(&thread_all_list, &thread->all_list_tag));
    list_append(&thread_all_list, &thread->all_list_tag);
-   intr_set_status(old_status);
+   //intr_set_status(old_status);
 }
 
