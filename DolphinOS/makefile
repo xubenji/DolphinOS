@@ -25,12 +25,14 @@ DolphinOS_IMG	= DolphinOS.img
 
 NASM32		= nasm
 NASM		= nasm -f elf
-CC		= gcc -std=gnu99 -m32 -fno-pic  $(NOSTACK)
+CC		= gcc -std=gnu99 -m32 -fno-pic -g $(NOSTACK)
 LD 		= ld -m elf_i386 -s
 
 BOOT_BIN	= boot/boot.bin
 LOAD_BIN	= boot/load.bin
 KERNEL_BIN	= kernel/kernel.bin
+SYSTEM_BIN	= kernel/system.bin
+KERNEL_ELF	= kernel/kernel.elf
 KERNEL_OBJ	= kernel/kernel.o
 
 #stack
@@ -40,7 +42,8 @@ C_KERNEL_FLAGS	= -I -wall -c -fno-builtin
 
 ASM_KERNEL_FLAGS= -f elf
 
-LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK)
+LDFLAGS	= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK)
+LDFLAGSELF	= -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK)
 
 OBJS =  kernel/init.o \
 		kernel/printk.o \
@@ -71,19 +74,29 @@ OBJS =  kernel/init.o \
 .PHONY: all
 
 
-all: compile_bin write_disk
+all: cat write_disk
 
-compile_bin: $(BOOT_BIN) $(LOAD_BIN) $(KERNEL_BIN)
+compile_bin: $(BOOT_BIN) $(LOAD_BIN) $(KERNEL_BIN) $(KERNEL_ELF)
+
+cat: compile_bin
+	cat $(BOOT_BIN) $(LOAD_BIN) $(KERNEL_BIN) > $(SYSTEM_BIN)
 
 write_disk:
-	dd if=$(BOOT_BIN) of=$(DolphinOS_IMG) bs=512 count=1 conv=notrunc
-	dd if=$(LOAD_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(LOAD_SECTOR_OFFSET) count=$(LOAD_SECTORS) conv=notrunc
-	dd if=$(KERNEL_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(KERNEL_SECTOR_OFFEST) count=$(KERNEL_SECTORS) conv=notrunc
+	dd if=$(SYSTEM_BIN) of=$(DolphinOS_IMG) bs=512 count=265
+
+#write_disk:
+	#dd if=$(BOOT_BIN) of=$(DolphinOS_IMG) bs=512 count=1 conv=notrunc
+	#dd if=$(LOAD_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(LOAD_SECTOR_OFFSET) count=$(LOAD_SECTORS) conv=notrunc
+	#dd if=$(KERNEL_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(KERNEL_SECTOR_OFFEST) count=$(KERNEL_SECTORS) conv=notrunc
 
 run: all
 	qemu-system-i386 -m 64 -fda $(DolphinOS_IMG) -boot a
+	#qemu-system-i386 -m 64 -fda $(DolphinOS_IMG) -gdb tcp::1234 -S -boot a
 	#qemu-system-i386 -bios "OVMF.fd" -m 32 -fda $(DolphinOS_IMG) -boot a
 	#bochs -f bochsrc
+
+s: all
+	qemu-system-i386 -m 64 -fda $(DolphinOS_IMG) -gdb tcp::1234 -S -boot a
 
 runb: all
 	bochs -f bochsrc
@@ -91,6 +104,7 @@ runb: all
 clean:
 	-rm  */*.bin
 	-rm  */*.o
+	-rm  */*.elf
 
 $(LOAD_BIN):boot/load.asm
 	$(NASM32)  -o $@ $<
@@ -100,6 +114,16 @@ $(BOOT_BIN):boot/boot.asm
 
 $(KERNEL_BIN):$(OBJS)
 	$(LD) $(LDFLAGS) -o $(KERNEL_BIN) $(OBJS)
+
+$(KERNEL_ELF):$(OBJS)
+	$(LD) $(LDFLAGSELF) -o $(KERNEL_ELF) $(OBJS)
+	
+
+
+#$(KERNEL_BIN):$(OBJS)
+	#$(LD) $(LDFLAGS) -o $(KERNEL_ELF) $(OBJS) -Map kernel.map
+	#objcopy --only-keep-debug $(KERNEL_ELF) kernel.sym
+	#objcopy -S -O binary $(KERNEL_ELF) $(KERNEL_BIN)
 
 #$(KERNEL_BIN):$(KERNEL_OBJ)
 #	objcopy -R .note -R .comment -S -O binary $(KERNEL_OBJ) $(KERNEL_BIN)
