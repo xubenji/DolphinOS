@@ -42,7 +42,7 @@ C_KERNEL_FLAGS	= -I -wall -c -fno-builtin
 
 ASM_KERNEL_FLAGS= -f elf
 
-LDFLAGS	= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK)
+LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK)
 LDFLAGSELF	= -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK)
 
 OBJS =  kernel/init.o \
@@ -74,20 +74,17 @@ OBJS =  kernel/init.o \
 .PHONY: all
 
 
-all: cat write_disk
+all: compile_bin write_disk
+alls: compile_all write_disk
 
-compile_bin: $(BOOT_BIN) $(LOAD_BIN) $(KERNEL_BIN) $(KERNEL_ELF)
+compile_bin: $(BOOT_BIN) $(LOAD_BIN) $(KERNEL_BIN) 
 
-cat: compile_bin
-	cat $(BOOT_BIN) $(LOAD_BIN) $(KERNEL_BIN) > $(SYSTEM_BIN)
+compile_all: $(BOOT_BIN) $(LOAD_BIN) $(KERNEL_BIN) $(KERNEL_ELF)
 
 write_disk:
-	dd if=$(SYSTEM_BIN) of=$(DolphinOS_IMG) bs=512 count=265
-
-#write_disk:
-	#dd if=$(BOOT_BIN) of=$(DolphinOS_IMG) bs=512 count=1 conv=notrunc
-	#dd if=$(LOAD_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(LOAD_SECTOR_OFFSET) count=$(LOAD_SECTORS) conv=notrunc
-	#dd if=$(KERNEL_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(KERNEL_SECTOR_OFFEST) count=$(KERNEL_SECTORS) conv=notrunc
+	dd if=$(BOOT_BIN) of=$(DolphinOS_IMG) bs=512 count=1 conv=notrunc
+	dd if=$(LOAD_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(LOAD_SECTOR_OFFSET) count=$(LOAD_SECTORS) conv=notrunc
+	dd if=$(KERNEL_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(KERNEL_SECTOR_OFFEST) count=$(KERNEL_SECTORS) conv=notrunc
 
 run: all
 	qemu-system-i386 -m 64 -fda $(DolphinOS_IMG) -boot a
@@ -95,7 +92,7 @@ run: all
 	#qemu-system-i386 -bios "OVMF.fd" -m 32 -fda $(DolphinOS_IMG) -boot a
 	#bochs -f bochsrc
 
-s: all
+s: alls
 	qemu-system-i386 -m 64 -fda $(DolphinOS_IMG) -gdb tcp::1234 -S -boot a
 
 runb: all
