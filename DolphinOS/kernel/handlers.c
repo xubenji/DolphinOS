@@ -1,3 +1,5 @@
+
+
 #include "io_ASM.h"
 #include "../com/types.h"
 #include "printk.h"
@@ -57,7 +59,7 @@ void inthandler20_timer(int32_t *esp){
 		printk(" 1@@ ");
 	
 	}*/
-
+printk(" ");
 	//
 	
 	struct task_struct* cur_thread = running_thread();
@@ -76,7 +78,7 @@ void inthandler20_timer(int32_t *esp){
 	//printk("p11");
 		
 	put_int16(cur_thread->ticks);
-	printk(" ");
+	
 	if (cur_thread->ticks == 0) {	  // 若进程时间片用完就开始调度新的进程上cpu
 	//	put_int32(cur_thread->stack_magic );
 	printk(" @ ");
@@ -89,7 +91,9 @@ void inthandler20_timer(int32_t *esp){
 	
 	//put_int32(cur_thread->stack_magic );
 	} else {				  // 将当前进程的时间片-1
+		printk("--");
 		cur_thread->ticks--;
+		put_int16(cur_thread->ticks);
 	}
 	
 
