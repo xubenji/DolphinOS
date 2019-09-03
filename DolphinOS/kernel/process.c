@@ -38,6 +38,11 @@ void page_dir_activate(struct task_struct* p_thread) {
    uint32_t pagedir_phy_addr = KERNEL_PAGE_DIR_TABLE;  // 默认为内核的页目录物理地址,也就是内核线程所用的页目录表
    if (p_thread->pgdir != NULL)	{    // 用户态进程有自己的页目录表
       pagedir_phy_addr = get_phy_addr((uint32_t)p_thread->pgdir);
+	  printk("SSSSSSS: ");
+	  put_int32(pagedir_phy_addr);
+	  put_int32(p_thread->pgdir);
+	  int *p=pagedir_phy_addr;
+	  put_int32(*p);
    }
 
    /* 更新页目录寄存器cr3,使新页表生效 */
@@ -133,6 +138,9 @@ void process_execute(void* filename, char* name) {
    create_user_vaddr_bitmap(thread);
    thread_create(thread, start_process, filename);
    thread->pgdir = create_page_dir();
+   
+   int *p = thread->pgdir;
+   put_int32(*p);
    
    enum intr_status old_status = intr_disable();
    PAUSE(!elem_find(&thread_ready_list, &thread->general_tag));

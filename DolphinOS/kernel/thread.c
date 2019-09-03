@@ -148,7 +148,7 @@ void schedule() {
 	
 	struct task_struct* next = elem2entry(struct task_struct, general_tag, thread_tag);
 	next->status = TASK_RUNNING;
-
+	put_int32(next->pgdir);
 	
 	
 	//激活用户线程
