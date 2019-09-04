@@ -24,7 +24,7 @@ void start_process(void* filename){
 	proc_stack->eflags=(EFLAGS_IOPL_0 | EFLAGS_MBS | EFLAGS_IF_1);
 	proc_stack->esp=(void*)((uint32_t)get_cert_pages(PF_USER, USER_STACK3_VADDR)+PAGE_SIZE);
 	proc_stack->ss=SELECTOR_U_DATA;
-	
+	 asm volatile ("movl %0, %%esp; jmp _asm_intr_exit" : : "g" (proc_stack) : "memory");
 }
 
 void page_dir_activate(struct task_struct* p_thread) {
@@ -97,7 +97,7 @@ uint32_t* create_page_dir(void) {
    /*  page_dir_vaddr + 0x300*4 是内核页目录的第768项 */
 	printk("xxxxxxxxxx");
 	//memcpy(888,888,2);
-  memcpy((uint32_t*)((uint32_t)page_dir_vaddr + 0x200*4), (uint32_t*)(VIRTUAL_START_ADDER+KERNEL_PAGE_DIR_TABLE+0x200*4), 1024);
+  memcpy((uint32_t*)((uint32_t)page_dir_vaddr + 0x200*4), (uint32_t*)(VIRTUAL_START_ADDER+KERNEL_PAGE_DIR_TABLE+0x200*4), 2048);
 /*****************************************************************************/
 	printk("ccccccc");
 	int  p = page_dir_vaddr[514];

@@ -66,11 +66,11 @@ int Kernel_Init(){
 	io_sti();
 
 	//You can open time interrupt after init main thread or appear some errors
-	//注册完主线程信息以后再开启时钟中断，否则会出现问题
+	//注册完主线程信息以后再开启时钟中断，否则会出现问��
 	init_timer();
 	
 //You can use this code to check the irruglar handle ability of OS
-//你可以使用以下代码来测试系统的异常处理能力
+//你可以使用以下代码来测试系统的异常处理能��
 /*
 	 int * p = 0x1000010;
 		*p=111;           
@@ -79,11 +79,11 @@ int Kernel_Init(){
 	
 }
 
-/* 在线程中运行的函数 */
+/* 在线程中运行的函��*/
 void main(void* arg) { 
 
 //I don't know why I need open interrupt after thread calling in each time
-//每一次线程调用都需要打开一次中断，我不知道为什么
+//每一次线程调用都需要打开一次中断，我不知道为什��
 	
 	
       printk(" I am the main_thread ");
