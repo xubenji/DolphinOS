@@ -154,8 +154,7 @@ void schedule() {
 	//激活用户线程
 	process_activate(next);
 
-	
-	
+
 	switch_to(cur, next);
 }
 

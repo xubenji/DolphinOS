@@ -41,8 +41,8 @@ void page_dir_activate(struct task_struct* p_thread) {
 	  printk("SSSSSSS: ");
 	  put_int32(pagedir_phy_addr);
 	  put_int32(p_thread->pgdir);
-	  int *p=pagedir_phy_addr;
-	  put_int32(*p);
+	//  int *p=pagedir_phy_addr;
+	//  put_int32(*p);
    }
 
    /* 更新页目录寄存器cr3,使新页表生效 */
@@ -145,9 +145,10 @@ void process_execute(void* filename, char* name) {
    enum intr_status old_status = intr_disable();
    PAUSE(!elem_find(&thread_ready_list, &thread->general_tag));
    list_append(&thread_ready_list, &thread->general_tag);
-
+	
    PAUSE(!elem_find(&thread_all_list, &thread->all_list_tag));
    list_append(&thread_all_list, &thread->all_list_tag);
+   put_int32(*p);
    //intr_set_status(old_status);
 }
 

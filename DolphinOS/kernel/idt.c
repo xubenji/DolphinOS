@@ -19,6 +19,27 @@ void init_idt(){
 	load_idtr(IDT_LIMIT, IDT_ADDR);
 	//set_idt_gatedesc(idt + 0xe, (int)&_asm_general_handler, 0x08, AR_INTGATE32, 0);
 	//set_idt_gatedesc(idt + 0x21, (int)&_asm_inthandler21_keyboard, 2 * 8, AR_INTGATE32);
+	set_idt_gatedesc(idt + 0x00, (int)&_asm_inthandler00_divide_error, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x01, (int)&_asm_inthandler01_debug, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x02, (int)&_asm_inthandler02_NMI_interrupt, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x03, (int)&_asm_inthandler03_breakpoint, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x04, (int)&_asm_inthandler04_overflow, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x05, (int)&_asm_inthandler05_bound_range_exceeded, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x06, (int)&_asm_inthandler06_invalid_opcode, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x07, (int)&_asm_inthandler07_device_not_available, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x08, (int)&_asm_inthandler08_double_fault, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x09, (int)&_asm_inthandler09_coprocess_segment_overrun, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x0a, (int)&_asm_inthandler10_invalid_TSS, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x0b, (int)&_asm_inthandler11_segment_not_present, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x0c, (int)&_asm_inthandler12_stack_segment_fault, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x0d, (int)&_asm_inthandler13_general_protection, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x0e, (int)&_asm_inthandler14_page_fault, 0x08, AR_INTGATE32,0);
+	//15 is reserved
+	set_idt_gatedesc(idt + 0x10, (int)&_asm_inthandler16_floating_point_error, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x11, (int)&_asm_inthandler17_alignment_check, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x12, (int)&_asm_inthandler18_machine_check, 0x08, AR_INTGATE32,0);
+	set_idt_gatedesc(idt + 0x13, (int)&_asm_inthandler19_SIMD_floating_point_exception, 0x08, AR_INTGATE32,0);
+	//20~32 inthandler is reserved
 	set_idt_gatedesc(idt + 0x21, (int)&_asm_inthandler21_keyboard, 0x08, AR_INTGATE32,0);
 	set_idt_gatedesc(idt + 0x20, (int)&_asm_inthandler20_timer, 0x08, AR_INTGATE32,0);
 	

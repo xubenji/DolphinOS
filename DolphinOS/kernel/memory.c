@@ -312,14 +312,14 @@ void* get_user_pages(uint32_t pg_cnt){
 
 void* get_cert_pages(enum pool_flags pf, uint32_t vaddr){
 	Pool* mem_pool=pf&PF_KERNEL? &kernel_pool:&user_pool;
-	lock(3);  //struct apply_mem_lock
+	
 
 	//现将虚拟地址位图置为1
 	struct task_struct* cur = running_thread();
 	int32_t bit_idx=-1;
 
-	if(cur->pgdir!=NULL&&pf==PF_KERNEL){
-	//如果内核线程申请内核，就能修改kernel_vaddr
+	if(cur->pgdir!=NULL&&pf==PF_USER){
+
 	bit_idx=(vaddr - cur->userprog_vaddr.vaddr_start)/PAGE_SIZE;
 	PAUSE(bit_idx>0);
 	bitmap_set(&cur->userprog_vaddr.vaddr_bitmap, bit_idx, 1);

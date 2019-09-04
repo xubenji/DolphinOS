@@ -50,6 +50,200 @@ void general_handler(uint8_t vec_num){
 	PAUSE(1==2);						//强停系统
 }
 
+void inthandler00_divide_error(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler01_debug(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler02_NMI_interrupt(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler03_breakpoint(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler04_overflow(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler05_bound_range_exceeded(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler06_invalid_opcode(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler07_device_not_available(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler08_double_fault(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler09_coprocess_segment_overrun(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler10_invalid_TSS(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler11_segment_not_present(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler12_stack_segment_fault(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler13_general_protection(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler14_page_fault(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	printk("\nSource: Any memory reference.");
+	PAUSE(1==2);		
+}
+
+void inthandler16_floating_point_error(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler17_alignment_check(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler18_machine_check(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+void inthandler19_SIMD_floating_point_exception(uint8_t vec_num){
+	intr_disable();
+	if(vec_num == 0x27 || vec_num == 0x2f){
+		return;
+	}
+	printk("\n \nException Number:");
+	put_int8(vec_num);					//打印异常中断码
+	PAUSE(1==2);		
+}
+
+
+
+
 void inthandler20_timer(int32_t *esp){
 	io_out8_ASM(PIC0_OCW2, 0x60);
 //	times++;
@@ -59,7 +253,7 @@ void inthandler20_timer(int32_t *esp){
 		printk(" 1@@ ");
 	
 	}*/
-printk(" ");
+
 	//
 	
 	struct task_struct* cur_thread = running_thread();
@@ -77,23 +271,23 @@ printk(" ");
 	ticks++;	  //从内核第一次处理时间中断后开始至今的滴哒数,内核态和用户态总共的嘀哒数
 	//printk("p11");
 		
-	put_int16(cur_thread->ticks);
+	
 	
 	if (cur_thread->ticks == 0) {	  // 若进程时间片用完就开始调度新的进程上cpu
 	//	put_int32(cur_thread->stack_magic );
-	printk(" @ ");
+
 	schedule(); 
 	if (cur_thread->stack_magic!=0x19870916){
-			printk("");
+			
 			put_int32(cur_thread->stack_magic);
 			PAUSE(1==2);
 		}
 	
 	//put_int32(cur_thread->stack_magic );
 	} else {				  // 将当前进程的时间片-1
-		printk("--");
+		
 		cur_thread->ticks--;
-		put_int16(cur_thread->ticks);
+		
 	}
 	
 

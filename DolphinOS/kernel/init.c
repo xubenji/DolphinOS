@@ -49,13 +49,14 @@ int Kernel_Init(){
 	
 	lock_init();
 
-	uint32_t addr = get_phy_addr(0x813f3910);
+	uint32_t addr = get_phy_addr(0x80013910);
 	printk("\nThis is real phy address!!!:");
 	put_int32(addr);
 	printk("\n~~");
 
-	uint32_t *p = 0x8010310c;
-	put_int32(*p);
+	//uint32_t *p = 0x807fffff;
+	//*p=0;
+	//put_int32(*p);
 	printk("\n");
 	
 
