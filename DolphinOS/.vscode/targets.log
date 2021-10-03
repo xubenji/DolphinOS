@@ -1,0 +1,881 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2014 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Sat Oct  2 23:41:18 2021
+
+# Variables
+
+# makefile (from 'makefile', line 20)
+KERNEL_SECTORS = 256
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# makefile (from 'makefile', line 14)
+LOAD_SECTOR_OFFSET = 1		
+# default
+.SHELLFLAGS := -c
+# environment
+VSCODE_AGENT_FOLDER = /root/.vscode-server
+# environment
+VSCODE_LOG_NATIVE = false
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+PLATFORMIO_IDE = 2.3.3
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# default
+MAKE_VERSION := 4.1
+# makefile
+CURDIR := /root/benjixu/DolphinOS/DolphinOS
+# makefile
+SHELL = /bin/sh
+# environment
+JRE_HOME = /usr/environment/jdk-11.0.12+7/jre
+# environment
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn","_translationsConfigFile":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/tcf.json","_cacheRoot":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn","_resolvedLanguagePackCoreLocation":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/7f6ab5485bbc008386c4386d08766667e155244e","_corruptedFile":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/corrupted.info","_languagePackSupport":true}
+# environment
+_ = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/node
+# makefile (from 'makefile', line 15)
+LOAD_SECTORS = 8
+# environment
+MAVEN_HOME = /usr/environment/apache-maven-3.6.3
+# makefile (from 'makefile', line 1)
+MAKEFILE_LIST :=  makefile
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# makefile (from 'makefile', line 48)
+OBJS = kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o kernel/io_ASM.o kernel/bitmap.o kernel/string.o kernel/handler_ASM.o kernel/pic.o kernel/idt.o com/math.o kernel/handlers.o kernel/timer.o kernel/vram.o kernel/thread.o kernel/switch_ASM.o kernel/debug.o kernel/list.o driver/keyboard.o kernel/lock.o kernel/tss.o kernel/process.o
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+VSCODE_CWD = /root
+# environment
+SSH_CONNECTION = 71.187.230.215 55282 104.244.92.245 22
+# environment
+NO_PROXY = 127.0.0.1
+# makefile (from 'makefile', line 29)
+LD = ld -m elf_i386 
+# environment
+XDG_RUNTIME_DIR = /run/user/0
+# environment
+VSCODE_LOG_STACK = false
+# makefile (from 'makefile', line 45)
+LDFLAGS = --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK) 
+# environment
+MAVEN_BIN = /usr/environment/apache-maven-3.6.3/bin/
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+LS_COLORS = 
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = localhost:10.0
+# makefile (from 'makefile', line 43)
+ASM_KERNEL_FLAGS = -f elf -g
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+PWD = /root/benjixu/DolphinOS/DolphinOS
+# makefile (from 'makefile', line 36)
+KERNEL_OBJ = kernel/kernel.o
+# environment
+VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-bd47caa0-e0ad-4d3e-bbe4-a41c1b6f81e9.sock
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# makefile (from 'makefile', line 22)
+ASM_BOOT_PATH = -I
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/server/remoteExtensionHostProcess
+# environment
+HOME = /root
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# makefile (from 'makefile', line 33)
+KERNEL_BIN = kernel/kernel.bin
+# environment
+LOGNAME = root
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# makefile (from 'makefile', line 26)
+NASM32 = nasm
+# automatic
++F = $(notdir $+)
+# environment
+M2_HOME = /usr/environment/apache-maven-3.6.3
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+MAKELEVEL := 0
+# environment
+PLATFORMIO_PATH = /root/.platformio/penv/bin:/root/.platformio/penv:/root/.platformio/python3/bin:/root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/bin:/root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
+# default
+MAKE = $(MAKE_COMMAND)
+# makefile (from 'makefile', line 34)
+SYSTEM_BIN = kernel/system.bin
+# default
+MAKECMDGOALS := all
+# environment
+PATH = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/bin:/root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
+# environment
+SHLVL = 3
+# makefile (from 'makefile', line 28)
+CC = gcc -std=gnu99 -m32 -fno-pic -no-pie -g $(NOSTACK)
+# environment
+JAVA_HOME = /usr/environment/jdk-11.0.12+7
+# environment
+XDG_SESSION_ID = 13
+# environment
+USER = root
+# makefile
+.DEFAULT_GOAL := all
+# makefile (from 'makefile', line 32)
+LOAD_BIN = boot/load.bin
+# environment
+CLASSPATH = .:.:.:.::/usr/environment/jdk-11.0.12+7/lib:/usr/environment/jdk-11.0.12+7/jre/lib:/usr/environment/jdk-11.0.12+7/lib:/usr/environment/jdk-11.0.12+7/jre/lib:/usr/environment/jdk-11.0.12+7/lib:/usr/environment/jdk-11.0.12+7/jre/lib:/usr/environment/jdk-11.0.12+7/lib:/usr/environment/jdk-11.0.12+7/jre/lib
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# makefile (from 'makefile', line 39)
+NOSTACK = -fno-stack-protector -shared
+# default
+MAKE_COMMAND := make
+# makefile (from 'makefile', line 46)
+LDFLAGSELF = -N   -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK) 
+# makefile (from 'makefile', line 31)
+BOOT_BIN = boot/boot.bin
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# makefile (from 'makefile', line 19)
+KERNEL_SECTOR_OFFEST = 9
+# makefile
+MAKEFLAGS = pqrR
+# makefile (from 'makefile', line 10)
+KERNEL_INIT_ADDERSS = 80010000
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_CLIENT = 71.187.230.215 55282 22
+# environment
+MAIL = /var/mail/root
+# makefile (from 'makefile', line 27)
+NASM = nasm 
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+BROWSER = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/bin/helpers/browser.sh
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+PLATFORMIO_CALLER = vscode
+# makefile (from 'makefile', line 35)
+KERNEL_ELF = kelf
+# environment
+LC_ALL = C
+# automatic
+^F = $(notdir $^)
+# makefile (from 'makefile', line 41)
+C_KERNEL_FLAGS = -I -wall -c -fno-builtin 
+# default
+SUFFIXES := 
+# makefile (from 'makefile', line 24)
+DolphinOS_IMG = DolphinOS.img
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/remote/node_modules
+# default
+.RECIPEPREFIX := 
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+LANG = C
+# environment
+VSCODE_EXTHOST_WILL_SEND_SOCKET = true
+# variable set hash-table stats:
+# Load=99/1024=10%, Rehash=0, Collisions=11/150=7%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 2050, inode 387586): 17 files, no impossibilities.
+
+# 17 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+# Not a target:
+kernel/screen.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/asc.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:57.832207158
+#  File has been updated.
+#  Successfully updated.
+
+math.o: com/math.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 206):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $<
+
+# Not a target:
+kernel/thread.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+ards.o: kernel/ards.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 151):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+bitmap.o: kernel/bitmap.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 157):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+runb: alls
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 100):
+	bochs -f bochsrc
+
+all: compile_bin write_disk
+#  Phony target (prerequisite of .PHONY).
+#  Command line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/13=0%
+
+string.o: kernel/string.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 160):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+s: alls
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 96):
+	qemu-system-i386 -m 64 -fda $(DolphinOS_IMG) -gdb tcp::1234 -S -boot a
+	
+
+# Not a target:
+kernel/memory.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:57.940209544
+#  File has been updated.
+#  Successfully updated.
+
+.PHONY: all
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+write_disk:
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := write_disk
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := 
+# automatic
+# | := 
+# automatic
+# < := 
+# automatic
+# ^ := 
+# automatic
+# ? := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=5/21=24%
+#  recipe to execute (from 'makefile', line 85):
+	dd if=$(BOOT_BIN) of=$(DolphinOS_IMG) bs=512 count=1 conv=notrunc
+	dd if=$(LOAD_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(LOAD_SECTOR_OFFSET) count=$(LOAD_SECTORS) conv=notrunc
+	dd if=$(KERNEL_BIN) of=$(DolphinOS_IMG) bs=512 seek=$(KERNEL_SECTOR_OFFEST) count=$(KERNEL_SECTORS) conv=notrunc
+
+# Not a target:
+kernel/pic.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:58.112213344
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+ 
+kernel/lock.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:58.508222096
+#  File has been updated.
+#  Successfully updated.
+
+screen.o: kernel/screen.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 145):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+# Not a target:
+kernel/timer.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/process.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/tss.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+com/math.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+kelf: kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o kernel/io_ASM.o kernel/bitmap.o kernel/string.o kernel/handler_ASM.o kernel/pic.o kernel/idt.o com/math.o kernel/handlers.o kernel/timer.o kernel/vram.o kernel/thread.o kernel/switch_ASM.o kernel/debug.o kernel/list.o driver/keyboard.o kernel/lock.o kernel/tss.o kernel/process.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 122):
+	$(LD) $(LDFLAGSELF) -o $(KERNEL_ELF) $(OBJS)
+	
+	#$(LD) $(LDFLAGSELF) -o $(KERNEL_ELF) $(OBJS) -Map kernel.map
+	#objcopy --only-keep-debug $(KERNEL_ELF) kernel.sym
+	#objcopy -S -O binary $(KERNEL_ELF) $(KERNEL_BIN)
+
+process.o: kernel/process.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 202):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 	
+	
+
+# Not a target:
+kernel/process.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:58.580223686
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/debug.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:58.392219532
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/list.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/vram.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+printk.o: kernel/printk.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 142):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+idt.o: kernel/idt.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 163):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+debug.o: kernel/debug.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 190):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+# Not a target:
+kernel/ards.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:57.860207776
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/io_ASM.asm:
+#  Implicit rule search has been done.
+#  Last modified 2021-09-28 16:29:20.585524386
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/idt.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:39:38.262448514
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/switch_ASM.asm:
+#  Implicit rule search has been done.
+#  Last modified 2021-09-28 16:29:20.585524386
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/init.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/asc.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+driver/keyboard.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/bitmap.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:57.984210517
+#  File has been updated.
+#  Successfully updated.
+
+kernel/handler_ASM.o: kernel/handler_ASM.asm
+#  Implicit rule search has not been done.
+#  Last modified 2021-10-02 23:40:58.076212549
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 175):
+	$(NASM) $(ASM_KERNEL_FLAGS) -o $@ $<
+
+# Not a target:
+boot/load.asm:
+#  Implicit rule search has been done.
+#  Last modified 2021-09-28 16:29:20.525523092
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/init.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:57.592201854
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+driver/keyboard.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:58.472221299
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/memory.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+kernel/io_ASM.o: kernel/io_ASM.asm
+#  Implicit rule search has not been done.
+#  Last modified 2021-10-02 23:40:57.944209632
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 172):
+	$(NASM) $(ASM_KERNEL_FLAGS) -o $@ $<
+
+# Not a target:
+kernel/printk.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:57.75220539
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/pic.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/lock.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+kernel/switch_ASM.o: kernel/switch_ASM.asm
+#  Implicit rule search has not been done.
+#  Last modified 2021-10-02 23:40:58.340218383
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 178):
+	$(NASM) $(ASM_KERNEL_FLAGS) -o $@ $<
+
+# Not a target:
+kernel/debug.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+boot/boot.asm:
+#  Implicit rule search has been done.
+#  Last modified 2021-09-28 16:29:20.525523092
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/handlers.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:58.232215996
+#  File has been updated.
+#  Successfully updated.
+
+kernel/kernel.bin: kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o kernel/io_ASM.o kernel/bitmap.o kernel/string.o kernel/handler_ASM.o kernel/pic.o kernel/idt.o com/math.o kernel/handlers.o kernel/timer.o kernel/vram.o kernel/thread.o kernel/switch_ASM.o kernel/debug.o kernel/list.o driver/keyboard.o kernel/lock.o kernel/tss.o kernel/process.o
+#  Implicit rule search has not been done.
+#  Last modified 2021-10-02 23:40:58.604224216
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 119):
+	$(LD) $(LDFLAGS) -o $(KERNEL_BIN) $(OBJS)
+
+# Not a target:
+kernel/string.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:58.068212372
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/screen.o:
+#  Implicit rule search has been done.
+ 
+#  Last modified 2021-10-02 23:40:57.788206186
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/ards.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+run: all
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 90):
+	qemu-system-i386 -m 64 -fda $(DolphinOS_IMG) -boot a
+	#qemu-system-i386 -m 64 -fda $(DolphinOS_IMG) -gdb tcp::1234 -S -boot a
+	#qemu-system-i386 -bios "OVMF.fd" -m 32 -fda $(DolphinOS_IMG) -boot a
+	#bochs -f bochsrc
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 103):
+	-rm  */*.bin
+	-rm  */*.o
+	-rm -f */*.elf
+	-rm  ./kelf
+	-rm -f ./*.sym
+	-rm -f ./kernel.map
+	-rm -f bochsout.txt
+	
+
+handlers.o: kernel/handlers.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 181):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+# Not a target:
+kernel/thread.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:58.336218295
+#  File has been updated.
+#  Successfully updated.
+
+list.o: kernel/list.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 193):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+init.o: kernel/init.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 139):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+boot/load.bin: boot/load.asm
+#  Implicit rule search has not been done.
+#  Last modified 2021-10-02 23:40:57.360196728
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 113):
+	$(NASM32)  -o $@ $<
+
+# Not a target:
+kernel/bitmap.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+asc.o: kernel/asc.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 148):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+compile_all: boot/boot.bin boot/load.bin kernel/kernel.bin kelf
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+thread.o: kernel/thread.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 187):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+vram.o: kernel/vram.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 184):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+keyboard.o: driver/keyboard.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 209):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+# Not a target:
+kernel/timer.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:58.256216527
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/tss.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:58.540222803
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/printk.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+com/math.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:58.176214759
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/list.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:58.428220327
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/handler_ASM.asm:
+#  Implicit rule search has been done.
+#  Last modified 2021-09-28 16:29:20.585524386
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/vram.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:58.288217234
+#  File has been updated.
+#  Successfully updated.
+
+timer.o: kernel/timer.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 169):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+tss.o: kernel/tss.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 199):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+pic.o: kernel/pic.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 166):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+boot/boot.bin: boot/boot.asm
+#  Implicit rule search has not been done.
+#  Last modified 2021-10-02 23:40:57.340196285
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 116):
+	$(NASM32)  -o $@ $<
+
+memory.o: kernel/memory.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 154):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+alls: compile_all write_disk
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+compile_bin: boot/boot.bin boot/load.bin kernel/kernel.bin
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/handlers.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+lock.o: kernel/lock.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 196):
+	$(CC) $(C_KERNEL_FLAGS)  $@ $< 
+
+# Not a target:
+kernel/idt.o:
+#  Implicit rule search has been done.
+#  Last modified 2021-10-02 23:40:58.148214141
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+kernel/string.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# files hash-table stats:
+# Load=88/1024=9%, Rehash=0, Collisions=17/199=9%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 105 / storage = 1249 B / avg = 11 B
+# current buf: size = 8162 B / used = 1249 B / count = 105 / avg = 11 B
+
+# strcache performance: lookups = 192 / hit rate = 45%
+# hash-table stats:
+# Load=105/8192=1%, Rehash=0, Collisions=6/192=3%
+# Finished Make data base on Sat Oct  2 23:41:18 2021
+
+ 

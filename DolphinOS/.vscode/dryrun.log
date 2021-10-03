@@ -1,0 +1,7 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/root/benjixu/DolphinOS/DolphinOS'
+dd if=boot/boot.bin of=DolphinOS.img bs=512 count=1 conv=notrunc
+dd if=boot/load.bin of=DolphinOS.img bs=512 seek=1		 count=8 conv=notrunc
+dd if=kernel/kernel.bin of=DolphinOS.img bs=512 seek=9 count=256 conv=notrunc
+make: Leaving directory '/root/benjixu/DolphinOS/DolphinOS'
+ 

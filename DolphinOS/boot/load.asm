@@ -55,7 +55,7 @@ VRAM	EQU		6
 
 ;load was loaded at 0x10000
 
-	org 0x70000		
+[org 0x70000]		
 
 	mov ax, cs
 	mov ds, ax 
@@ -162,7 +162,7 @@ init_vbe:
 ;[es:di+0x00]	property of mode. if bit7 equal to 1, we add 0x4000 to bit7.
 ;[es:di+0x12]	the number of pixels on the x axis
 ;[es:di+0x14]	the number of pixels on the y axis
-;[es:di+0x19]	digital of color		8bits£¬16bits£¬24bits£¬32bits
+;[es:di+0x19]	digital of color		8bitsï¿½ï¿½16bitsï¿½ï¿½24bitsï¿½ï¿½32bits
 ;[es:di+0x1b]	palette
 ;[es:di+0x28]	VRAM memory address
 	
