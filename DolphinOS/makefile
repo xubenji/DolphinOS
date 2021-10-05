@@ -40,7 +40,7 @@ NOSTACK         = -fno-stack-protector -shared
 
 C_KERNEL_FLAGS	= -I -wall -c -fno-builtin 
 
-ASM_KERNEL_FLAGS= -f elf -g
+ASM_KERNEL_FLAGS= -f elf -F dwarf
 
 LDFLAGS		= --oformat binary -N -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK) 
 LDFLAGSELF	= -N   -e Kernel_Init -Ttext $(KERNEL_INIT_ADDERSS) $(NOSTACK) 

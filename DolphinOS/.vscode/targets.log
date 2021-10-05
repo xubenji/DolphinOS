@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Oct  2 23:41:18 2021
+# Make data base, printed on Tue Oct  5 15:39:03 2021
 
 # Variables
 
@@ -61,7 +61,7 @@ LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /root
 # environment
-SSH_CONNECTION = 71.187.230.215 55282 104.244.92.245 22
+SSH_CONNECTION = 155.246.137.97 51415 104.244.92.245 22
 # environment
 NO_PROXY = 127.0.0.1
 # makefile (from 'makefile', line 29)
@@ -83,7 +83,7 @@ LS_COLORS =
 # environment
 DISPLAY = localhost:10.0
 # makefile (from 'makefile', line 43)
-ASM_KERNEL_FLAGS = -f elf -g
+ASM_KERNEL_FLAGS = -f elf -F dwarf
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
@@ -91,7 +91,7 @@ PWD = /root/benjixu/DolphinOS/DolphinOS
 # makefile (from 'makefile', line 36)
 KERNEL_OBJ = kernel/kernel.o
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-bd47caa0-e0ad-4d3e-bbe4-a41c1b6f81e9.sock
+VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-5f58b047-c1fe-422c-9adf-9d15a11c991a.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # makefile (from 'makefile', line 22)
@@ -137,7 +137,7 @@ CC = gcc -std=gnu99 -m32 -fno-pic -no-pie -g $(NOSTACK)
 # environment
 JAVA_HOME = /usr/environment/jdk-11.0.12+7
 # environment
-XDG_SESSION_ID = 13
+XDG_SESSION_ID = 3
 # environment
 USER = root
 # makefile
@@ -169,7 +169,7 @@ KERNEL_INIT_ADDERSS = 80010000
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 71.187.230.215 55282 22
+SSH_CLIENT = 155.246.137.97 51415 22
 # environment
 MAIL = /var/mail/root
 # makefile (from 'makefile', line 27)
@@ -236,7 +236,7 @@ kernel/screen.c:
 # Not a target:
 kernel/asc.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:57.832207158
+#  Last modified 2021-10-05 15:37:15.445444484
 #  File has been updated.
 #  Successfully updated.
 
@@ -273,6 +273,7 @@ runb: alls
 #  File has not been updated.
 #  recipe to execute (from 'makefile', line 100):
 	bochs -f bochsrc
+ 
 
 all: compile_bin write_disk
 #  Phony target (prerequisite of .PHONY).
@@ -302,7 +303,7 @@ s: alls
 # Not a target:
 kernel/memory.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:57.940209544
+#  Last modified 2021-10-05 15:37:15.517445927
 #  File has been updated.
 #  Successfully updated.
 
@@ -343,15 +344,14 @@ write_disk:
 # Not a target:
 kernel/pic.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:58.112213344
+#  Last modified 2021-10-05 15:37:15.621448011
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
- 
 kernel/lock.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:58.508222096
+#  Last modified 2021-10-05 15:37:15.965454906
 #  File has been updated.
 #  Successfully updated.
 
@@ -408,14 +408,14 @@ process.o: kernel/process.c
 # Not a target:
 kernel/process.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:58.580223686
+#  Last modified 2021-10-05 15:37:16.037456344
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 kernel/debug.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:58.392219532
+#  Last modified 2021-10-05 15:37:15.861452821
 #  File has been updated.
 #  Successfully updated.
 
@@ -461,7 +461,7 @@ debug.o: kernel/debug.c
 # Not a target:
 kernel/ards.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:57.860207776
+#  Last modified 2021-10-05 15:37:15.469444965
 #  File has been updated.
 #  Successfully updated.
 
@@ -481,7 +481,7 @@ kernel/idt.c:
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:39:38.262448514
+#  Last modified 2021-10-05 15:37:12.021374998
 #  File has been updated.
 #  Successfully updated.
 
@@ -513,13 +513,13 @@ driver/keyboard.c:
 # Not a target:
 kernel/bitmap.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:57.984210517
+#  Last modified 2021-10-05 15:37:15.553446649
 #  File has been updated.
 #  Successfully updated.
 
 kernel/handler_ASM.o: kernel/handler_ASM.asm
 #  Implicit rule search has not been done.
-#  Last modified 2021-10-02 23:40:58.076212549
+#  Last modified 2021-10-05 15:37:15.597447531
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 175):
@@ -528,21 +528,21 @@ kernel/handler_ASM.o: kernel/handler_ASM.asm
 # Not a target:
 boot/load.asm:
 #  Implicit rule search has been done.
-#  Last modified 2021-09-28 16:29:20.525523092
+#  Last modified 2021-10-03 00:21:33.941917142
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 kernel/init.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:57.592201854
+#  Last modified 2021-10-05 15:37:15.3414424
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 driver/keyboard.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:58.472221299
+#  Last modified 2021-10-05 15:37:15.925454104
 #  File has been updated.
 #  Successfully updated.
 
@@ -551,10 +551,11 @@ kernel/memory.c:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+ 
 
 kernel/io_ASM.o: kernel/io_ASM.asm
 #  Implicit rule search has not been done.
-#  Last modified 2021-10-02 23:40:57.944209632
+#  Last modified 2021-10-05 15:37:15.521446007
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 172):
@@ -563,7 +564,7 @@ kernel/io_ASM.o: kernel/io_ASM.asm
 # Not a target:
 kernel/printk.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:57.75220539
+#  Last modified 2021-10-05 15:37:15.393443442
 #  File has been updated.
 #  Successfully updated.
 
@@ -581,7 +582,7 @@ kernel/lock.c:
 
 kernel/switch_ASM.o: kernel/switch_ASM.asm
 #  Implicit rule search has not been done.
-#  Last modified 2021-10-02 23:40:58.340218383
+#  Last modified 2021-10-05 15:37:15.83345226
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 178):
@@ -609,13 +610,13 @@ boot/boot.asm:
 # Not a target:
 kernel/handlers.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:58.232215996
+#  Last modified 2021-10-05 15:37:15.737450336
 #  File has been updated.
 #  Successfully updated.
 
 kernel/kernel.bin: kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o kernel/ards.o kernel/memory.o kernel/io_ASM.o kernel/bitmap.o kernel/string.o kernel/handler_ASM.o kernel/pic.o kernel/idt.o com/math.o kernel/handlers.o kernel/timer.o kernel/vram.o kernel/thread.o kernel/switch_ASM.o kernel/debug.o kernel/list.o driver/keyboard.o kernel/lock.o kernel/tss.o kernel/process.o
 #  Implicit rule search has not been done.
-#  Last modified 2021-10-02 23:40:58.604224216
+#  Last modified 2021-10-05 15:37:16.053456662
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 119):
@@ -624,15 +625,14 @@ kernel/kernel.bin: kernel/init.o kernel/printk.o kernel/screen.o kernel/asc.o ke
 # Not a target:
 kernel/string.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:58.068212372
+#  Last modified 2021-10-05 15:37:15.58944737
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 kernel/screen.o:
 #  Implicit rule search has been done.
- 
-#  Last modified 2021-10-02 23:40:57.788206186
+#  Last modified 2021-10-05 15:37:15.417443923
 #  File has been updated.
 #  Successfully updated.
 
@@ -676,7 +676,7 @@ handlers.o: kernel/handlers.c
 # Not a target:
 kernel/thread.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:58.336218295
+#  Last modified 2021-10-05 15:37:15.82945218
 #  File has been updated.
 #  Successfully updated.
 
@@ -696,7 +696,7 @@ init.o: kernel/init.c
 
 boot/load.bin: boot/load.asm
 #  Implicit rule search has not been done.
-#  Last modified 2021-10-02 23:40:57.360196728
+#  Last modified 2021-10-05 15:37:15.305441679
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 113):
@@ -744,14 +744,14 @@ keyboard.o: driver/keyboard.c
 # Not a target:
 kernel/timer.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:58.256216527
+#  Last modified 2021-10-05 15:37:15.757450737
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 kernel/tss.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:58.540222803
+#  Last modified 2021-10-05 15:37:15.993455467
 #  File has been updated.
 #  Successfully updated.
 
@@ -764,14 +764,14 @@ kernel/printk.c:
 # Not a target:
 com/math.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:58.176214759
+#  Last modified 2021-10-05 15:37:15.689449374
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 kernel/list.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:58.428220327
+#  Last modified 2021-10-05 15:37:15.893453462
 #  File has been updated.
 #  Successfully updated.
 
@@ -785,7 +785,7 @@ kernel/handler_ASM.asm:
 # Not a target:
 kernel/vram.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:58.288217234
+#  Last modified 2021-10-05 15:37:15.781451218
 #  File has been updated.
 #  Successfully updated.
 
@@ -812,7 +812,7 @@ pic.o: kernel/pic.c
 
 boot/boot.bin: boot/boot.asm
 #  Implicit rule search has not been done.
-#  Last modified 2021-10-02 23:40:57.340196285
+#  Last modified 2021-10-05 15:37:15.297441519
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 116):
@@ -829,6 +829,7 @@ alls: compile_all write_disk
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+ 
 
 compile_bin: boot/boot.bin boot/load.bin kernel/kernel.bin
 #  Implicit rule search has been done.
@@ -852,7 +853,7 @@ lock.o: kernel/lock.c
 # Not a target:
 kernel/idt.o:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-02 23:40:58.148214141
+#  Last modified 2021-10-05 15:37:15.661448813
 #  File has been updated.
 #  Successfully updated.
 
@@ -876,6 +877,6 @@ kernel/string.c:
 # strcache performance: lookups = 192 / hit rate = 45%
 # hash-table stats:
 # Load=105/8192=1%, Rehash=0, Collisions=6/192=3%
-# Finished Make data base on Sat Oct  2 23:41:18 2021
+# Finished Make data base on Tue Oct  5 15:39:03 2021
 
  
